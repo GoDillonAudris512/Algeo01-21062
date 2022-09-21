@@ -1,0 +1,33 @@
+import java.util.Scanner;
+
+public class Matrix {
+    public float[][] matrix;
+    public int idxRows;
+    public int idxCols;
+
+    // Prosedur input dari keyboard
+    public static void inputKeyboard (Matrix m) {
+        // Input baris dan kolom matriks
+        Scanner keyboard = new Scanner(System.in);
+        System.out.println("Number of rows : ");
+        m.idxRows = keyboard.nextInt();
+        m.idxRows -= 1;
+        System.out.print("Number of columns : ");
+        m.idxRows = keyboard.nextInt();
+        m.idxRows -= 1;
+        m.matrix = new float[m.idxRows][m.idxCols];
+
+        // Input elemen matriks
+        int i, j;
+        
+        Sytem.out.print("Masukkan elemen matriks : ");
+        for (i = 0; i <= m.idxRows; i++) {
+            for (j = 0; j <= m.idxCols; j++) {
+                m.matrix[i][j] = keyboard.nextFloat();
+            }
+        }
+
+        keyboard.close();
+    }
+
+}
