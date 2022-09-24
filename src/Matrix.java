@@ -3,6 +3,10 @@
 /* untuk membantu operasi pada Source Code lain*/
 
 package src;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Matrix {
@@ -40,20 +44,13 @@ public class Matrix {
     }
     
     // Prosedur input dari keyboard
-    void readMatrixFromKeyboard (double[][] m) {
+    public void readMatrixFromKeyboard (double[][] m, int nRows, int nCols) {
         // Kamus Lokal
-        int nRows, nCols, i, j;
+        int i, j;
 
         // Algoritma
-        // Input baris dan kolom matriks
-        Scanner keyboard = new Scanner(System.in); 
-        System.out.print("Number of rows: ");
-        nRows = keyboard.nextInt();
-        System.out.print("Number of columns: ");
-        nCols = keyboard.nextInt();
-        m = new double[nRows][nCols];
-
         // Input elemen matriks
+        Scanner keyboard = new Scanner(System.in);
         System.out.println("Masukkan elemen matriks: ");
         for (i = 0; i < getnRows(m); i++) {
             for (j = 0; j < getnCols(m); j++) {
