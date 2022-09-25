@@ -1,4 +1,6 @@
-public class gauss {
+package src;
+
+public class Gauss {
     public static void main(String[] args){
         int i,j,k,n,leadingOne,pembuatNol;
         int[][] matrix = {{1, 2, 3, 4},{5, 6, 7, 8},{1, 6, 8, 3},{5, 2, 7, 9}};
