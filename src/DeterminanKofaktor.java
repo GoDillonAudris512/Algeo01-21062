@@ -1,7 +1,6 @@
 package src;
 
 import java.util.*;
-import java.io.File;  // Import the File class
 
 public class DeterminanKofaktor {
 
