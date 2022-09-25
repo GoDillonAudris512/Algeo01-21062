@@ -7,6 +7,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.util.Scanner;
 
 public class Matrix {
@@ -67,13 +68,14 @@ public class Matrix {
         int i, j;
         
         // Algoritma
+        DecimalFormat dfObj = new DecimalFormat("###.###");
         for (i = 0; i < getnRows(m) ; i++) {
             for (j = 0; j < getnCols(m); j++) {
                 if (j == getLastIdxCols(m)) {
-                    System.out.println(m[i][j]);
+                    System.out.println(dfObj.format(m[i][j]));
                 }
                 else {
-                    System.out.print(m[i][j] + " ");
+                    System.out.printf(dfObj.format(m[i][j]) + " ");
                 }
             }
         }
@@ -108,10 +110,7 @@ public class Matrix {
         }
     }
     
-<<<<<<< HEAD
     // Input dari file
-=======
->>>>>>> 6301b2127b9ae9478747dbc6f6365c3d6fb383e1
     void readMatrixFromFile (double[][] m, String pathname) {
         try {
             File myObj = new File(pathname);
@@ -139,10 +138,7 @@ public class Matrix {
             }
     }
 
-<<<<<<< HEAD
     // Output ke file    
-=======
->>>>>>> 6301b2127b9ae9478747dbc6f6365c3d6fb383e1
     public void writeMatrixToFile (double[][] m, String pathname) {
         int i,j;
         String out = "";
@@ -174,9 +170,4 @@ public class Matrix {
         }
 
     }
-<<<<<<< HEAD
-
-=======
-    
->>>>>>> 6301b2127b9ae9478747dbc6f6365c3d6fb383e1
 }
