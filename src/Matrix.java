@@ -79,13 +79,40 @@ public class Matrix {
         }
     }
     
-    void readMatrixFromFile (String pathname) {
+    static class RowCol {
+        int row;
+        int col;
+    }
+
+    static void colRowNumbersFromFile (RowCol rc, String pathname) {
+        try {
+            File myObj = new File(pathname);
+            Scanner myReader = new Scanner(myObj);
+
+            while (myReader.hasNextLine()) {
+                String data = myReader.nextLine();
+
+                if (myReader.hasNextLine()) {
+                    rc.col = data.split(" ").length;                    
+                }
+
+                rc.row++;
+            }
+    
+            myReader.close();
+    
+        } catch (FileNotFoundException e) {
+            System.out.println("Terjadi error.");
+            e.printStackTrace();
+        }
+    }
+    
+    void readMatrixFromFile (double[][] m, String pathname) {
         try {
             File myObj = new File(pathname);
             Scanner myReader = new Scanner(myObj);
 
             int i, j;
-            double[][] m = new double[10][10];
 
             i=0;
             while (myReader.hasNextLine()) {
@@ -107,7 +134,7 @@ public class Matrix {
             }
     }
 
-    void writeMatrixToFile (double[][] m, String pathname) {
+    public void writeMatrixToFile (double[][] m, String pathname) {
         int i,j;
         String out = "";
 
@@ -119,16 +146,23 @@ public class Matrix {
         }
 
         try {
+            File myObj = new File("filename.txt");
+            
+            if (myObj.createNewFile()) {
+                System.out.println("File berhasil dibuat: " + myObj.getName());
+            } else {
+                System.out.println("File sudah ada, akan menulis ke file yang sudah ada.");
+            }
+            
             FileWriter myWriter = new FileWriter(pathname);
             myWriter.write(out);
             myWriter.close();
-            System.out.println("Berhasil menulis matriks ke file.");
+            System.out.println("Berhasil menulis ke file.");    
+
         } catch (IOException e) {
             System.out.println("Terjadi error.");
             e.printStackTrace();
         }
     }
-
-
-
+    
 }
