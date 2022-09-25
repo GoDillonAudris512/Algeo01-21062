@@ -108,7 +108,10 @@ public class Matrix {
         }
     }
     
+<<<<<<< HEAD
     // Input dari file
+=======
+>>>>>>> 6301b2127b9ae9478747dbc6f6365c3d6fb383e1
     void readMatrixFromFile (double[][] m, String pathname) {
         try {
             File myObj = new File(pathname);
@@ -136,7 +139,10 @@ public class Matrix {
             }
     }
 
+<<<<<<< HEAD
     // Output ke file    
+=======
+>>>>>>> 6301b2127b9ae9478747dbc6f6365c3d6fb383e1
     public void writeMatrixToFile (double[][] m, String pathname) {
         int i,j;
         String out = "";
@@ -168,5 +174,9 @@ public class Matrix {
         }
 
     }
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> 6301b2127b9ae9478747dbc6f6365c3d6fb383e1
 }
