@@ -1,7 +1,7 @@
 package src;
 
 public class gauss {
-    public void gaussJordanElimination(double[][] matrix, double[] hasil){
+    public void gaussElimination(double[][] matrix, double[] hasil){
         int i,j,k,n;
         double leadingOne,pembuatNol;
 
