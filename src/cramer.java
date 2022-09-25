@@ -1,3 +1,5 @@
+package src;
+
 public class cramer {
     static int counter(double[][] matrix) {
         int i,j,count = 0;
