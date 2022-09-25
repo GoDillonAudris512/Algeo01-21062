@@ -44,7 +44,7 @@ public class Matrix {
     }
     
     // Prosedur input dari keyboard
-    public void readMatrixFromKeyboard (double[][] m, int nRows, int nCols) {
+    public void readMatrixFromKeyboard (double[][] m) {
         // Kamus Lokal
         int i, j;
 
