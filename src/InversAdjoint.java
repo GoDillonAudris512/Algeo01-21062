@@ -54,6 +54,7 @@ public class InversAdjoint {
 
         // Algoritma
         Matrix matrixObj = new Matrix();
+        DeterminanKofaktor detKofObj = new DeterminanKofaktor();
         mCofactor = new double[matrixObj.getnRows(m)][matrixObj.getnCols(m)];
         mMinor = new double[matrixObj.getnRows(m) - 1][matrixObj.getnCols(m) - 1];
 
@@ -68,10 +69,12 @@ public class InversAdjoint {
                             indexColMinor++;
                         }
                     }
-                    indexRowMinor++;
+                    if (i != p) {
+                        indexRowMinor++;
+                    }
                 }
 
-                mCofactor[p][q] = Math.pow(-1, p+q) * determinant(mMinor);
+                mCofactor[p][q] = Math.pow(-1, p+q) * detKofObj.determinanKofaktor(mMinor);
             }
         }
 
@@ -81,21 +84,23 @@ public class InversAdjoint {
     // Fungsi Invers Adjoint
     public double[][] inversByAdjoint (double[][] m) {
         // Menghasilkan invers dari matriks m dengan metode adjoint
+        // Jika matriks tidak memiliki invers, mengembalikan suatu m yang elemennya 0 semua
 
         // Kamus Lokal
         double[][] mInvers;
 
         // Algoritma
-        if (determinant(m) == 0) {
-            System.out.println("Matriks tidak memiliki invers");
+        DeterminanKofaktor detKofObj = new DeterminanKofaktor();
+        Matrix matrixObj = new Matrix();
+        mInvers = new double[matrixObj.getnRows(m)][matrixObj.getnCols(m)];
+
+        if (detKofObj.determinanKofaktor(m) == 0) {
+            return mInvers;
         }
         else {
-            Matrix matrixObj = new Matrix();
-            mInvers = new double[matrixObj.getnRows(m)][matrixObj.getnCols(m)];
-
             mInvers = makeMatrixCofactor(m);
             mInvers = transposeMatrix(mInvers);
-            multiplyMatrixByConst(mInvers, 1/determinant(m));
+            multiplyMatrixByConst(mInvers, 1/detKofObj.determinanKofaktor(m));
 
             return mInvers;
         }
