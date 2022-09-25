@@ -1,8 +1,9 @@
+package src;
+
 public class gaussjordan {
-    public static void main(String[] args){
-        int i,j,k,n,leadingOne,pembuatNol;
-        int[][] matrix = {{1, 2, 3, 4},{5, 6, 7, 8},{1, 6, 8, 3},{5, 2, 7, 9}};
-        int[] hasil = {5, 6, 7, 8};
+    public void gaussJordanElimination(double[][] matrix, double[] hasil){
+        int i,j,k,n;
+        double leadingOne,pembuatNol;
 
         n = hasil.length;
         // jumlah baris
