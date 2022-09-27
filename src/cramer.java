@@ -49,7 +49,7 @@ public class cramer {
     }
 
     public void cramerElimination(double[][] matrix) {
-        int i,k,n;
+        int i,k;
         double hasilx;
         double[][] matrixTemp, hasil, mainMat;
 
@@ -60,7 +60,6 @@ public class cramer {
         mainMat = matrixObjek.splitMainMatrix(matrix);
         hasil = matrixObjek.splitHasil(matrix);
         
-        n = matrixObj.getnRows(matrix);
         matrixTemp = mainMat;
 
         if (isPersegi(mainMat)) {
