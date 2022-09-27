@@ -1,7 +1,7 @@
 package src;
 
 public class cramer {
-    static int counter(double[][] matrix) {
+    public int counter(double[][] matrix) {
         int i,j,count = 0;
 
         for (i = 0; i < matrix.length; i++) {
@@ -12,19 +12,39 @@ public class cramer {
 
         return count;
     }
-    public void cramerElimination(double[][] matrix, double[] hasil) {
+
+    public void changeColXWithHasil (double[][] matrix, int ColX) {
+        int i, j;
+        double[] hasil;
+        double[][] matrixTemp;
+        Matrix matObj = new Matrix();
+
+        for (i = 0; i < matObj.getLastIdxRows(matrix); i++) {
+            hasil[i] = matrix[i][matObj.getLastIdxRows(matrix)];
+        }
+
+        for (i = 0; i < matObj.getLastIdxRows(matrix); i++) {
+            for (j = 0; j < matObj.getLastIdxCols((matrix))-1; j++) {
+                matrixTemp[i][j] = matrix[i][j];
+            }
+        }
+    }
+
+    public void cramerElimination(double[][] matrix) {
         int i,k,n;
         double hasilx;
-        double[][] matrixtemp;
+        double[][] matrixtemp, matrixUtama;
 
+        Matrix matrixObj = new Matrix();
         DeterminanKofaktor detKofObj = new DeterminanKofaktor();
         
-        n = hasil.length;
+        n = matrixObj.getLastIdxRows(matrix);
         matrixtemp = matrix;
 
         if (n*n == counter(matrix)) {
-            for (k = 0; k < n; k++) {
-                for (i = 0; i < n; i++) {
+            for (i = 0; i < matrixObj.getLastIdxCols(matrix); i++) {
+                for (k = 0; k < n; k++) {
+                    matrixUtama[i][k] = matrix[i][k];
                     matrixtemp[i][k] = hasil[i];
                     // mengganti baris ke-i dengan hasil
 
