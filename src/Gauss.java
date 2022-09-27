@@ -137,7 +137,7 @@ public class Gauss {
     
     public void gaussElimination(double[][] m){
         /* I.S m terdefinisi */
-        /* F.S m berubah menjadi suatu matriks eselon baris hasil eliminasi Gauss */
+        /* F.S m berubah menjadi suatu matriks eselon baris yang setara dengan metode eliminasi Gauss */
 
         /* Kamus */
         int indexColumn = 0, rowCurrentlyWorked = 0, indexPivot = 0, rowToWorked, i, j;
