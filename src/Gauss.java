@@ -1,5 +1,5 @@
 /* Gauss.java */
-/* Source Code berisi penyelesaian SPL dengan metode eliminasi Gauss  */
+/* Source Code berisi penyelesaian SPL dengan metode eliminasi Gauss */
 
 package src;
 
@@ -116,7 +116,7 @@ public class Gauss {
 
     public int arrangeMatrix (double[][] m) {
         /* Seluruh baris Zero dan Exception berada di bagian bawah matriks */
-        /* Juga mengembalikan juga banyak baris yang bukan Zero*/
+        /* Juga mengembalikan banyak baris yang bukan Zero*/
         /* sebagai dasar pengerjaan eliminasi gauss */
 
         /* Kamus Lokal */
