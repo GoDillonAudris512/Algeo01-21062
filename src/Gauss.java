@@ -116,19 +116,30 @@ public class Gauss {
 
     public int arrangeMatrix (double[][] m) {
         /* Seluruh baris Zero dan Exception berada di bagian bawah matriks */
-        /* Juga mengembalikan juga banyak baris yang bukan Zero atau Exception */
+        /* Juga mengembalikan juga banyak baris yang bukan Zero*/
         /* sebagai dasar pengerjaan eliminasi gauss */
 
         /* Kamus Lokal */
-        int i, rowAlreadyArranged = 0;
+        int i, rowAlreadyArranged = 0, countRowZero;
 
         /* Algoritma */
         Matrix matrixObj = new Matrix();
 
+        // Tukar seluruh baris Zero ke bawah
         for (i = 0; i < matrixObj.getnRows(m); i++) {
-            if (!isRowAllZero(m, i) && !isRowAnException(m, i)) {
+            if (!isRowAllZero(m, i)) {
                 swapRow(m, i, rowAlreadyArranged);
                 rowAlreadyArranged++;
+            }
+        }
+
+        countRowZero = matrixObj.getnRows(m) - rowAlreadyArranged;
+
+        // Tukar seluruh baris Exception ke atas baris Zero teratas
+        for (i = 0; i < rowAlreadyArranged; i++) {
+            if (!isRowAnException(m, i)) {
+                swapRow(m, i, matrixObj.getnRows(m)-countRowZero-1);
+                countRowZero++;
             }
         }
 

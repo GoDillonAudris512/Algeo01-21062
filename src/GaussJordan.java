@@ -9,14 +9,14 @@ public class GaussJordan {
         /* Menghasilkan jumlah baris yang bukan baris Zero dan Exception dalam matriks m */
 
         /* Kamus Lokal*/
-        int count = 0, i, j;
+        int count = 0, i;
 
         /* Algoritma */
         Matrix matrixObj = new Matrix();
         Gauss gaussObj = new Gauss();
 
         for (i = 0; i < matrixObj.getnRows(m); i++) {
-            if (!gaussObj.isRowAllZero(m, i) && !gaussObj.isRowAnException(m, i)) {
+            if (!gaussObj.isRowAllZero(m, i)) {
                 count += 1;
             }
         }
@@ -61,7 +61,7 @@ public class GaussJordan {
         gaussObj.gaussElimination(m);
 
         rowCurrentlyWorked = countRowToWorked(m) - 1;
-        j = matrixObj.getLastIdxCols(m) - 1;
+        j = matrixObj.getLastIdxCols(m);
 
         while (rowCurrentlyWorked >= 0) {
             if (j == indexOfLeadingOne(m, rowCurrentlyWorked)) {
