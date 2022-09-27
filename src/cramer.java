@@ -69,7 +69,7 @@ public class cramer {
                     matrixTemp = changeColXWithHasil(mainMat, hasil, k);
                     // menukar kolom di matrixTemp dengan hasil
 
-                    hasilx = detKofObj.determinanKofaktor(matrixTemp) / detKofObj.determinanKofaktor(matrix);
+                    hasilx = detKofObj.determinanKofaktor(matrixTemp) / detKofObj.determinanKofaktor(mainMat);
                     System.out.print(hasilx);
                     // menghitung hasil x ke-k dengan cara
                     // membagi determinant yang sudah diganti dengan determinant matrix awal
