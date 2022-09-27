@@ -1,5 +1,5 @@
 /* GaussJordan.Java */
-/* Source code untuk menyelesaikan metode SPL dengan eliminasi Gauss-Jordan */
+/* Source code untuk menyelesaikan metode SPL dengan eliminasi Gauss-Jordan  */
 
 package src;
 
