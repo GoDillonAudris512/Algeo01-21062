@@ -1,40 +1,76 @@
+/* GaussJordan.Java */
+/* Source code untuk menyelesaikan metode SPL dengan eliminasi Gauss-Jordan */
+
 package src;
 
-public class gaussjordan {
-    public void gaussJordanElimination(double[][] matrix, double[] hasil){
-        int i,j,k,n;
-        double leadingOne,pembuatNol;
+public class GaussJordan {
 
-        n = hasil.length;
-        // jumlah baris
+    public int countRowToWorked(double[][] m) {
+        /* Menghasilkan jumlah baris yang bukan baris Zero dan Exception dalam matriks m */
 
-        for (k = 0; k < n; k++) {
-            leadingOne = matrix[k][k];
-            // leading one nya itu adalah elemen yg ada di diagonal
+        /* Kamus Lokal*/
+        int count = 0, i, j;
 
+        /* Algoritma */
+        Matrix matrixObj = new Matrix();
+        Gauss gaussObj = new Gauss();
 
-            for (j = 0; j < n; j++) {
-                matrix[k][j] = matrix[k][j] / leadingOne; 
+        for (i = 0; i < matrixObj.getnRows(m); i++) {
+            if (!gaussObj.isRowAllZero(m, i) && !gaussObj.isRowAnException(m, i)) {
+                count += 1;
             }
-            hasil[j] = hasil[j] / leadingOne;
-            // membagi baris sm nilai leading one di baris itu
+        }
 
+        return count;
+    }
 
-            for (i = 0; i < n; i++) {
-                if (k == i || matrix[i][k] == 0) {
-                    // karna kalau k == i, leadingOne nya
-                    // matrix[i][k] == 0, ga perlu di apa2in
-                    continue;
-                }
+    public int indexOfLeadingOne (double[][] m, int barisX) {
+        /* Prekondisi : m merupakan matriks eselon baris, barisX ada di dalam m */
+        /* Menghasilkan index kolom dimana 1 pertama muncul pada barisX */
 
-                pembuatNol = matrix[i][k];
-                
-                for (j = k; k < n; j++) {
-                    matrix[i][j] -= pembuatNol * matrix[k][j];
-                    // membuat nilai dibawah dan diatas leading one jadi 0
-                }
-                hasil[i] -= pembuatNol * hasil[k];
+        /* Kamus Lokal */
+        int j = 0, indexLeadingOne = 0;
+        boolean leadingOneFound = false;
+
+        /* Algoritma */
+        Matrix matrixObj = new Matrix();
+
+        while (j <= matrixObj.getLastIdxCols(m) && !leadingOneFound) {
+            if (m[barisX][j] == 1) {
+                leadingOneFound = true;
+                indexLeadingOne = j;
             }
+            else {
+                j++;
+            }
+        }
+
+        return indexLeadingOne;
+    }
+
+    public void gaussJordanElimination(double[][] m) {
+        /* I.S matriks m terdefinisi */
+        /* F.S m berubah menjadi suatu matriks eselon baris tereduksi yang setara dengan eliminasi Gauss-Jordan */
+
+        /* Kamus Lokal */
+        int rowCurrentlyWorked, i, j;
+        
+        /* Algoritma */
+        Matrix matrixObj = new Matrix();
+        Gauss gaussObj = new Gauss();
+        gaussObj.gaussElimination(m);
+
+        rowCurrentlyWorked = countRowToWorked(m) - 1;
+        j = matrixObj.getLastIdxCols(m) - 1;
+
+        while (rowCurrentlyWorked >= 0) {
+            if (j == indexOfLeadingOne(m, rowCurrentlyWorked)) {
+                for (i = rowCurrentlyWorked - 1; i >= 0; i--) {
+                    gaussObj.addRowWithMultipleOfRow(m, i, rowCurrentlyWorked, -(m[i][j]/m[rowCurrentlyWorked][j]));
+                }
+                rowCurrentlyWorked--;
+            }
+            j--;
         }
     }
 }
