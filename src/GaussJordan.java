@@ -106,7 +106,7 @@ public class GaussJordan {
             } else {
                 for (i = mat.getLastIdxRows(matrix); i >= 0; i--) {
                     for (j = mat.getLastIdxCols(mainMat); j >= matt.indexOfLeadingOne(mainMat, i); j--) {
-                        if (isThereLeadingOne(matrix, j)) {
+                        if (isThereLeadingOne(mainMat, j)) {
                             hasilx[i] = hasil[i][j];
                         } else {
                             for (k = 0; k < mat.getnRows(matrix); k++) {
