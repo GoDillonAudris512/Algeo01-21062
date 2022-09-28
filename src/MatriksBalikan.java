@@ -27,7 +27,7 @@ public class MatriksBalikan {
         mainMat = new double[matObj.getnRows(matrix)][matObj.getnCols(matrix)-1];
 
         for (i = 0; i < matObj.getnRows(matrix); i++) {
-            for (j = 0; j < k; j++) {
+            for (j = 0; j <= k; j++) {
                 mainMat[i][j] = matrix[i][j];
             }
         }
@@ -56,11 +56,14 @@ public class MatriksBalikan {
 
 
     public double[][] inversElimination(double[][] matrix) {
+        Matrix matrixObj = new Matrix();
         InversAdjoint matKofObj = new InversAdjoint();
         double[][] hasilx, hasil, mainMat;
 
         hasil = splitHasil(matrix);
         mainMat = splitMainMatrix(matrix);
+        matrixObj.printMatrixToScreen(hasil);
+        matrixObj.printMatrixToScreen(mainMat);
 
         hasilx = multiplyMatrixbyMatrix(matKofObj.inversByAdjoint(mainMat), hasil);
 
