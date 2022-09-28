@@ -1,12 +1,12 @@
 /* GaussJordan.Java */
-/* Source code untuk menyelesaikan metode SPL dengan eliminasi Gauss-Jordan  */
+/* Source code untuk menyelesaikan metode SPL dengan eliminasi Gauss-Jordan */
 
 package src;
 
 public class GaussJordan {
 
     public int countRowToWorked(double[][] m) {
-        /* Menghasilkan jumlah baris yang bukan baris Zero dan Exception dalam matriks m */
+        /* Menghasilkan jumlah baris yang bukan baris Zero dalam matriks m */
 
         /* Kamus Lokal*/
         int count = 0, i;
