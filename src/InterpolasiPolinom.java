@@ -61,6 +61,6 @@ public class InterpolasiPolinom {
     }
 
     public void interpolasiPolinom (double[][] matrix) {
-
+        
     }
 }
