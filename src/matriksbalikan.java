@@ -1,6 +1,6 @@
 package src;
 
-public class matriksbalikan {
+public class MatriksBalikan {
     public double[][] splitHasil (double[][] matrix) {
         Matrix matObj = new Matrix();
         double[][] hasil;

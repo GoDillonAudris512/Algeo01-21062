@@ -1,6 +1,6 @@
 package src;
 
-public class cramer {
+public class Cramer {
     public int counter(double[][] matrix) {
         int i,j,count = 0;
 
