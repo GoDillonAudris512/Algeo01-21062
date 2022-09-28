@@ -13,47 +13,69 @@ public class cramer {
         return count;
     }
 
-    public void changeColXWithHasil (double[][] matrix, int ColX) {
-        int i, j;
-        double[] hasil;
-        double[][] matrixTemp;
+    public boolean isPersegi(double[][] matrix) {
+        boolean isPersegi = true;
+        int i,j,count = 0;
         Matrix matObj = new Matrix();
 
-        for (i = 0; i < matObj.getLastIdxRows(matrix); i++) {
-            hasil[i] = matrix[i][matObj.getLastIdxRows(matrix)];
-        }
-
-        for (i = 0; i < matObj.getLastIdxRows(matrix); i++) {
-            for (j = 0; j < matObj.getLastIdxCols((matrix))-1; j++) {
-                matrixTemp[i][j] = matrix[i][j];
+        for (i = 0; i < matObj.getnCols(matrix); i++) {
+            for (j = 0; j < matObj.getnRows(matrix); j++) {
+                count += 1;
             }
         }
+
+        if (count == (matObj.getnCols(matrix) * matObj.getnRows(matrix))) {
+            isPersegi = true;
+        } else {
+            isPersegi = false;
+        }
+
+        return isPersegi;
+    }
+
+    public double[][] changeColXWithHasil (double[][] matrix, double[][] hasil,int ColX) {
+        int i, j;
+        double[][] matrixTemp;
+        Matrix matObj = new Matrix();
+        matrixTemp = matrix;
+
+        for (i = 0; i < matObj.getnCols(matrix); i++) {
+            for (j = 0; j < matObj.getnRows(matrix); j++) {
+                matrixTemp[i][ColX] = hasil[i][j];
+            }
+        }
+
+        return matrixTemp;
     }
 
     public void cramerElimination(double[][] matrix) {
-        int i,k,n;
+        int i,k;
         double hasilx;
-        double[][] matrixtemp, matrixUtama;
+        double[][] matrixTemp, hasil, mainMat;
 
         Matrix matrixObj = new Matrix();
         DeterminanKofaktor detKofObj = new DeterminanKofaktor();
+        matriksbalikan matrixObjek = new matriksbalikan();
+
+        mainMat = matrixObjek.splitMainMatrix(matrix);
+        hasil = matrixObjek.splitHasil(matrix);
         
-        n = matrixObj.getLastIdxRows(matrix);
-        matrixtemp = matrix;
+        matrixTemp = mainMat;
 
-        if (n*n == counter(matrix)) {
-            for (i = 0; i < matrixObj.getLastIdxCols(matrix); i++) {
-                for (k = 0; k < n; k++) {
-                    matrixUtama[i][k] = matrix[i][k];
-                    matrixtemp[i][k] = hasil[i];
-                    // mengganti baris ke-i dengan hasil
+        if (isPersegi(mainMat)) {
+            for (i = 0; i < matrixObj.getnCols(mainMat); i++) {
+                for (k = 0; k < matrixObj.getnRows(mainMat); k++) {
 
-                    hasilx = detKofObj.determinanKofaktor(matrixtemp) / detKofObj.determinanKofaktor(matrix);
+                    matrixTemp = changeColXWithHasil(mainMat, hasil, k);
+                    // menukar kolom di matrixTemp dengan hasil
+
+                    hasilx = detKofObj.determinanKofaktor(matrixTemp) / detKofObj.determinanKofaktor(mainMat);
                     System.out.print(hasilx);
                     // menghitung hasil x ke-k dengan cara
                     // membagi determinant yang sudah diganti dengan determinant matrix awal
 
-                    matrixtemp[i][k] = matrix[i][k];
+                    matrixTemp[i][k] = mainMat[i][k];
+                    // mengubah nilai dari matrixTemp menjadi mainMat lagi
                 }
             }
         } else {
