@@ -147,13 +147,14 @@ public class Gauss {
     }
 
     public void gaussEliminationSolution(double[][] matrix) {
-        int i,j, countExc = 0;
-        double[] hasilx;
-        double[][] mainMat, hasil;
         MatriksBalikan matObj = new MatriksBalikan();
         Matrix mat = new Matrix();
         GaussJordan matt = new GaussJordan();
 
+        int i,j, countExc = 0;
+        double[] hasilx;
+        double[][] mainMat, hasil;
+        
         mainMat = matObj.splitMainMatrix(matrix);
         hasil = matObj.splitHasil(matrix);
 
@@ -164,12 +165,17 @@ public class Gauss {
         }
 
         if (countExc == 0) {
-            
+            if (mat.getnCols(mainMat) == mat.getnRows(mainMat)) {
                 for (i = mat.getLastIdxRows(matrix); i >= 0; i--) {
                     for (j = mat.getLastIdxCols(mainMat); j >= matt.indexOfLeadingOne(mainMat, i); j--) {
-                        
+                        hasilx[i] = 
                     }
                 }
+            } else {
+                continue;
+            }
+        } else {
+            System.out.println("No Solution");
         }
     }
     
