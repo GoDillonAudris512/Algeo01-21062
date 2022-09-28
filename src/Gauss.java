@@ -147,7 +147,30 @@ public class Gauss {
     }
 
     public void gaussEliminationSolution(double[][] matrix) {
-        
+        int i,j, countExc = 0;
+        double[] hasilx;
+        double[][] mainMat, hasil;
+        MatriksBalikan matObj = new MatriksBalikan();
+        Matrix mat = new Matrix();
+        GaussJordan matt = new GaussJordan();
+
+        mainMat = matObj.splitMainMatrix(matrix);
+        hasil = matObj.splitHasil(matrix);
+
+        for (i = 0; i < mat.getnRows(matrix); i++){
+            if (isRowAnException(matrix, i)) {
+                countExc += 1;
+            }
+        }
+
+        if (countExc == 0) {
+            
+                for (i = mat.getLastIdxRows(matrix); i >= 0; i--) {
+                    for (j = mat.getLastIdxCols(mainMat); j >= matt.indexOfLeadingOne(mainMat, i); j--) {
+                        
+                    }
+                }
+        }
     }
     
     public void gaussElimination(double[][] m){
