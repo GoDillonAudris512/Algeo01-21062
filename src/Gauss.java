@@ -151,8 +151,8 @@ public class Gauss {
         Matrix mat = new Matrix();
         GaussJordan matt = new GaussJordan();
 
-        int i,j, countExc = 0;
-        double[] hasilx;
+        int i,j,k, countExc = 0;
+        double[] hasilx = new double[mat.getnRows(matrix)];
         double[][] mainMat, hasil;
         
         mainMat = matObj.splitMainMatrix(matrix);
@@ -165,14 +165,28 @@ public class Gauss {
         }
 
         if (countExc == 0) {
+            // bukan baris exception
+
             if (mat.getnCols(mainMat) == mat.getnRows(mainMat)) {
+                // matrix persegi
+
                 for (i = mat.getLastIdxRows(matrix); i >= 0; i--) {
-                    for (j = mat.getLastIdxCols(mainMat); j >= matt.indexOfLeadingOne(mainMat, i); j--) {
-                        hasilx[i] = 
+                    for (j = mat.getLastIdxCols(mainMat); j > matt.indexOfLeadingOne(mainMat, i); j--) {
+                        if ((i == mat.getLastIdxRows(matrix)) && (j == mat.getLastIdxCols(mainMat))) {
+                            // nilai x-terakhir
+                            hasilx[i] = hasil[i][j];
+                        } else {
+                            // nilai x bukan yang terakhir
+                            for (k = (mat.getLastIdxCols(mainMat)-i); k > 0; k++) {
+                                hasil[i][j] -= (hasilx[j] * mainMat[i][j]);
+                                hasilx[i] = hasil[i][j];
+                            }
+                        }
                     }
                 }
             } else {
-                continue;
+                // jumlah kolom > baris (parametrik)
+                
             }
         } else {
             System.out.println("No Solution");
