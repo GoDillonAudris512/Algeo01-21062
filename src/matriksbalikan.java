@@ -10,7 +10,7 @@ public class matriksbalikan {
 
         hasil = new double[matObj.getnRows(matrix)][1];
 
-        for (i = 0; i < matObj.getnCols(matrix); i++) {
+        for (i = 0; i < matObj.getnRows(matrix); i++) {
             hasil[i][0] = matrix[i][j];
         }
 
