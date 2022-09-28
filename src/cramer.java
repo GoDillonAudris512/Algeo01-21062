@@ -55,7 +55,7 @@ public class Cramer {
 
         Matrix matrixObj = new Matrix();
         DeterminanKofaktor detKofObj = new DeterminanKofaktor();
-        matriksbalikan matrixObjek = new matriksbalikan();
+        MatriksBalikan matrixObjek = new MatriksBalikan();
 
         mainMat = matrixObjek.splitMainMatrix(matrix);
         hasil = matrixObjek.splitHasil(matrix);
