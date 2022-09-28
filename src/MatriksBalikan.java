@@ -62,8 +62,6 @@ public class MatriksBalikan {
 
         hasil = splitHasil(matrix);
         mainMat = splitMainMatrix(matrix);
-        matrixObj.printMatrixToScreen(hasil);
-        matrixObj.printMatrixToScreen(mainMat);
 
         hasilx = multiplyMatrixbyMatrix(matKofObj.inversByAdjoint(mainMat), hasil);
 
