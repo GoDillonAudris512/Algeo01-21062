@@ -145,6 +145,10 @@ public class Gauss {
 
         return rowAlreadyArranged;
     }
+
+    public void gaussEliminationSolution(double[][] matrix) {
+        
+    }
     
     public void gaussElimination(double[][] m){
         /* I.S m terdefinisi */

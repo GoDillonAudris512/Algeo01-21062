@@ -60,7 +60,15 @@ public class InterpolasiPolinom {
         return matrixPers;
     }
 
-    public void interpolasiPolinom (double[][] matrix) {
-        
+    public void interpolasiPolinom (double[] titikX, double[] titikY, int jumlahTitik) {
+        double[][] matrixPers = new double[jumlahTitik][jumlahTitik+1];
+        Gauss matObj = new Gauss();
+
+        jumlahTitik = inputJumlahTitik();
+        titikX = inputTitikX(jumlahTitik);
+        titikY = inputTitikY(jumlahTitik);
+
+        matrixPers = makePersamaanMatrix(titikX, titikY);
+        matObj.gaussElimination(matrixPers);
     }
 }
