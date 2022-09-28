@@ -24,9 +24,9 @@ public class matriksbalikan {
 
         k = matObj.getLastIdxCols(matrix) - 1;
 
-        mainMat = new double[matObj.getnRows(matrix)][1];
+        mainMat = new double[matObj.getnRows(matrix)][matObj.getnCols(matrix)-1];
 
-        for (i = 0; i < matObj.getnCols(matrix); i++) {
+        for (i = 0; i < matObj.getnRows(matrix); i++) {
             for (j = 0; j < k; j++) {
                 mainMat[i][j] = matrix[i][j];
             }
