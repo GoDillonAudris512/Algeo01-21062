@@ -53,6 +53,30 @@ public class InterpolasiBikubik {
         return mHasil;
     }
 
+    public double[][] integrateMatrixAandB (double[][] mA, double[][] mB) {
+        /* Menghasilkan matriks augmented 16 x 17 hasil penggabungan matriks koefisien dengan matriks nilai */
+
+        /* Kamus Lokal */
+        double [][] mIntegrated = new double[16][17];
+        int i, j;
+
+        /* Algoritma */
+        Matrix matrixObj = new Matrix();
+
+        for (i = 0; i < matrixObj.getnRows(mA); i++) {
+            for (j = 0; j < matrixObj.getnCols(mA) +  + matrixObj.getnCols(mB); j++) {
+                if (j == 16) {
+                    mIntegrated[i][j] = mB[i][0];
+                }
+                else {
+                    mIntegrated[i][j] = mA[i][j];
+                }
+            }
+        }
+
+        return mIntegrated;
+    }
+
     public double interpolationByBicubic (double[][] m, double a, double b) {
         /* I.S m terdefinisi, 0 <= a,b <= 1 */
         /* F.S menghasilkan persamaan interpolasi bikubik berdasarkan m, dan menghasilkan jawaban */
@@ -68,9 +92,9 @@ public class InterpolasiBikubik {
 
         /* Algoritma */
         Matrix matrixObj = new Matrix();             
-        SPLInvers splInvObj = new SPLInvers();
+        matriksbalikan matBalObj = new matriksbalikan();
 
-        mValueOfA = splInvObj.metodeInvers();
+        mValueOfA = matBalObj.inversElimination(integrateMatrixAandB(mCoefficient, mValueOfY));
 
         for (i = 0; i < matrixObj.getnRows(mValueOfA); i++) {
             p = i%4;
