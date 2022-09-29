@@ -19,9 +19,9 @@ public class InterpolasiPolinom {
         Scanner keyboard = new Scanner(System.in);
 
         for (i = 0; i < jumlahTitik; i++) {
-            System.out.print("Masukkan Titik X ke-" + (i+1));
             titikX[i] = keyboard.nextDouble();
-
+            System.out.println("Masukkan Titik X ke-" + (i+1));
+        
         }
 
         keyboard.close();
@@ -34,8 +34,8 @@ public class InterpolasiPolinom {
         Scanner keyboard = new Scanner(System.in);
 
         for (i = 0; i < jumlahTitik; i++) {
-            System.out.print("Masukkan Titik Y ke-" + (i+1));
-            titikY[i] = keyboard.nextDouble(); 
+            titikY[i] = keyboard.nextDouble();
+            System.out.println("Masukkan Titik Y ke-" + (i+1)); 
         }
 
         keyboard.close();
