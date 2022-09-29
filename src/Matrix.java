@@ -97,7 +97,7 @@ public class Matrix {
     }
 
     // Cari tahu jumlah row dan column matriks dalam file
-    static void colRowNumbersFromFile (RowCol rc, String pathname) {
+    public void colRowNumbersFromFile (RowCol rc, String pathname) {
         try {
             File myObj = new File(pathname);
             Scanner myReader = new Scanner(myObj);
@@ -135,7 +135,7 @@ public class Matrix {
                 String data_arr[] = data.split(" ");
 
                 while (j<data_arr.length) {
-                    m[i][j] = Double.parseDouble(data_arr[i]);
+                    m[i][j] = Double.parseDouble(data_arr[j]);
                     j++;
                 }
 
