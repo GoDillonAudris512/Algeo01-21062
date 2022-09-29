@@ -68,14 +68,6 @@ public class GaussJordan {
         return thereIsLeadingOne;
     }
 
-    public void printSolusiGaussJordan (double[] hasilx) {
-        int i;
-
-        for (i = 1; i <= hasilx.length; i++) {
-            System.out.println("x" + i + "= " + hasilx[i]);
-        }
-    }
-
     public void gaussJordanEliminationSolution (double[][] matrix) {
         Matrix mat = new Matrix();
         MatriksBalikan matObj = new MatriksBalikan();
@@ -118,7 +110,7 @@ public class GaussJordan {
                 }
             }
 
-            printSolusiGaussJordan(hasilx);
+            mat.printSolusi(hasilx);
 
         } else {
             System.out.println("No Solution");
