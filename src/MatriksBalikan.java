@@ -55,7 +55,8 @@ public class MatriksBalikan {
     }
 
 
-    public double[][] inversElimination(double[][] matrix) {
+    public void inversElimination(double[][] matrix) {
+        Matrix matObj = new Matrix();
         InversAdjoint matKofObj = new InversAdjoint();
         double[][] hasilx, hasil, mainMat;
 
@@ -64,7 +65,7 @@ public class MatriksBalikan {
 
         hasilx = multiplyMatrixbyMatrix(matKofObj.inversByAdjoint(mainMat), hasil);
 
-        return hasilx;
+        matObj.printMatrixToScreen(hasilx);
         
     }
 }

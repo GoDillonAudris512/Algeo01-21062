@@ -49,11 +49,11 @@ public class Cramer {
     }
 
     public void cramerElimination(double[][] matrix) {
+        Matrix matrixObj = new Matrix();
         int i,k;
-        double hasilx;
+        double[] hasilx = new double[matrixObj.getnCols(matrix)-1];
         double[][] matrixTemp, hasil, mainMat;
 
-        Matrix matrixObj = new Matrix();
         DeterminanKofaktor detKofObj = new DeterminanKofaktor();
         MatriksBalikan matrixObjek = new MatriksBalikan();
 
@@ -69,8 +69,7 @@ public class Cramer {
                     matrixTemp = changeColXWithHasil(mainMat, hasil, k);
                     // menukar kolom di matrixTemp dengan hasil
 
-                    hasilx = detKofObj.determinanKofaktor(matrixTemp) / detKofObj.determinanKofaktor(mainMat);
-                    System.out.print(hasilx);
+                    hasilx[i] = detKofObj.determinanKofaktor(matrixTemp) / detKofObj.determinanKofaktor(mainMat);
                     // menghitung hasil x ke-k dengan cara
                     // membagi determinant yang sudah diganti dengan determinant matrix awal
 
@@ -81,6 +80,8 @@ public class Cramer {
         } else {
            System.out.println("Bukan Matriks Persegi!"); 
         }
+
+        matrixObj.printSolusi(hasilx);
 
     }    
 }
