@@ -48,6 +48,75 @@ public class GaussJordan {
         return indexLeadingOne;
     }
 
+    public boolean isThereLeadingOne(double[][] matrix, int kolomX) {
+        int i,countZero = 0;
+        boolean thereIsLeadingOne = true;
+        Matrix mat = new Matrix();
+
+        for (i = 0; i < mat.getnRows(matrix); i++) {
+            if (matrix[i][kolomX] == 0) {
+                countZero += 1;
+            }
+        }
+
+        if (countZero == mat.getLastIdxRows(matrix)) {
+            thereIsLeadingOne = true;
+        } else {
+            thereIsLeadingOne = false;
+        }
+
+        return thereIsLeadingOne;
+    }
+
+    public void gaussJordanEliminationSolution (double[][] matrix) {
+        Matrix mat = new Matrix();
+        MatriksBalikan matObj = new MatriksBalikan();
+        GaussJordan matt = new GaussJordan();
+        Gauss mattt = new Gauss();
+
+        int i,j,k, countExc = 0;
+        String[] parametrik = {"s","t","u","v","x","y","z"};
+        double[] hasilx = new double[mat.getnRows(matrix)];
+        double[][] mainMat, hasil;
+
+        mainMat = matObj.splitMainMatrix(matrix);
+        hasil = matObj.splitHasil(matrix);
+
+        for (i = 0; i < mat.getnRows(matrix); i++){
+            if (mattt.isRowAnException(matrix, i)) {
+                countExc += 1;
+            }
+        }
+
+        if (countExc == 0) {
+            if (mat.getnCols(mainMat) == mat.getnRows(mainMat)) {
+                for (i = mat.getLastIdxRows(mainMat); i >= 0; i--) {
+                    for (j = mat.getLastIdxCols(mainMat); j >= matt.indexOfLeadingOne(mainMat, i); j--) {
+                        hasilx[i] = hasil[i][j];
+                    }
+                }
+            } else {
+                for (i = mat.getLastIdxRows(matrix); i >= 0; i--) {
+                    for (j = mat.getLastIdxCols(mainMat); j >= matt.indexOfLeadingOne(mainMat, i); j--) {
+                        if (isThereLeadingOne(mainMat, j)) {
+                            hasilx[i] = hasil[i][j];
+                        } else {
+                            for (k = 0; k < mat.getnRows(matrix); k++) {
+                                double convert = Double.parseDouble(parametrik[k]);
+                                hasilx[i] = convert;
+                            }
+                        }
+                    }
+                }
+            }
+
+            mat.printSolusi(hasilx);
+
+        } else {
+            System.out.println("No Solution");
+        }
+    }
+
     public void gaussJordanElimination(double[][] m) {
         /* I.S matriks m terdefinisi */
         /* F.S m berubah menjadi suatu matriks eselon baris tereduksi yang setara dengan eliminasi Gauss-Jordan */
@@ -72,5 +141,7 @@ public class GaussJordan {
             }
             j--;
         }
+
+        gaussJordanEliminationSolution(m);
     }
 }

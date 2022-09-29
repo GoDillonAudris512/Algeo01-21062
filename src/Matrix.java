@@ -43,6 +43,16 @@ public class Matrix {
         // Algoritma
         return getnCols(m)-1;
     }
+
+    public void printSolusi (double[] hasilx) {
+        int i;
+        String currentString;
+
+        for (i = 1; i <= hasilx.length; i++) {
+            currentString = "Nilai x" + i + " adalah " + hasilx[i-1];
+            System.out.println(currentString);
+        }
+    }
     
     // Prosedur input dari keyboard
     public void readMatrixFromKeyboard (double[][] m) {

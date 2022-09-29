@@ -147,7 +147,50 @@ public class Gauss {
     }
 
     public void gaussEliminationSolution(double[][] matrix) {
+        MatriksBalikan matObj = new MatriksBalikan();
+        Matrix mat = new Matrix();
+        GaussJordan matt = new GaussJordan();
+
+        int i,j,k, countExc = 0;
+        double[] hasilx = new double[mat.getnRows(matrix)];
+        double[][] mainMat, hasil;
         
+        mainMat = matObj.splitMainMatrix(matrix);
+        hasil = matObj.splitHasil(matrix);
+
+        for (i = 0; i < mat.getnRows(matrix); i++){
+            if (isRowAnException(matrix, i)) {
+                countExc += 1;
+            }
+        }
+
+        if (countExc == 0) {
+            // bukan baris exception
+
+            if (mat.getnCols(mainMat) == mat.getnRows(mainMat)) {
+                // matrix persegi
+
+                for (i = mat.getLastIdxRows(matrix); i >= 0; i--) {
+                    for (j = mat.getLastIdxCols(mainMat); j > matt.indexOfLeadingOne(mainMat, i); j--) {
+                        if ((i == mat.getLastIdxRows(matrix)) && (j == mat.getLastIdxCols(mainMat))) {
+                            // nilai x-terakhir
+                            hasilx[i] = hasil[i][j];
+                        } else {
+                            // nilai x bukan yang terakhir
+                            for (k = (mat.getLastIdxCols(mainMat)-i); k > 0; k++) {
+                                hasil[i][j] -= (hasilx[j] * mainMat[i][j]);
+                                hasilx[i] = hasil[i][j];
+                            }
+                        }
+                    }
+                }
+            } else {
+                // jumlah kolom > baris (parametrik)
+                
+            }
+        } else {
+            System.out.println("No Solution");
+        }
     }
     
     public void gaussElimination(double[][] m){
