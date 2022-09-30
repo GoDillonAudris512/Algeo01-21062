@@ -29,6 +29,26 @@ public class InversReduksiBaris {
         return mIdentity;
     }
 
+    public double[][] copyMatrix(double[][] m) {
+        /* Mengeluarkan salinan m dengan dimensi dan elemen yang sama */
+
+        /* Kamus Lokal */
+        int i, j;
+        double[][] mCopy;
+
+        /* Algoritma */
+        Matrix matrixObj = new Matrix();
+
+        mCopy = new double[matrixObj.getnRows(m)][matrixObj.getnCols(m)];
+        for (i = 0; i < matrixObj.getnRows(m); i++) {
+            for (j = 0; j < matrixObj.getnCols(m); j++) {
+                mCopy[i][j] = m[i][j];
+            }
+        }
+
+        return mCopy;
+    }
+
     public double[][] inversByReduksiBaris (double[][] m) {
         /* Prekondisi: matriks m berbentuk persegi */
         /* Menghasilkan invers dari matriks m dengan cara reduksi baris */
@@ -37,7 +57,7 @@ public class InversReduksiBaris {
         /* Kamus Lokal */
         int i, j, indexColumn, rowCurrentlyWorked, indexPivot, rowToWorked;
         double pengali, pembagi;
-        double[][] mInvers, mZero;
+        double[][] mInvers, mZero, mCopy;
 
         /* Algoritma */
         Matrix matrixObj = new Matrix();
@@ -47,8 +67,9 @@ public class InversReduksiBaris {
 
         mInvers = makeIdentityMatrix(matrixObj.getnRows(m));
         mZero = new double[matrixObj.getnRows(m)][matrixObj.getnCols(m)];
+        mCopy = copyMatrix(m);
 
-        if (detRedBarObj.determinanReduksiBaris(m) == 0) {
+        if (detRedBarObj.determinanReduksiBaris(mCopy) == 0) {
             System.out.println("\nMatriks tidak memiliki invers");
             return mZero;
         }
@@ -59,12 +80,12 @@ public class InversReduksiBaris {
             rowToWorked = gaussObj.arrangeMatrix(m) - 1;
 
             for (indexColumn = 0; indexColumn < matrixObj.getnCols(m); indexColumn++) {
-                if (rowCurrentlyWorked <= rowToWorked) {
+                if (rowCurrentlyWorked <= rowToWorked) {                 
                     indexPivot = gaussObj.indexOfPivotRow(m, rowCurrentlyWorked, indexColumn);
 
                     gaussObj.swapRow(m, indexPivot, rowCurrentlyWorked);
                     gaussObj.swapRow(mInvers, indexPivot, rowCurrentlyWorked);
-    
+
                     if (m[rowCurrentlyWorked][indexColumn] != 0) {
                         for (i = rowCurrentlyWorked+1; i <= rowToWorked; i++) {
                             pengali = -(m[i][indexColumn]/m[rowCurrentlyWorked][indexColumn]);
@@ -77,7 +98,6 @@ public class InversReduksiBaris {
                         rowCurrentlyWorked++;
                     }
                 }
-                
             }
     
             for (i = 0; i < matrixObj.getnRows(m); i++) {
@@ -90,6 +110,7 @@ public class InversReduksiBaris {
                     }
                 }
             }
+
 
             /* Menerapkan langkah Gauss-Jordan */
             rowCurrentlyWorked = gaussJordanObj.countRowToWorked(m) - 1;
