@@ -1,10 +1,10 @@
 package src;
 
 public class MatriksBalikan {
-    public double[][] splitHasil (double[][] matrix) {
+    public double[][] splitHasil(double[][] matrix) {
         Matrix matObj = new Matrix();
         double[][] hasil;
-        int i,j;
+        int i, j;
 
         j = matObj.getLastIdxCols(matrix);
 
@@ -17,14 +17,14 @@ public class MatriksBalikan {
         return hasil;
     }
 
-    public double[][] splitMainMatrix (double[][] matrix) {
+    public double[][] splitMainMatrix(double[][] matrix) {
         Matrix matObj = new Matrix();
         double[][] mainMat;
-        int i,j,k;
+        int i, j, k;
 
         k = matObj.getLastIdxCols(matrix) - 1;
 
-        mainMat = new double[matObj.getnRows(matrix)][matObj.getnCols(matrix)-1];
+        mainMat = new double[matObj.getnRows(matrix)][matObj.getnCols(matrix) - 1];
 
         for (i = 0; i < matObj.getnRows(matrix); i++) {
             for (j = 0; j <= k; j++) {
@@ -36,14 +36,14 @@ public class MatriksBalikan {
     }
 
     public double[][] multiplyMatrixbyMatrix(double[][] m1, double[][] m2) {
-        int i,j,m;
+        int i, j, m;
         double[][] mMultiply;
         Matrix matObj = new Matrix();
 
         mMultiply = new double[matObj.getnRows(m1)][matObj.getnCols(m2)];
 
-        for (m = 0; m <= matObj.getLastIdxRows(m1); m++){
-            for (i = 0; i <= matObj.getLastIdxCols(m2);i++){
+        for (m = 0; m <= matObj.getLastIdxRows(m1); m++) {
+            for (i = 0; i <= matObj.getLastIdxCols(m2); i++) {
                 mMultiply[m][i] = 0;
                 for (j = 0; j <= matObj.getLastIdxCols(m1); j++) {
                     mMultiply[m][i] += m1[m][j] * m2[j][i];
@@ -54,18 +54,24 @@ public class MatriksBalikan {
         return mMultiply;
     }
 
-
-    public void inversElimination(double[][] matrix) {
+    public double[] inversElimination(double[][] matrix) {
         Matrix matObj = new Matrix();
         InversAdjoint matKofObj = new InversAdjoint();
-        double[][] hasilx, hasil, mainMat;
+
+        double[][] hasilxtemp, hasil, mainMat;
+        double[] hasilx = new double[matObj.getLastIdxRows(matrix)];
+        int i;
 
         hasil = splitHasil(matrix);
         mainMat = splitMainMatrix(matrix);
 
-        hasilx = multiplyMatrixbyMatrix(matKofObj.inversByAdjoint(mainMat), hasil);
+        hasilxtemp = multiplyMatrixbyMatrix(matKofObj.inversByAdjoint(mainMat), hasil);
 
-        matObj.printMatrixToScreen(hasilx);
+        for (i = 0; i < matObj.getnRows(matrix); i++) {
+            hasilx[i] = hasilxtemp[i][0];
+        }
+
+        return hasilx;
         
     }
 }

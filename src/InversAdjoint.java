@@ -95,6 +95,7 @@ public class InversAdjoint {
         mInvers = new double[matrixObj.getnRows(m)][matrixObj.getnCols(m)];
 
         if (detKofObj.determinanKofaktor(m) == 0) {
+            System.out.println("\nMatriks tidak memiliki invers");
             return mInvers;
         }
         else {

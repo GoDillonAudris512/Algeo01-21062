@@ -97,7 +97,7 @@ public class Matrix {
     }
 
     // Cari tahu jumlah row dan column matriks dalam file
-    static void colRowNumbersFromFile (RowCol rc, String pathname) {
+    public void colRowNumbersFromFile (RowCol rc, String pathname) {
         try {
             File myObj = new File(pathname);
             Scanner myReader = new Scanner(myObj);
@@ -121,7 +121,7 @@ public class Matrix {
     }
     
     // Input dari file
-    void readMatrixFromFile (double[][] m, String pathname) {
+    public void readMatrixFromFile (double[][] m, String pathname) {
         try {
             File myObj = new File(pathname);
             Scanner myReader = new Scanner(myObj);
@@ -135,7 +135,7 @@ public class Matrix {
                 String data_arr[] = data.split(" ");
 
                 while (j<data_arr.length) {
-                    m[i][j] = Double.parseDouble(data_arr[i]);
+                    m[i][j] = Double.parseDouble(data_arr[j]);
                     j++;
                 }
 
@@ -178,6 +178,38 @@ public class Matrix {
             System.out.println("Terjadi error.");
             e.printStackTrace();
         }
+    }
 
+    // Fungsi matrixEqual
+    public boolean isMatrixEqual(double[][] m1, double[][] m2) {
+        /* Menghasilkan true jika ukuran m1 sama dengan m2 dan seluruh elemen pada indeks yang sama bernilai sama */
+
+        /* Kamus Lokal */
+        int i = 0, j = 0;
+        boolean stillEqual = true;
+
+        /* Algoritma */
+        if ((getnRows(m1) != getnRows(m2)) && (getnCols(m1) != getnCols(m2))) {
+            stillEqual = false;
+        }
+        else {
+            while (i < getnRows(m1) && stillEqual) {
+                while (j < getnCols(m1) && stillEqual) {
+                    if (m1[i][j] != m2[i][j]) {
+                        stillEqual = false;
+                    }
+                    else {
+                        j++;
+                    }
+                }
+
+                if (stillEqual) {
+                    i++;
+                    j = 0;
+                }
+            }
+        }
+
+        return stillEqual;
     }
 }
