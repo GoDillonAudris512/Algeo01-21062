@@ -3,6 +3,8 @@
 
 package src;
 
+import java.text.DecimalFormat;
+
 public class InterpolasiBikubik {
 
     public double[][] makeMatrixCoefficient () {
@@ -84,28 +86,29 @@ public class InterpolasiBikubik {
 
         /* Kamus Lokal */
         double[][] mCoefficient = makeMatrixCoefficient();
-        double[][] mValueOfY = changeMatrixDimension(m);
-        double[][] mValueOfA = new double [16][1];
+        double[][] mValueOfY;
+        double[] mValueOfA = new double [16];
         double nilaiInterpolasi = 0;
         int i, p, q;
-        String persamaan = "f(x,y) = ";
+        String persamaan = "\nf(x,y) = ";
 
-        /* Algoritma */
-        Matrix matrixObj = new Matrix();             
-        matriksbalikan matBalObj = new matriksbalikan();
-
+        /* Algoritma */         
+        MatriksBalikan matBalObj = new MatriksBalikan();
+        DecimalFormat dfObj = new DecimalFormat("###.###");
+        
+        mValueOfY = changeMatrixDimension(m);
         mValueOfA = matBalObj.inversElimination(integrateMatrixAandB(mCoefficient, mValueOfY));
 
-        for (i = 0; i < matrixObj.getnRows(mValueOfA); i++) {
+        for (i = 0; i < mValueOfA.length; i++) {
             p = i%4;
             q = i/4;
-            nilaiInterpolasi += Math.pow(a, p) * Math.pow(b, q) * mValueOfA[i][0];
+            nilaiInterpolasi += (Math.pow(a, p) * Math.pow(b, q) * mValueOfA[i]);
 
             if (i == 15) {
-                persamaan += mValueOfA[i][0] + "x^(" + p + ")y^(" + q + ")";
+                persamaan += dfObj.format(mValueOfA[i]) + "x^(" + p + ")y^(" + q + ")";
             }
             else {
-                persamaan += mValueOfA[i][0] + "x^(" + p + ")y^(" + q + ") +";
+                persamaan += dfObj.format(mValueOfA[i]) + "x^(" + p + ")y^(" + q + ") +";
             }
         }
 
