@@ -13,6 +13,17 @@ public class InterpolasiPolinom {
         return jlhTitik;
     }
 
+    public int inputNilaiTaksiranX() {
+        Scanner keyboard = new Scanner(System.in);  // Create a Scanner object
+
+        int x = keyboard.nextInt();  // Read user input
+        System.out.println("Nilai x yang ingin ditaksir: " + x);  // Output user input
+
+        keyboard.close();
+
+        return x;
+    }
+
     public double[] inputTitikX(int jumlahTitik) {
         int i;
         double[] titikX = new double[jumlahTitik];
@@ -60,15 +71,44 @@ public class InterpolasiPolinom {
         return matrixPers;
     }
 
-    public void interpolasiPolinom (double[] titikX, double[] titikY, int jumlahTitik) {
-        double[][] matrixPers = new double[jumlahTitik][jumlahTitik+1];
+    public double makePersamaan(double[] hasilA, double x, int jumlahTitik) {
+        int i;
+        double hasil = 0;
+
+        for (i = 0; i < jumlahTitik; i++) {
+            hasil += hasilA[i] * Math.pow(x,i);
+        }
+
+        return hasil;
+    }
+
+    public double interpolasiPolinom () {
+        double[][] hasiltemp;
+        double[] titikX, titikY;
+        int i, x, jumlahTitik;
+        double hasilTaksiran;
+        
         Gauss matObj = new Gauss();
+        MatriksBalikan mat = new MatriksBalikan();
 
         jumlahTitik = inputJumlahTitik();
         titikX = inputTitikX(jumlahTitik);
         titikY = inputTitikY(jumlahTitik);
-
+        x = inputNilaiTaksiranX();
+        
+        double[] hasilA = new double[jumlahTitik];
+        double[][] matrixPers = new double[jumlahTitik][jumlahTitik+1];
+        
         matrixPers = makePersamaanMatrix(titikX, titikY);
         matObj.gaussElimination(matrixPers);
+        hasiltemp = mat.splitHasil(matrixPers);
+
+        for (i = 0; i < jumlahTitik; i++) {
+            hasilA[i] = hasiltemp[i][0];
+        }
+
+        hasilTaksiran = makePersamaan(hasilA, x, jumlahTitik);
+
+        return hasilTaksiran;
     }
 }
