@@ -210,4 +210,41 @@ public class Matrix {
 
         return stillEqual;
     }
+
+    // Input dari file untuk permasalahan interpolasi bikubik
+    public double[] readFileForInterpolasiBikubik (double[][] m, String pathname) {
+        try {
+            File myObj = new File(pathname);
+            Scanner myReader = new Scanner(myObj);
+
+            int i, j;
+            double[] listXY = new double[2];
+
+            i=0;
+            while (myReader.hasNextLine() && (i != 4)) {
+                j = 0;
+                String data = myReader.nextLine();
+                String data_arr[] = data.split(" ");
+
+                while (j<data_arr.length) {
+                    m[i][j] = Double.parseDouble(data_arr[j]);
+                    j++;
+                }
+
+                i++;
+            }
+
+            String data = myReader.nextLine();
+            String data_arr[] = data.split(" ");
+            listXY[0] = Double.parseDouble(data_arr[0]);
+            listXY[1] = Double.parseDouble(data_arr[1]);
+            myReader.close();
+
+            return listXY;
+        } catch (FileNotFoundException e) {
+            System.out.println("Terjadi error.");
+            e.printStackTrace();
+            }
+        return null;
+    }
 }
