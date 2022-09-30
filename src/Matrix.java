@@ -68,8 +68,6 @@ public class Matrix {
                 m[i][j] = keyboard.nextDouble();
             }
         }
-
-        keyboard.close();
     }
 
     // Prosedur output dari keyboard
