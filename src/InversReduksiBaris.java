@@ -49,6 +49,7 @@ public class InversReduksiBaris {
         mZero = new double[matrixObj.getnRows(m)][matrixObj.getnCols(m)];
 
         if (detRedBarObj.determinanReduksiBaris(m) == 0) {
+            System.out.println("\nMatriks tidak memiliki invers");
             return mZero;
         }
         else {
