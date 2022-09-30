@@ -1,4 +1,7 @@
 package src;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.*;
 
 import src.Matrix.RowCol; 
@@ -17,7 +20,8 @@ public class RegresiLinierBerganda {
         int pilihanIn, pilihanOut;    
         boolean benar;
         Matrix mObj = new Matrix();
-        double[][] XY, X, Xt, XtX, Y, XtY, XtXXtY, Xk, b; 
+        double[][] XY, X, Xt, XtX, Y, XtY, XtXXtY, Xk;
+        double[] b; 
         InversAdjoint invAdj = new InversAdjoint();
         MatriksBalikan matBal = new MatriksBalikan();
         InterpolasiBikubik ipBik = new InterpolasiBikubik();
@@ -26,6 +30,9 @@ public class RegresiLinierBerganda {
         String output;
 
         // ALGORITMA
+        XY = new double[0][0];
+        Xk = new double[0][0];
+        n = 0;
         // Asumsi input x1i, x2i, ..., xni, dan nilai yi disatukan dalam satu baris
         System.out.println("Pilihan input: (Masukkan kode angka)");
         System.out.println("1. Keyboard");
@@ -43,7 +50,7 @@ public class RegresiLinierBerganda {
                 n = sc.nextInt();    
                 
                 XY = new double[m][n+1]; 
-                X = new double[m][n+1];
+                X = new double[m][n];
                 Y = new double[m][1];
                 Xt = new double[n][m];
                 XtX = new double[n][n];
@@ -73,7 +80,7 @@ public class RegresiLinierBerganda {
                 n = rc.col-1;
                 
                 XY = new double[m][n+1]; 
-                X = new double[m][n+1];
+                X = new double[m][n];
                 Y = new double[m][1];
                 Xt = new double[n][m];
                 XtX = new double[n][n];
@@ -104,7 +111,7 @@ public class RegresiLinierBerganda {
 
         // Memisahkan matrikx XY menjadi matriks X dan Y
         X = matBal.splitMainMatrix(XY);
-        for (i=0; i<mObj.getnRows(X); i++) {
+        /*for (i=0; i<mObj.getnRows(X); i++) {
             for (j=0; j<mObj.getnCols(X); j++) {
                 if (j==0) {
                     X[i][j] = 1;
@@ -112,7 +119,7 @@ public class RegresiLinierBerganda {
                     X[i][j] = X[i][j-1];
                 }
             }
-        }
+        }*/
 
         Y = matBal.splitHasil(XY);
         Xt = invAdj.transposeMatrix(X);
@@ -121,7 +128,7 @@ public class RegresiLinierBerganda {
         XtX = matBal.multiplyMatrixbyMatrix(Xt, X);
         XtY = matBal.multiplyMatrixbyMatrix(Xt, Y);
 
-        XtXXtY = IpBik.integrateMatrixAandB(double[][] XtX, double[][] XtY);        
+        XtXXtY = ipBik.integrateMatrixAandB(XtX, XtY);        
         b = gauss.gaussEliminationSolutionKeluaran(XtXXtY);
 
         // Menghitung taksiran
@@ -162,5 +169,7 @@ public class RegresiLinierBerganda {
             }
     
         }
+
+        sc.close();
     }
 }
