@@ -93,5 +93,5 @@ public class DeterminanReduksiBaris {
             }
 
             return det;
-        }
+    }
 }
