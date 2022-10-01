@@ -6,52 +6,20 @@ public class InterpolasiPolinom {
         Scanner keyboard = new Scanner(System.in);  // Create a Scanner object
 
         int jlhTitik = keyboard.nextInt();  // Read user input
-        System.out.println("Jumlah Titik Masukan: " + jlhTitik);  // Output user input
+        System.out.println("Jumlah titik masukan: " + jlhTitik);  // Output user input
 
         keyboard.close();
 
         return jlhTitik;
     }
 
-    public int inputNilaiTaksiranX() {
+    public double inputNilaiTaksiranX() {
         Scanner keyboard = new Scanner(System.in);  // Create a Scanner object
 
-        int x = keyboard.nextInt();  // Read user input
-        System.out.println("Nilai x yang ingin ditaksir: " + x);  // Output user input
-
-        keyboard.close();
+        System.out.println("Nilai x yang ingin ditaksir : ");  // Output user input
+        double x = keyboard.nextDouble();  // Read user input
 
         return x;
-    }
-
-    public double[] inputTitikX(int jumlahTitik) {
-        int i;
-        double[] titikX = new double[jumlahTitik];
-        Scanner keyboard = new Scanner(System.in);
-
-        for (i = 0; i < jumlahTitik; i++) {
-            titikX[i] = keyboard.nextDouble();
-            System.out.println("Masukkan Titik X ke-" + (i+1) + " " + titikX[i]);
-        
-        }
-
-        keyboard.close();
-        return titikX;
-    }
-
-    public double[] inputTitikY(int jumlahTitik) {
-        int i;
-        double[] titikY = new double[jumlahTitik];
-        Scanner keyboard = new Scanner(System.in);
-
-        for (i = 0; i < jumlahTitik; i++) {
-            titikY[i] = keyboard.nextDouble();
-            System.out.println("Masukkan Titik Y ke-" + (i+1)+ " " + titikY[i]); 
-        }
-
-        keyboard.close();
-
-        return titikY;
     }
 
     public double[][] makePersamaanMatrix(double[][] matrix) {
