@@ -31,7 +31,7 @@ public class InterpolasiPolinom {
 
         for (i = 0; i < jumlahTitik; i++) {
             titikX[i] = keyboard.nextDouble();
-            System.out.println("Masukkan Titik X ke-" + (i+1));
+            System.out.println("Masukkan Titik X ke-" + (i+1) + " " + titikX[i]);
         
         }
 
@@ -46,7 +46,7 @@ public class InterpolasiPolinom {
 
         for (i = 0; i < jumlahTitik; i++) {
             titikY[i] = keyboard.nextDouble();
-            System.out.println("Masukkan Titik Y ke-" + (i+1)); 
+            System.out.println("Masukkan Titik Y ke-" + (i+1)+ " " + titikY[i]); 
         }
 
         keyboard.close();
@@ -82,6 +82,25 @@ public class InterpolasiPolinom {
         return hasil;
     }
 
+    public void printPersamaan(double[][] matrix) {
+        int i,j;
+        String persamaan = "p(x)";
+        double[][] mainMat, hasil;
+        Matrix matObj = new Matrix();
+        MatriksBalikan mat = new MatriksBalikan();
+
+        mainMat = mat.splitMainMatrix(matrix);
+        hasil = mat.splitHasil(matrix);
+
+        for (i = 0; i < matObj.getnRows(matrix); i++) {
+            for (j = 0; j < matObj.getnCols(matrix); j++) {
+                persamaan += "a" + i + Math.pow(mainMat[i][j],i);
+                persamaan += " = " + hasil[i][j]; 
+            }
+            System.out.println(persamaan); // ngeprint persamaan
+        }
+    }
+
     public double interpolasiPolinom () {
         double[][] hasiltemp;
         double[] titikX, titikY;
@@ -100,11 +119,13 @@ public class InterpolasiPolinom {
         double[][] matrixPers = new double[jumlahTitik][jumlahTitik+1];
         
         matrixPers = makePersamaanMatrix(titikX, titikY);
-        matObj.gaussElimination(matrixPers);
-        hasiltemp = mat.splitHasil(matrixPers);
+        printPersamaan(matrixPers);
+
+        matObj.gaussElimination(matrixPers); // metode gauss
+        hasiltemp = mat.splitHasil(matrixPers); // mengambil matrix hasil dari operasi Gauss
 
         for (i = 0; i < jumlahTitik; i++) {
-            hasilA[i] = hasiltemp[i][0];
+            hasilA[i] = hasiltemp[i][0]; // matrix hasil di assign ke hasilA
         }
 
         hasilTaksiran = makePersamaan(hasilA, x, jumlahTitik);

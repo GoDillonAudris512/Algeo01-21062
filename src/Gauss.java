@@ -298,15 +298,10 @@ public class Gauss {
                         }
                     }    
             }
-<<<<<<< HEAD
 
             mat.printSolusi(hasilx);
         } else { // ga ada solusi, countExc > 0
             System.out.println("No Solution");
-=======
-        } else {
-            System.out.println("No Solution\n");
->>>>>>> f0510470a723271f9450e42db943d3228528e964
         }
     }
 
@@ -357,6 +352,7 @@ public class Gauss {
             
             return -1;
         }
+    }
         
 
 

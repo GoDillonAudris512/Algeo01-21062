@@ -78,6 +78,7 @@ public class GaussJordan {
         String[] parametrik = {"s","t","u","v","x","y","z"};
         double[] hasilx = new double[mat.getnRows(matrix)];
         double[][] mainMat, hasil;
+        boolean[] para = new boolean[mat.getnRows(matrix)];
 
         mainMat = matObj.splitMainMatrix(matrix);
         hasil = matObj.splitHasil(matrix);
@@ -88,31 +89,38 @@ public class GaussJordan {
             }
         }
 
-        if (countExc == 0) {
-            if (mat.getnCols(mainMat) == mat.getnRows(mainMat)) {
+        if (countExc == 0) { // ada solusi
+
+            if (mat.getnCols(mainMat) == mat.getnRows(mainMat)) { // matrix persegi, solusi unik
                 for (i = mat.getLastIdxRows(mainMat); i >= 0; i--) {
                     for (j = mat.getLastIdxCols(mainMat); j >= matt.indexOfLeadingOne(mainMat, i); j--) {
                         hasilx[i] = hasil[i][j];
                     }
                 }
-            } else {
-                for (i = mat.getLastIdxRows(matrix); i >= 0; i--) {
-                    for (j = mat.getLastIdxCols(mainMat); j >= matt.indexOfLeadingOne(mainMat, i); j--) {
-                        if (isThereLeadingOne(mainMat, j)) {
-                            hasilx[i] = hasil[i][j];
-                        } else {
-                            for (k = 0; k < mat.getnRows(matrix); k++) {
-                                double convert = Double.parseDouble(parametrik[k]);
-                                hasilx[i] = convert;
+
+            } else { // kolom > baris, solusi parametrik
+                    for (i = mat.getLastIdxRows(matrix); i >= 0; i--) {
+                        for (j = mat.getLastIdxCols(mainMat); j >= matt.indexOfLeadingOne(mainMat, i); j--) {
+                            for (k = (mat.getLastIdxCols(mainMat)-i); k > 0; k++) { // berapa elemen yang perlu di cek sampai index leading one
+    
+                                if (isThereLeadingOne(mainMat, j)) { // ada leading one nya
+                                    hasil[i][j] -= mattt.multiplyParametrik(hasilx[j], mainMat[i][j], para[j], parametrik[k]);
+                                    hasilx[i] = hasil[i][j];
+                                } else {
+                                    
+                                    Double convert = Double.parseDouble(parametrik[k]);
+                                    hasilx[i] = convert;
+                                    para[i] = true;
+                                    
+                                }
                             }
                         }
-                    }
                 }
             }
 
             mat.printSolusi(hasilx);
 
-        } else {
+        } else { // ga ada solusi
             System.out.println("No Solution");
         }
     }
