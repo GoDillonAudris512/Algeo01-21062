@@ -62,7 +62,7 @@ public class GaussJordan {
         return thereIsLeadingOne;
     }
 
-    public void gaussJordanEliminationSolution (double[][] matrix) {
+    public Object[] gaussJordanEliminationSolution (double[][] matrix) {
         Matrix mat = new Matrix();
         MatriksBalikan matObj = new MatriksBalikan();
         GaussJordan matt = new GaussJordan();
@@ -142,6 +142,8 @@ public class GaussJordan {
         } else { // ga ada solusi
             System.out.println("No Solution");
         }
+
+        return hasilx;
     }
 
     public void gaussJordanElimination(double[][] m) {

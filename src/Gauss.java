@@ -315,12 +315,11 @@ public class Gauss {
                 }
             }
 
-            return hasilx;
-
         } else {
             System.out.println("No Solution");
-            return hasilx;
         }
+
+        return hasilx;
     }
         
     public void gaussElimination(double[][] m){
