@@ -3,6 +3,8 @@
 
 package src;
 
+import java.util.Arrays;
+
 public class Gauss {
 
     public void swapRow (double[][] m, int baris1, int baris2) {
@@ -152,9 +154,9 @@ public class Gauss {
         if (x != 0) {
             if (x != 1) {
                 parameter += x;
-                parameter += "k";
+                parameter += k;
             } else {
-                parameter += "k";
+                parameter += k;
             }
         } else {
             parameter += 0;
@@ -185,7 +187,7 @@ public class Gauss {
         return OnlyParametric;
     }
 
-    public double multiplyParametrik(double hasilx, double mainMat, boolean xke, String s) {
+    public double multiplyParametrik(Object hasilx, double mainMat, boolean xke, String s) {
         String angka = "", parameter = "", hasilAkhir = "";
         int i;
         double hasil, hasilTemp;
@@ -193,7 +195,7 @@ public class Gauss {
         if (xke == true) { // kalau udah di gabung sama parametrik
 
             // mengubah solusi x menjadi string
-            String convert = Double.toString(hasilx);
+            String convert = (String) hasilx;
 
             if (isOnlyParametric(s)) { // kalau cuma parameter tanpa angka
                 hasil = makeParametrik(mainMat, s);
@@ -227,20 +229,20 @@ public class Gauss {
             }
 
         } else { // kalau bukan parametrik
-            hasil = hasilx * mainMat;
+            hasil = (double) hasilx * mainMat;
         }
 
         return hasil;
     }
 
-    public double[] gaussEliminationSolution(double[][] matrix) {
+    public Object[] gaussEliminationSolution(double[][] matrix) {
         MatriksBalikan matObj = new MatriksBalikan();
         Matrix mat = new Matrix();
         GaussJordan matt = new GaussJordan();
 
-        int i,j,k,n,countExc = 0;
+        int i,j,k,n,countExc = 0, countZero = 0;
         String[] parametrik = {"s","t","u","v","w"};
-        double[] hasilx = new double[mat.getnRows(matrix)];
+        Object[] hasilx = new Object[mat.getnRows(matrix)];
         double[][] mainMat, hasil;
         boolean[] para = new boolean[mat.getnRows(matrix)];
         
@@ -251,45 +253,44 @@ public class Gauss {
             if (isRowAnException(matrix, i)) {
                 countExc += 1; // kalau lebih > 0 berarti no solusi
             }
+            if (isRowAllZero(matrix, i)) {
+                countZero += 1;
+            }
         }
 
         if (countExc == 0) {
             // bukan baris exception
-
-            if (mat.getnCols(mainMat) == mat.getnRows(mainMat)) {
+            if ((mat.getnCols(mainMat) == mat.getnRows(mainMat)) && (countZero == 0)) {
                 // matrix persegi
-
                 for (i = mat.getLastIdxRows(matrix); i >= 0; i--) {
-                    for (j = mat.getLastIdxCols(mainMat); j > matt.indexOfLeadingOne(mainMat, i); j--) {
+                    for (j = mat.getLastIdxCols(mainMat); j >= matt.indexOfLeadingOne(mainMat, i); j--) {
                         if ((i == mat.getLastIdxRows(matrix)) && (j == mat.getLastIdxCols(mainMat))) {
                             // nilai x-terakhir
-                            hasilx[i] = hasil[i][j];
+                            hasilx[j] = hasil[i][0];
                         } else {
                             // nilai x bukan yang terakhir
-                            for (k = (mat.getLastIdxCols(mainMat)-i); k > 0; k++) {
-                                hasil[i][j] -= (hasilx[j] * mainMat[i][j]);
-                                hasilx[i] = hasil[i][j];
+                            if (j != matt.indexOfLeadingOne(mainMat, i)) {
+                                hasil[i][0] -= ((double) hasilx[j] * mainMat[i][j]);
+                                hasilx[i] = hasil[i][0];
                             }
                         }
                     }
                 }
             } else { // jumlah kolom > baris (parametrik)
-
-
                     // pengecekan dari ujuang kanan bawah ke ujung kiri atas
                     for (i = mat.getLastIdxRows(matrix); i >= 0; i--) {
-                        for (j = mat.getLastIdxCols(mainMat); j > matt.indexOfLeadingOne(mainMat, i); j--) {
-
+                        for (j = mat.getLastIdxCols(mainMat); j >= matt.indexOfLeadingOne(mainMat, i); j--) {
                             for (k = (mat.getLastIdxCols(mainMat)-i); k > 0; k++) { // berapa elemen yang perlu di cek sampai index leading one
                                 for (n = mat.getLastIdxCols(mainMat); n >= 0; n--) { // mengecek apakah ada leadingOne di kolom n
-                                    
+                                            
                                     if (n == matt.indexOfLeadingOne(mainMat, i)) { // ada leading one di kolom n
-                                        hasil[i][j] -= multiplyParametrik(hasilx[j], mainMat[i][j], para[j], parametrik[k]);
-                                        hasilx[i] = hasil[i][j];
-                                        
+                                        System.out.println(Arrays.toString(hasilx));
+                                        hasil[i][0] -= multiplyParametrik(hasilx[j], mainMat[i][j], para[j], parametrik[i]);
+                                        hasilx[i] = hasil[i][0];
+                                                
 
                                     } else { // ga ada leading one di kolom n, maka x-xke adalah parameter
-                                        Double p = Double.parseDouble(parametrik[k]);
+                                        String p = parametrik[i];
                                         hasilx[i] = p;
                                         para[i] = true;
                                     }
@@ -349,15 +350,11 @@ public class Gauss {
             return hasilx;
 
         } else {
-            System.out.println("No Solution\n");
-            
-            return -1;
+            System.out.println("No Solution");
+            return hasilx;
         }
     }
         
-
-
-    
     public void gaussElimination(double[][] m){
         /* I.S m terdefinisi */
         /* F.S m berubah menjadi suatu matriks eselon baris yang setara dengan metode eliminasi Gauss */
@@ -395,7 +392,5 @@ public class Gauss {
                 }
             }
         }
-        
-        gaussEliminationSolution(m);
     }
 }

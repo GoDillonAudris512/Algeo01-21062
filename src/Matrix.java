@@ -44,7 +44,7 @@ public class Matrix {
         return getnCols(m)-1;
     }
 
-    public void printSolusi (double[] hasilx) {
+    public void printSolusi (Object[] hasilx) {
         int i;
         String currentString;
 
