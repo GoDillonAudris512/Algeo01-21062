@@ -68,11 +68,11 @@ public class GaussJordan {
         GaussJordan matt = new GaussJordan();
         Gauss mattt = new Gauss();
 
-        int i,j,k, countExc = 0;
-        String[] parametrik = {"s","t","u","v","x","y","z"};
-        double[] hasilx = new double[mat.getnRows(matrix)];
+        int i,j,k,countExc = 0, countZero = 0, parameterUsed = 0, currentVariable;
+        String[] parametrik = {"s","t","u","v","w"};
+        Object[] hasilx = new Object[mat.getnCols(matrix) - 1];
         double[][] mainMat, hasil;
-        boolean[] para = new boolean[mat.getnRows(matrix)];
+        boolean[] para = new boolean[mat.getnCols(matrix)-1];
 
         mainMat = matObj.splitMainMatrix(matrix);
         hasil = matObj.splitHasil(matrix);
@@ -93,25 +93,46 @@ public class GaussJordan {
                 }
 
             } else { // kolom > baris, solusi parametrik
-                    for (i = mat.getLastIdxRows(matrix); i >= 0; i--) {
-                        for (j = mat.getLastIdxCols(mainMat); j > matt.indexOfLeadingOne(mainMat, i); j--) {
-                            for (k = (mat.getLastIdxCols(mainMat)-i); k > 0; k++) { // berapa elemen yang perlu di cek sampai index leading one
-    
-                                if (isThereLeadingOne(mainMat, j)) { // ada leading one nya
-                                    hasil[i][j] -= mattt.multiplyParametrik(hasilx[j], mainMat[i][j], para[j], parametrik[k]);
-                                    hasilx[i] = hasil[i][j];
-                                } else {
-                                    
-                                    Double convert = Double.parseDouble(parametrik[k]);
-                                    hasilx[i] = convert;
-                                    para[i] = true;
-                                    
-                                }
+                for (i = 0; i < hasilx.length; i++) {
+                    hasilx[i] = "";
+                }
+
+                currentVariable = mat.getLastIdxCols(matrix) - 1;
+                
+                for (i = mat.getLastIdxRows(matrix); i >= 0; i--) {
+                    if (mattt.isRowAllZero(matrix, i)) {
+                        hasilx[currentVariable] += parametrik[parameterUsed];
+                        para[currentVariable] = true;
+                        parameterUsed++;
+                        currentVariable--;
+                    }
+                    else {
+                        for (k = 0; k < mat.getLastIdxCols(mainMat); k++) {
+                            if (!matt.isThereLeadingOne(matrix, k) && hasilx[k] == "") {
+                                hasilx[k] = parametrik[parameterUsed];
+                                para[k] = true;
+                                parameterUsed++;                            
                             }
                         }
-                }
-            }
 
+                        for (j = mat.getLastIdxCols(mainMat); j >= matt.indexOfLeadingOne(mainMat, i); j--) {
+                            if (para[j] == false && hasilx[j] == "") {
+                                hasilx[j] = hasil[i][0];
+                            }
+                        }
+
+                        for (j = mat.getLastIdxCols(mainMat); j > matt.indexOfLeadingOne(mainMat, i); j--) {
+                            if ((mainMat[i][j] != 0) && (mainMat[i][j] != 1)) {
+                                hasilx[matt.indexOfLeadingOne(mainMat, i)] += " - " + mainMat[i][j] + "*(" + hasilx[j] + ")"; 
+                            }
+                            else if (mainMat[i][j] == 1) {
+                                hasilx[matt.indexOfLeadingOne(mainMat, i)] += " - " + "(" + hasilx[j] + ")"; 
+                            }
+                        } 
+                        
+                    }
+                }
+            }    
             mat.printSolusi(hasilx);
 
         } else { // ga ada solusi

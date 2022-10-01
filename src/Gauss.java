@@ -286,50 +286,6 @@ public class Gauss {
                 }
 
                 currentVariable = mat.getLastIdxCols(matrix) - 1;
-                // i = mat.getLastIdxRows(matrix);
-                // while (i >= 0) {
-                //     j = mat.getLastIdxCols(mainMat);
-                //     rowStillWorked = true;
-                //     while(j > matt.indexOfLeadingOne(mainMat, i) && rowStillWorked) {
-                //         if (isRowAllZero(matrix, i)) {
-                //             hasilx[currentVariable] += parametrik[parameterUsed];
-                //             parameterUsed++;
-                //             currentVariable--;
-                //             rowStillWorked = false;
-                //             i--;
-                //             System.out.println("a");
-                //         }
-                //         else {
-                //             if (!matt.isThereLeadingOne(matrix, j) && hasilx[j] == ""){
-                //                 System.out.println(i + " " + j + "" + hasilx[j]);
-                //                 hasilx[currentVariable] = parametrik[parameterUsed];
-                //                 parameterUsed++;
-                //                 currentVariable--;
-                //                 rowStillWorked = false;
-                //                 System.out.println("b");
-                //             }
-                //             else{
-                //                 hasilx[currentVariable] = "" + hasil[i][0];
-                //                 if ((mainMat[i][j] != 0) && (mainMat[i][j] != 1)) {
-                //                     hasilx[currentVariable] += " - " + mainMat[i][j] + "*(" + hasilx[j] + ")"; 
-                //                     System.out.println("c");
-                //                 }
-                //                 else if (mainMat[i][j] == 1) {
-                //                     hasilx[currentVariable] += " - " + "(" + hasilx[j] + ")"; 
-                //                     System.out.println("d");
-                //                 }
-
-                //                 j--;
-
-                //                 if (j == matt.indexOfLeadingOne(mainMat, i)) {
-                //                     System.out.println("e");
-                //                     rowStillWorked = false;
-                //                     i--;
-                //                 }
-                //             }
-                //         }
-                //     }
-                // }
                 
                 for (i = mat.getLastIdxRows(matrix); i >= 0; i--) {
                     if (isRowAllZero(matrix, i)) {
@@ -364,28 +320,6 @@ public class Gauss {
                         
                     }
                 }
-
-                    // pengecekan dari ujuang kanan bawah ke ujung kiri atas
-                    // for (i = mat.getLastIdxRows(matrix); i >= 0; i--) {
-                    //     for (j = mat.getLastIdxCols(mainMat); j >= matt.indexOfLeadingOne(mainMat, i); j--) {
-                    //         for (k = (mat.getLastIdxCols(mainMat)-i); k > 0; k++) { // berapa elemen yang perlu di cek sampai index leading one
-                    //             for (n = mat.getLastIdxCols(mainMat); n >= 0; n--) { // mengecek apakah ada leadingOne di kolom n
-                                            
-                    //                 if (n == matt.indexOfLeadingOne(mainMat, i)) { // ada leading one di kolom n
-                    //                     System.out.println(Arrays.toString(hasilx));
-                    //                     hasil[i][0] -= multiplyParametrik(hasilx[j], mainMat[i][j], para[j], parametrik[i]);
-                    //                     hasilx[i] = hasil[i][0];
-                                                
-
-                    //                 } else { // ga ada leading one di kolom n, maka x-xke adalah parameter
-                    //                     String p = parametrik[i];
-                    //                     hasilx[i] = p;
-                    //                     para[i] = true;
-                    //                 }
-                    //             }
-                    //         }
-                    //     }
-                    // }
             }    
             mat.printSolusi(hasilx);
         }
