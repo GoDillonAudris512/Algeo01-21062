@@ -81,11 +81,15 @@ public class GaussJordan {
             if (mattt.isRowAnException(matrix, i)) {
                 countExc += 1;
             }
+
+            if (mattt.isRowAllZero(matrix, i)) {
+                countZero += 1;
+            }
         }
 
         if (countExc == 0) { // ada solusi
 
-            if (mat.getnCols(mainMat) == mat.getnRows(mainMat)) { // matrix persegi, solusi unik
+            if (mat.getnCols(mainMat) == mat.getnRows(mainMat) && countZero == 0) { // matrix persegi, solusi unik
                 for (i = mat.getLastIdxRows(mainMat); i >= 0; i--) {
                     for (j = mat.getLastIdxCols(mainMat); j >= matt.indexOfLeadingOne(mainMat, i); j--) {
                         hasilx[i] = hasil[i][j];

@@ -3,10 +3,6 @@
 
 package src;
 
-import java.util.Arrays;
-
-import javax.lang.model.element.Parameterizable;
-
 public class Gauss {
 
     public void swapRow (double[][] m, int baris1, int baris2) {
@@ -187,56 +183,6 @@ public class Gauss {
         }
 
         return OnlyParametric;
-    }
-
-    public double multiplyParametrik(Object hasilx, double mainMat, boolean xke, String s) {
-        String angka = "", parameter = "", hasilAkhir = "";
-        int i;
-        double hasil, hasilTemp;
-
-        if (xke == true) { // kalau udah di gabung sama parametrik
-
-            // mengubah solusi x menjadi string
-            
-
-            if (isOnlyParametric(s)) { // kalau cuma parameter tanpa angka
-                String convert = (String) hasilx;
-                hasil = makeParametrik(mainMat, s);
-
-            } else { // kalau udah punya parameter dan angka
-
-                // solusi dipisah-pisah
-                String convert = (String) hasilx;
-                String[] arrOfStr = convert.split("",1);
-
-                // memasukkan angka ke dalam "angka" dan huruf ke dalam "parameter"
-                for (i = 0; i < convert.length()-1; i++) {
-                    angka += arrOfStr[i];
-                }
-                parameter += arrOfStr[convert.length()-1];
-
-                // mengubah angka menjadi double dan dikali mainMat
-                double angkaFinal = Double.parseDouble(angka);
-                hasilTemp = angkaFinal * mainMat;
-
-                // mengubah hasil perkalian menjadi double
-                String strangkaFinal = Double.toString(hasilTemp);
-
-                // menggabungkan hasil perkalian dengan parameter
-                hasilAkhir += strangkaFinal;
-                hasilAkhir += parameter;
-
-                // mengubah hasilAkhir (gabungan perkalian dengan parameter)
-                // menjadi double
-                Double hasilFinal = Double.parseDouble(hasilAkhir);
-                hasil = hasilFinal;
-            }
-
-        } else { // kalau bukan parametrik
-            hasil = (double) hasilx * mainMat;
-        }
-
-        return hasil;
     }
 
     public Object[] gaussEliminationSolution(double[][] matrix) {
