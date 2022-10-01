@@ -101,7 +101,7 @@ public class InterpolasiPolinom {
         }
     }
 
-    public double interpolasiPolinom () {
+    public double[] interpolasiPolinom () {
         double[] hasiltemp;
         double[] titikX, titikY;
         int i, x, jumlahTitik;
@@ -118,7 +118,6 @@ public class InterpolasiPolinom {
         double[][] matrixPers = new double[jumlahTitik][jumlahTitik+1];
         
         matrixPers = makePersamaanMatrix(titikX, titikY);
-        printPersamaan(matrixPers);
 
         matObj.gaussElimination(matrixPers); // metode gauss
         hasiltemp = matObj.gaussEliminationSolution(matrixPers);  // mengambil matrix hasil dari operasi Gauss
@@ -129,6 +128,6 @@ public class InterpolasiPolinom {
 
         hasilTaksiran = makePersamaan(hasilA, x, jumlahTitik);
 
-        return hasilTaksiran;
+        return hasilA;
     }
 }
