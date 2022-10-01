@@ -47,10 +47,22 @@ public class Matrix {
     public void printSolusi (Object[] hasilx) {
         int i;
         String currentString;
+        boolean noSolution = true;
 
-        for (i = 1; i <= hasilx.length; i++) {
-            currentString = "Nilai x" + i + " adalah " + hasilx[i-1];
-            System.out.println(currentString);
+        for (i = 0; i < hasilx.length; i++) {
+            if (hasilx[i] != null) {
+                noSolution = false;
+            }
+        }
+
+        if (noSolution) {
+            System.out.println("SPL tidak memiliki penyelesaian");
+        }
+        else {
+            for (i = 1; i <= hasilx.length; i++) {
+                currentString = "Nilai x" + i + " adalah " + hasilx[i-1];
+                System.out.println(currentString);
+            }
         }
     }
     
