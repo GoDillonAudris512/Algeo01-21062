@@ -34,15 +34,13 @@ public class Cramer {
     }
 
     public double[][] changeColXWithHasil (double[][] matrix, double[][] hasil,int ColX) {
-        int i, j;
+        int i;
         double[][] matrixTemp;
         Matrix matObj = new Matrix();
         matrixTemp = matrix;
 
-        for (i = 0; i < matObj.getnCols(matrix); i++) {
-            for (j = 0; j < matObj.getnRows(matrix); j++) {
-                matrixTemp[i][ColX] = hasil[i][j];
-            }
+        for (i = 0; i < matObj.getnRows(matrix); i++) {
+            matrixTemp[i][ColX] = hasil[i][0];
         }
 
         return matrixTemp;
@@ -63,25 +61,29 @@ public class Cramer {
         matrixTemp = mainMat;
 
         if (isPersegi(mainMat)) {
-            for (i = 0; i < matrixObj.getnCols(mainMat); i++) {
-                for (k = 0; k < matrixObj.getnRows(mainMat); k++) {
+            if (detKofObj.determinanKofaktor(mainMat) != 0) {
+                for (i = 0; i < matrixObj.getnCols(mainMat); i++) {
+                    for (k = 0; k < matrixObj.getnRows(mainMat); k++) {
 
-                    matrixTemp = changeColXWithHasil(mainMat, hasil, k);
-                    // menukar kolom di matrixTemp dengan hasil
+                        matrixTemp = changeColXWithHasil(mainMat, hasil, k);
+                        // menukar kolom di matrixTemp dengan hasil
 
-                    hasilx[i] = detKofObj.determinanKofaktor(matrixTemp) / detKofObj.determinanKofaktor(mainMat);
-                    // menghitung hasil x ke-k dengan cara
-                    // membagi determinant yang sudah diganti dengan determinant matrix awal
+                        hasilx[i] = detKofObj.determinanKofaktor(matrixTemp) / detKofObj.determinanKofaktor(mainMat);
+                        // menghitung hasil x ke-k dengan cara
+                        // membagi determinant yang sudah diganti dengan determinant matrix awal
 
-                    matrixTemp[i][k] = mainMat[i][k];
-                    // mengubah nilai dari matrixTemp menjadi mainMat lagi
+                        matrixTemp[i][k] = mainMat[i][k];
+                        // mengubah nilai dari matrixTemp menjadi mainMat lagi
+                    }
                 }
+                matrixObj.printSolusi(hasilx);
+            }
+            else {
+                System.out.println("Matriks tidak mempunyai solusi unik");
             }
         } else {
            System.out.println("Bukan Matriks Persegi!"); 
         }
-
-        matrixObj.printSolusi(hasilx);
 
     }    
 }
