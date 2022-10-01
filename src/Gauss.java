@@ -146,21 +146,110 @@ public class Gauss {
         return rowAlreadyArranged;
     }
 
+    public double makeParametrik (double x, String k) {
+        String parameter = "";
+        
+        if (x != 0) {
+            if (x != 1) {
+                parameter += x;
+                parameter += "k";
+            } else {
+                parameter += "k";
+            }
+        } else {
+            parameter += 0;
+        }
+        
+        double convert = Double.parseDouble(parameter);
+        return convert;
+    }
+
+    public boolean isOnlyParametric(String s) {
+        boolean OnlyParametric = true;
+        if (s.length() == 1 
+        && (s != "0")
+        && (s != "1")
+        && (s != "2")
+        && (s != "3")
+        && (s != "4")
+        && (s != "5")
+        && (s != "6")
+        && (s != "7")
+        && (s != "8")
+        && (s != "9")) {
+            OnlyParametric = true;
+        } else {
+            OnlyParametric = false;
+        }
+
+        return OnlyParametric;
+    }
+
+    public double multiplyParametrik(double hasilx, double mainMat, boolean xke, String s) {
+        String angka = "", parameter = "", hasilAkhir = "";
+        int i;
+        double hasil, hasilTemp;
+
+        if (xke == true) { // kalau udah di gabung sama parametrik
+
+            // mengubah solusi x menjadi string
+            String convert = Double.toString(hasilx);
+
+            if (isOnlyParametric(s)) { // kalau cuma parameter tanpa angka
+                hasil = makeParametrik(mainMat, s);
+
+            } else { // kalau udah punya parameter dan angka
+
+                // solusi dipisah-pisah
+                String[] arrOfStr = convert.split("",1);
+
+                // memasukkan angka ke dalam "angka" dan huruf ke dalam "parameter"
+                for (i = 0; i < convert.length()-1; i++) {
+                    angka += arrOfStr[i];
+                }
+                parameter += arrOfStr[convert.length()-1];
+
+                // mengubah angka menjadi double dan dikali mainMat
+                double angkaFinal = Double.parseDouble(angka);
+                hasilTemp = angkaFinal * mainMat;
+
+                // mengubah hasil perkalian menjadi double
+                String strangkaFinal = Double.toString(hasilTemp);
+
+                // menggabungkan hasil perkalian dengan parameter
+                hasilAkhir += strangkaFinal;
+                hasilAkhir += parameter;
+
+                // mengubah hasilAkhir (gabungan perkalian dengan parameter)
+                // menjadi double
+                Double hasilFinal = Double.parseDouble(hasilAkhir);
+                hasil = hasilFinal;
+            }
+
+        } else { // kalau bukan parametrik
+            hasil = hasilx * mainMat;
+        }
+
+        return hasil;
+    }
+
     public void gaussEliminationSolution(double[][] matrix) {
         MatriksBalikan matObj = new MatriksBalikan();
         Matrix mat = new Matrix();
         GaussJordan matt = new GaussJordan();
 
-        int i,j,k, countExc = 0;
+        int i,j,k,n,countExc = 0;
+        String[] parametrik = {"s","t","u","v","w"};
         double[] hasilx = new double[mat.getnRows(matrix)];
         double[][] mainMat, hasil;
+        boolean[] para = new boolean[mat.getnRows(matrix)];
         
         mainMat = matObj.splitMainMatrix(matrix);
         hasil = matObj.splitHasil(matrix);
 
         for (i = 0; i < mat.getnRows(matrix); i++){
             if (isRowAnException(matrix, i)) {
-                countExc += 1;
+                countExc += 1; // kalau lebih > 0 berarti no solusi
             }
         }
 
@@ -184,11 +273,34 @@ public class Gauss {
                         }
                     }
                 }
-            } else {
-                // jumlah kolom > baris (parametrik)
-                
+            } else { // jumlah kolom > baris (parametrik)
+
+
+                    // pengecekan dari ujuang kanan bawah ke ujung kiri atas
+                    for (i = mat.getLastIdxRows(matrix); i >= 0; i--) {
+                        for (j = mat.getLastIdxCols(mainMat); j > matt.indexOfLeadingOne(mainMat, i); j--) {
+
+                            for (k = (mat.getLastIdxCols(mainMat)-i); k > 0; k++) { // berapa elemen yang perlu di cek sampai index leading one
+                                for (n = mat.getLastIdxCols(mainMat); n >= 0; n--) { // mengecek apakah ada leadingOne di kolom n
+                                    
+                                    if (n == matt.indexOfLeadingOne(mainMat, i)) { // ada leading one di kolom n
+                                        hasil[i][j] -= multiplyParametrik(hasilx[j], mainMat[i][j], para[j], parametrik[k]);
+                                        hasilx[i] = hasil[i][j];
+                                        
+
+                                    } else { // ga ada leading one di kolom n, maka x-xke adalah parameter
+                                        Double p = Double.parseDouble(parametrik[k]);
+                                        hasilx[i] = p;
+                                        para[i] = true;
+                                    }
+                                }
+                            }
+                        }
+                    }    
             }
-        } else {
+
+            mat.printSolusi(hasilx);
+        } else { // ga ada solusi, countExc > 0
             System.out.println("No Solution");
         }
     }
@@ -229,6 +341,8 @@ public class Gauss {
                     m[i][j] = 0;
                 }
             }
-        } 
+        }
+        
+        gaussEliminationSolution(m);
     }
 }
