@@ -49,20 +49,14 @@ public class GaussJordan {
     }
 
     public boolean isThereLeadingOne(double[][] matrix, int kolomX) {
-        int i,countZero = 0;
-        boolean thereIsLeadingOne = true;
+        int i;
+        boolean thereIsLeadingOne = false;
         Matrix mat = new Matrix();
 
         for (i = 0; i < mat.getnRows(matrix); i++) {
-            if (matrix[i][kolomX] == 0) {
-                countZero += 1;
+            if (kolomX == indexOfLeadingOne(matrix, i)) {
+                thereIsLeadingOne = true;
             }
-        }
-
-        if (countZero == mat.getLastIdxRows(matrix)) {
-            thereIsLeadingOne = true;
-        } else {
-            thereIsLeadingOne = false;
         }
 
         return thereIsLeadingOne;
@@ -100,7 +94,7 @@ public class GaussJordan {
 
             } else { // kolom > baris, solusi parametrik
                     for (i = mat.getLastIdxRows(matrix); i >= 0; i--) {
-                        for (j = mat.getLastIdxCols(mainMat); j >= matt.indexOfLeadingOne(mainMat, i); j--) {
+                        for (j = mat.getLastIdxCols(mainMat); j > matt.indexOfLeadingOne(mainMat, i); j--) {
                             for (k = (mat.getLastIdxCols(mainMat)-i); k > 0; k++) { // berapa elemen yang perlu di cek sampai index leading one
     
                                 if (isThereLeadingOne(mainMat, j)) { // ada leading one nya
