@@ -233,7 +233,7 @@ public class Gauss {
         return hasil;
     }
 
-    public void gaussEliminationSolution(double[][] matrix) {
+    public double[] gaussEliminationSolution(double[][] matrix) {
         MatriksBalikan matObj = new MatriksBalikan();
         Matrix mat = new Matrix();
         GaussJordan matt = new GaussJordan();
@@ -303,6 +303,7 @@ public class Gauss {
         } else { // ga ada solusi, countExc > 0
             System.out.println("No Solution");
         }
+        return hasilx;
     }
 
     public double[] gaussEliminationSolutionKeluaran(double[][] matrix) {
