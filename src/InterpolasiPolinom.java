@@ -54,29 +54,30 @@ public class InterpolasiPolinom {
         return titikY;
     }
 
-    public double[][] makePersamaanMatrix(double[] titikX, double[] titikY) {
+    public double[][] makePersamaanMatrix(double[][] matrix) {
         int i,j;
-        double[][] matrixPers = new double[titikY.length][titikX.length+1];
+        Matrix matObj = new Matrix();
+        double[][] matrixPers = new double[matObj.getnRows(matrix)][matObj.getnRows(matrix)+1];
 
-        for (i = 0; i < titikY.length; i++) {
-            for (j = 0; j < titikX.length; j++) {
-                matrixPers[i][j] = Math.pow(titikX[j], j);
+        for (i = 0; i < matObj.getnRows(matrix); i++) {
+            for (j = 0; j < matObj.getnRows(matrix); j++) {
+                matrixPers[i][j] = Math.pow(matrix[i][0], j);
             }
         }
 
-        for (i = 0; i < titikY.length; i++) {
-            matrixPers[i][titikX.length-1] = titikY[i];
+        for (i = 0; i < matObj.getnRows(matrix); i++) {
+            matrixPers[i][matObj.getnRows(matrix)-1] = matrix[i][1];
         }
 
         return matrixPers;
     }
 
-    public double makePersamaan(double[] hasilA, double x, int jumlahTitik) {
+    public double makePersamaan(Object[] hasilA, double x, int jumlahTitik) {
         int i;
         double hasil = 0;
-
+        
         for (i = 0; i < jumlahTitik; i++) {
-            hasil += hasilA[i] * Math.pow(x,i);
+            hasil += (double) hasilA[i] * Math.pow(x,i);
         }
 
         return hasil;
@@ -101,32 +102,23 @@ public class InterpolasiPolinom {
         }
     }
 
-    public double[] interpolasiPolinom () {
-        double[] hasiltemp;
-        double[] titikX, titikY;
-        int i, x, jumlahTitik;
-        double hasilTaksiran;
+    public Object[] interpolasiPolinom (double[][] titik, int jumlahTitik) {
+        Object[] hasiltemp;
+        int i;
         
         Gauss matObj = new Gauss();
 
-        jumlahTitik = inputJumlahTitik();
-        titikX = inputTitikX(jumlahTitik);
-        titikY = inputTitikY(jumlahTitik);
-        x = inputNilaiTaksiranX();
-        
-        double[] hasilA = new double[jumlahTitik];
+        Object[] hasilA = new Object[jumlahTitik];
         double[][] matrixPers = new double[jumlahTitik][jumlahTitik+1];
-        
-        matrixPers = makePersamaanMatrix(titikX, titikY);
 
+        matrixPers = makePersamaanMatrix(titik);
+        
         matObj.gaussElimination(matrixPers); // metode gauss
         hasiltemp = matObj.gaussEliminationSolution(matrixPers);  // mengambil matrix hasil dari operasi Gauss
 
         for (i = 0; i < jumlahTitik; i++) {
             hasilA[i] = hasiltemp[i]; // matrix hasil di assign ke hasilA
         }
-
-        hasilTaksiran = makePersamaan(hasilA, x, jumlahTitik);
 
         return hasilA;
     }
