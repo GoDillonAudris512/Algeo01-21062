@@ -120,7 +120,7 @@ public class InterpolasiPolinom {
         matrixPers = makePersamaanMatrix(titikX, titikY);
         printPersamaan(matrixPers);
 
-        matObj.gaussEliminationSolution(matrixPers); // metode gauss
+        matObj.gaussElimination(matrixPers); // metode gauss
         hasiltemp = matObj.gaussEliminationSolution(matrixPers);  // mengambil matrix hasil dari operasi Gauss
 
         for (i = 0; i < jumlahTitik; i++) {
