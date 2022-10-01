@@ -17,9 +17,10 @@ public class InversAdjoint {
         Matrix matrixObj = new Matrix();
         mTranspose = new double[matrixObj.getnCols(m)][matrixObj.getnRows(m)];
 
-        for (j = 0; j < matrixObj.getnCols(m); j++) {
-            for (i = 0; i < matrixObj.getnRows(m); i++) {
-                mTranspose[i][j] = m[j][i]; 
+        
+        for (i = 0; i < matrixObj.getnRows(m); i++) {
+            for (j = 0; j < matrixObj.getnCols(m); j++) {
+                mTranspose[j][i] = m[i][j]; 
             }
         }
 
