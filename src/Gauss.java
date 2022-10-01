@@ -5,6 +5,8 @@ package src;
 
 import java.util.Arrays;
 
+import javax.lang.model.element.Parameterizable;
+
 public class Gauss {
 
     public void swapRow (double[][] m, int baris1, int baris2) {
@@ -195,14 +197,16 @@ public class Gauss {
         if (xke == true) { // kalau udah di gabung sama parametrik
 
             // mengubah solusi x menjadi string
-            String convert = (String) hasilx;
+            
 
             if (isOnlyParametric(s)) { // kalau cuma parameter tanpa angka
+                String convert = (String) hasilx;
                 hasil = makeParametrik(mainMat, s);
 
             } else { // kalau udah punya parameter dan angka
 
                 // solusi dipisah-pisah
+                String convert = (String) hasilx;
                 String[] arrOfStr = convert.split("",1);
 
                 // memasukkan angka ke dalam "angka" dan huruf ke dalam "parameter"
@@ -240,7 +244,7 @@ public class Gauss {
         Matrix mat = new Matrix();
         GaussJordan matt = new GaussJordan();
 
-        int i,j,k,n,countExc = 0, countZero = 0;
+        int i,j,k,n,countExc = 0, countZero = 0, parameterUsed = 0;
         String[] parametrik = {"s","t","u","v","w"};
         Object[] hasilx = new Object[mat.getnRows(matrix)];
         double[][] mainMat, hasil;
@@ -277,29 +281,50 @@ public class Gauss {
                     }
                 }
             } else { // jumlah kolom > baris (parametrik)
-                    // pengecekan dari ujuang kanan bawah ke ujung kiri atas
-                    for (i = mat.getLastIdxRows(matrix); i >= 0; i--) {
-                        for (j = mat.getLastIdxCols(mainMat); j >= matt.indexOfLeadingOne(mainMat, i); j--) {
-                            for (k = (mat.getLastIdxCols(mainMat)-i); k > 0; k++) { // berapa elemen yang perlu di cek sampai index leading one
-                                for (n = mat.getLastIdxCols(mainMat); n >= 0; n--) { // mengecek apakah ada leadingOne di kolom n
-                                            
-                                    if (n == matt.indexOfLeadingOne(mainMat, i)) { // ada leading one di kolom n
-                                        System.out.println(Arrays.toString(hasilx));
-                                        hasil[i][0] -= multiplyParametrik(hasilx[j], mainMat[i][j], para[j], parametrik[i]);
-                                        hasilx[i] = hasil[i][0];
-                                                
+                for (i = 0; i < hasilx.length; i++) {
+                    hasilx[i] = "";
+                }
 
-                                    } else { // ga ada leading one di kolom n, maka x-xke adalah parameter
-                                        String p = parametrik[i];
-                                        hasilx[i] = p;
-                                        para[i] = true;
-                                    }
-                                }
+                for (i = mat.getLastIdxRows(matrix); i >= 0; i--) {
+                    if (isRowAllZero(matrix, i)) {
+                        hasilx[i] += parametrik[parameterUsed];
+                        parameterUsed++;
+                    }
+                    else {
+                        hasilx[i] = "" + hasil[i][0];
+                        for (j = mat.getLastIdxCols(mainMat); j > matt.indexOfLeadingOne(mainMat, i); j--) {
+                            if ((mainMat[i][j] != 0) && (mainMat[i][j] != 1)) {
+                                hasilx[i] += " - " + mainMat[i][j] + "*(" + hasilx[j] + ")"; 
+                            }
+                            else if (mainMat[i][j] == 1) {
+                                hasilx[i] += " - " + "(" + hasilx[j] + ")"; 
                             }
                         }
-                    }    
-            }
+                    }
 
+                    // pengecekan dari ujuang kanan bawah ke ujung kiri atas
+                    // for (i = mat.getLastIdxRows(matrix); i >= 0; i--) {
+                    //     for (j = mat.getLastIdxCols(mainMat); j >= matt.indexOfLeadingOne(mainMat, i); j--) {
+                    //         for (k = (mat.getLastIdxCols(mainMat)-i); k > 0; k++) { // berapa elemen yang perlu di cek sampai index leading one
+                    //             for (n = mat.getLastIdxCols(mainMat); n >= 0; n--) { // mengecek apakah ada leadingOne di kolom n
+                                            
+                    //                 if (n == matt.indexOfLeadingOne(mainMat, i)) { // ada leading one di kolom n
+                    //                     System.out.println(Arrays.toString(hasilx));
+                    //                     hasil[i][0] -= multiplyParametrik(hasilx[j], mainMat[i][j], para[j], parametrik[i]);
+                    //                     hasilx[i] = hasil[i][0];
+                                                
+
+                    //                 } else { // ga ada leading one di kolom n, maka x-xke adalah parameter
+                    //                     String p = parametrik[i];
+                    //                     hasilx[i] = p;
+                    //                     para[i] = true;
+                    //                 }
+                    //             }
+                    //         }
+                    //     }
+                    // }    
+              }
+            }
             mat.printSolusi(hasilx);
         } else { // ga ada solusi, countExc > 0
             System.out.println("No Solution");
