@@ -56,18 +56,18 @@ public class MatriksBalikan {
 
     public double[] inversElimination(double[][] matrix) {
         Matrix matObj = new Matrix();
-        InversAdjoint matKofObj = new InversAdjoint();
+        InversReduksiBaris invRedBarObj = new InversReduksiBaris();
 
         double[][] hasilxtemp, hasil, mainMat;
-        double[] hasilx = new double[matObj.getLastIdxRows(matrix)];
+        double[] hasilx = new double[matObj.getnRows(matrix)];
         int i;
 
         hasil = splitHasil(matrix);
         mainMat = splitMainMatrix(matrix);
 
-        hasilxtemp = multiplyMatrixbyMatrix(matKofObj.inversByAdjoint(mainMat), hasil);
+        hasilxtemp = multiplyMatrixbyMatrix(invRedBarObj.inversByReduksiBaris(mainMat), hasil);
 
-        for (i = 0; i < matObj.getnRows(matrix); i++) {
+        for (i = 0; i < matObj.getnRows(hasilxtemp); i++) {
             hasilx[i] = hasilxtemp[i][0];
         }
 

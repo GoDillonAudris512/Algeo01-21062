@@ -298,12 +298,68 @@ public class Gauss {
                         }
                     }    
             }
+<<<<<<< HEAD
 
             mat.printSolusi(hasilx);
         } else { // ga ada solusi, countExc > 0
             System.out.println("No Solution");
+=======
+        } else {
+            System.out.println("No Solution\n");
+>>>>>>> f0510470a723271f9450e42db943d3228528e964
         }
     }
+
+    public double[] gaussEliminationSolutionKeluaran(double[][] matrix) {
+        MatriksBalikan matObj = new MatriksBalikan();
+        Matrix mat = new Matrix();
+        GaussJordan matt = new GaussJordan();
+
+        int i,j,k, countExc = 0;
+        double[] hasilx = new double[mat.getnRows(matrix)];
+        double[][] mainMat, hasil;
+        
+        mainMat = matObj.splitMainMatrix(matrix);
+        hasil = matObj.splitHasil(matrix);
+
+        for (i = 0; i < mat.getnRows(matrix); i++){
+            if (isRowAnException(matrix, i)) {
+                countExc += 1;
+            }
+        }
+
+        if (countExc == 0) {
+            // bukan baris exception
+
+            if (mat.getnCols(mainMat) == mat.getnRows(mainMat)) {
+                // matrix persegi
+
+                for (i = mat.getLastIdxRows(matrix); i >= 0; i--) {
+                    for (j = mat.getLastIdxCols(mainMat); j > matt.indexOfLeadingOne(mainMat, i); j--) {
+                        if ((i == mat.getLastIdxRows(matrix)) && (j == mat.getLastIdxCols(mainMat))) {
+                            // nilai x-terakhir
+                            hasilx[i] = hasil[i][j];
+                        } else {
+                            // nilai x bukan yang terakhir
+                            for (k = (mat.getLastIdxCols(mainMat)-i); k > 0; k++) {
+                                hasil[i][j] -= (hasilx[j] * mainMat[i][j]);
+                                hasilx[i] = hasil[i][j];
+                            }
+                        }
+                    }
+                }
+            }
+
+            return hasilx;
+
+        } else {
+            System.out.println("No Solution\n");
+            
+            return -1;
+        }
+        
+
+
     
     public void gaussElimination(double[][] m){
         /* I.S m terdefinisi */

@@ -15,10 +15,10 @@ public class InversAdjoint {
 
         // Algoritma
         Matrix matrixObj = new Matrix();
-        mTranspose = new double[matrixObj.getnRows(m)][matrixObj.getnCols(m)];
+        mTranspose = new double[matrixObj.getnCols(m)][matrixObj.getnRows(m)];
 
-        for (i = 0; i < matrixObj.getnRows(m); i++) {
-            for (j = 0; j < matrixObj.getnCols(m); j++) {
+        for (j = 0; j < matrixObj.getnCols(m); j++) {
+            for (i = 0; i < matrixObj.getnRows(m); i++) {
                 mTranspose[i][j] = m[j][i]; 
             }
         }

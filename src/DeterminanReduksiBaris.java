@@ -46,40 +46,52 @@ public class DeterminanReduksiBaris {
     }
 
     double determinanReduksiBaris (double[][] m) {
-        int i,j,k;
-        Matrix mObj = new Matrix();
-        double det = 1, pembagi,pengali;
-        
-        for (j=0; j<mObj.getnCols(m)-1; j++) {
-            for (i=j+1; i<mObj.getnRows(m); i++) {
-                pembagi = m[j][j];
-                pengali = m[i][j];
+        // int i,j,k;
+        // Matrix mObj = new Matrix();
+        Gauss gauss = new Gauss();
+        double det = 1;
+            /* Kamus */
+            int indexColumn = 0, rowCurrentlyWorked = 0, indexPivot = 0, rowToWorked, i, j;
 
-                for (k=j; k<mObj.getnCols(m); k++) {
-                    if (isRowZero(m, i)) {
-                        return 0;
-                    }
-        
-                    if (m[i][j] == 0) {
-                        if (i != mObj.getLastIdxRows(m)) {
-                            m = swapRow(m, i, i+1);
-                            det *= -1;
-                        } else {
-                            return 0;
+            /* Algoritma */
+            Matrix matrixObj = new Matrix();
+
+            // Menukar seluruh baris Zero dan baris Exception ke bawah dan menentukan banyak row yang akan dilakukan Gauss Elimination
+            rowToWorked = gauss.arrangeMatrix(m) - 1;
+
+            // Mulai Gauss Elimination
+            for (indexColumn = 0; indexColumn < matrixObj.getnCols(m); indexColumn++) {
+                if (rowCurrentlyWorked <= rowToWorked) {
+                    indexPivot = gauss.indexOfPivotRow(m, rowCurrentlyWorked, indexColumn);
+                    swapRow(m, indexPivot, rowCurrentlyWorked);
+
+                    if (m[rowCurrentlyWorked][indexColumn] != 0) {
+                        for (i = rowCurrentlyWorked+1; i <= rowToWorked; i++) {
+                            gauss.addRowWithMultipleOfRow(m, i, rowCurrentlyWorked, -(m[i][indexColumn]/m[rowCurrentlyWorked][indexColumn]));
                         }
-    
-                    }
-                    
-                    if (i != mObj.getLastIdxRows(m)) {
-                        m[i][k] -= pengali*m[j][k]/pembagi;
+                        rowCurrentlyWorked++;
                     }
                 }
                 
             }
-    
-            det *= m[j][j];
-        }
 
-        return det;
+            // Handling elemen = -0
+            for (i = 0; i < matrixObj.getnRows(m); i++) {
+                for (j = 0; j < matrixObj.getnCols(m); j++) {
+                    if (m[i][j] == -0) {
+                        m[i][j] = 0;
+                    }
+                }
+            } 
+
+            for (i=0; i<matrixObj.getnRows(m); i++) {
+                det *= m[i][i];
+            }
+
+            if (det == -0) {
+                det = 0;
+            }
+
+            return det;
     }
 }
