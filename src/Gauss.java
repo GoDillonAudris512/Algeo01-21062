@@ -244,11 +244,11 @@ public class Gauss {
         Matrix mat = new Matrix();
         GaussJordan matt = new GaussJordan();
 
-        int i,j,k,n,countExc = 0, countZero = 0, parameterUsed = 0;
+        int i,j,k,countExc = 0, countZero = 0, parameterUsed = 0, currentVariable;
         String[] parametrik = {"s","t","u","v","w"};
-        Object[] hasilx = new Object[mat.getnRows(matrix)];
+        Object[] hasilx = new Object[mat.getnCols(matrix) - 1];
         double[][] mainMat, hasil;
-        boolean[] para = new boolean[mat.getnRows(matrix)];
+        boolean[] para = new boolean[mat.getnCols(matrix)-1];
         
         mainMat = matObj.splitMainMatrix(matrix);
         hasil = matObj.splitHasil(matrix);
@@ -285,22 +285,85 @@ public class Gauss {
                     hasilx[i] = "";
                 }
 
+                currentVariable = mat.getLastIdxCols(matrix) - 1;
+                // i = mat.getLastIdxRows(matrix);
+                // while (i >= 0) {
+                //     j = mat.getLastIdxCols(mainMat);
+                //     rowStillWorked = true;
+                //     while(j > matt.indexOfLeadingOne(mainMat, i) && rowStillWorked) {
+                //         if (isRowAllZero(matrix, i)) {
+                //             hasilx[currentVariable] += parametrik[parameterUsed];
+                //             parameterUsed++;
+                //             currentVariable--;
+                //             rowStillWorked = false;
+                //             i--;
+                //             System.out.println("a");
+                //         }
+                //         else {
+                //             if (!matt.isThereLeadingOne(matrix, j) && hasilx[j] == ""){
+                //                 System.out.println(i + " " + j + "" + hasilx[j]);
+                //                 hasilx[currentVariable] = parametrik[parameterUsed];
+                //                 parameterUsed++;
+                //                 currentVariable--;
+                //                 rowStillWorked = false;
+                //                 System.out.println("b");
+                //             }
+                //             else{
+                //                 hasilx[currentVariable] = "" + hasil[i][0];
+                //                 if ((mainMat[i][j] != 0) && (mainMat[i][j] != 1)) {
+                //                     hasilx[currentVariable] += " - " + mainMat[i][j] + "*(" + hasilx[j] + ")"; 
+                //                     System.out.println("c");
+                //                 }
+                //                 else if (mainMat[i][j] == 1) {
+                //                     hasilx[currentVariable] += " - " + "(" + hasilx[j] + ")"; 
+                //                     System.out.println("d");
+                //                 }
+
+                //                 j--;
+
+                //                 if (j == matt.indexOfLeadingOne(mainMat, i)) {
+                //                     System.out.println("e");
+                //                     rowStillWorked = false;
+                //                     i--;
+                //                 }
+                //             }
+                //         }
+                //     }
+                // }
+                
                 for (i = mat.getLastIdxRows(matrix); i >= 0; i--) {
                     if (isRowAllZero(matrix, i)) {
-                        hasilx[i] += parametrik[parameterUsed];
+                        hasilx[currentVariable] += parametrik[parameterUsed];
+                        para[currentVariable] = true;
                         parameterUsed++;
+                        currentVariable--;
                     }
                     else {
-                        hasilx[i] = "" + hasil[i][0];
-                        for (j = mat.getLastIdxCols(mainMat); j > matt.indexOfLeadingOne(mainMat, i); j--) {
-                            if ((mainMat[i][j] != 0) && (mainMat[i][j] != 1)) {
-                                hasilx[i] += " - " + mainMat[i][j] + "*(" + hasilx[j] + ")"; 
-                            }
-                            else if (mainMat[i][j] == 1) {
-                                hasilx[i] += " - " + "(" + hasilx[j] + ")"; 
+                        for (k = 0; k < mat.getLastIdxCols(mainMat); k++) {
+                            if (!matt.isThereLeadingOne(matrix, k) && hasilx[k] == "") {
+                                hasilx[k] = parametrik[parameterUsed];
+                                para[k] = true;
+                                parameterUsed++;                            
                             }
                         }
+
+                        for (j = mat.getLastIdxCols(mainMat); j >= matt.indexOfLeadingOne(mainMat, i); j--) {
+                            if (para[j] == false && hasilx[j] == "") {
+                                hasilx[j] = hasil[i][0];
+                            }
+                        }
+
+                        for (j = mat.getLastIdxCols(mainMat); j > matt.indexOfLeadingOne(mainMat, i); j--) {
+                            if ((mainMat[i][j] != 0) && (mainMat[i][j] != 1)) {
+                                hasilx[matt.indexOfLeadingOne(mainMat, i)] += " - " + mainMat[i][j] + "*(" + hasilx[j] + ")"; 
+                            }
+                            else if (mainMat[i][j] == 1) {
+                                hasilx[matt.indexOfLeadingOne(mainMat, i)] += " - " + "(" + hasilx[j] + ")"; 
+                            }
+                        } 
+                        
                     }
+                }
 
                     // pengecekan dari ujuang kanan bawah ke ujung kiri atas
                     // for (i = mat.getLastIdxRows(matrix); i >= 0; i--) {
@@ -322,11 +385,11 @@ public class Gauss {
                     //             }
                     //         }
                     //     }
-                    // }    
-              }
-            }
+                    // }
+            }    
             mat.printSolusi(hasilx);
-        } else { // ga ada solusi, countExc > 0
+        }
+        else { // ga ada solusi, countExc > 0
             System.out.println("No Solution");
         }
         return hasilx;
