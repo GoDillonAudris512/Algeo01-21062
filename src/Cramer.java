@@ -51,7 +51,7 @@ public class Cramer {
     public void cramerElimination(double[][] matrix) {
         Matrix matrixObj = new Matrix();
         int i,k;
-        double[] hasilx = new double[matrixObj.getnCols(matrix)-1];
+        Object[] hasilx = new Object[matrixObj.getnCols(matrix)-1];
         double[][] matrixTemp, hasil, mainMat;
 
         DeterminanKofaktor detKofObj = new DeterminanKofaktor();
