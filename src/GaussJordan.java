@@ -137,10 +137,6 @@ public class GaussJordan {
                     }
                 }
             }    
-            mat.printSolusi(hasilx);
-
-        } else { // ga ada solusi
-            System.out.println("No Solution");
         }
 
         return hasilx;
@@ -170,7 +166,5 @@ public class GaussJordan {
             }
             j--;
         }
-
-        gaussJordanEliminationSolution(m);
     }
 }
