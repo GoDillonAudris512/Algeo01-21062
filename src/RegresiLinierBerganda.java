@@ -166,6 +166,7 @@ public class RegresiLinierBerganda {
         mObj.printMatrixToScreen(XtXXtY);
         System.out.println("");
         
+        gauss.gaussElimination(XtXXtY);
         bObj = gauss.gaussEliminationSolution(XtXXtY);
 
         for (i=0; i<n; i++) {
