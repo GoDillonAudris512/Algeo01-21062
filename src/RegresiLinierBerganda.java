@@ -57,6 +57,7 @@ public class RegresiLinierBerganda {
                 XtY = new double[n][1];
                 XtXXtY = new double[n][n+1];
                 Xk = new double[1][n];
+                bObj = new Object[n];
                 b = new double[n];
         
                 System.out.println("Masukkan matriks XY: ");
@@ -98,6 +99,7 @@ public class RegresiLinierBerganda {
                 m = 1;
 
                 Xk = new double[1][n];
+                bObj = new Object[n];
                 b = new double[n];
 
                 mObj.readMatrixFromFile(Xk, pathname);
@@ -111,15 +113,6 @@ public class RegresiLinierBerganda {
 
         // Memisahkan matrikx XY menjadi matriks X dan Y
         X = matBal.splitMainMatrix(XY);
-        /*for (i=0; i<mObj.getnRows(X); i++) {
-            for (j=0; j<mObj.getnCols(X); j++) {
-                if (j==0) {
-                    X[i][j] = 1;
-                } else {
-                    X[i][j] = X[i][j-1];
-                }
-            }
-        }*/
 
         Y = matBal.splitHasil(XY);
         Xt = invAdj.transposeMatrix(X);
@@ -129,7 +122,11 @@ public class RegresiLinierBerganda {
         XtY = matBal.multiplyMatrixbyMatrix(Xt, Y);
 
         XtXXtY = ipBik.integrateMatrixAandB(XtX, XtY);        
-        b = gauss.gaussEliminationSolutionKeluaran(XtXXtY);
+        bObj = gauss.gaussEliminationSolution(XtXXtY);
+
+        for (i=0; i<n; i++) {
+            b[i] = (double) bObj[i];
+        }
 
         // Menghitung taksiran
         hasilTaksiran = 0;
