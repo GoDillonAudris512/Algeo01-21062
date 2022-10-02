@@ -65,8 +65,8 @@ public class InterpolasiBikubik {
         mIntegrated = new double [matrixObj.getnRows(mA)][matrixObj.getnCols(mA) + matrixObj.getnCols(mB)];
 
         for (i = 0; i < matrixObj.getnRows(mA); i++) {
-            for (j = 0; j < matrixObj.getnCols(mA) +  + matrixObj.getnCols(mB); j++) {
-                if (j == 16) {
+            for (j = 0; j < matrixObj.getnCols(mA) + matrixObj.getnCols(mB); j++) {
+                if (j == matrixObj.getnCols(mA) + matrixObj.getnCols(mB) - 1) {
                     mIntegrated[i][j] = mB[i][0];
                 }
                 else {
