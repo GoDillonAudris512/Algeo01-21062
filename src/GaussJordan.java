@@ -138,6 +138,9 @@ public class GaussJordan {
                 }
             }    
         }
+        else {
+            hasilx = null;
+        }
 
         return hasilx;
     }

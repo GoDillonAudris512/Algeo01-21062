@@ -229,6 +229,9 @@ public class Gauss {
                 }
             }    
         }
+        else {
+            hasilx = null;
+        }
         
         return hasilx;
     }

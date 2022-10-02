@@ -82,16 +82,22 @@ public class InterpolasiBikubik {
         /* Menghasilkan suatu list a, yang merupakan koefisien dari suku-suku persamaaan interpolasi bikubik
 
         /* Kamus Lokal */
+        int i;
         double[][] mCoefficient = makeMatrixCoefficient();
         double[][] mValueOfY;
+        Object[] mValueOfATemp = new Object[16];
         double[] mValueOfA = new double [16];
 
         /* Algoritma */         
         MatriksBalikan matBalObj = new MatriksBalikan();
         
         mValueOfY = changeMatrixDimension(m);
-        mValueOfA = matBalObj.inversElimination(integrateMatrixAandB(mCoefficient, mValueOfY));
+        mValueOfATemp = matBalObj.inversElimination(integrateMatrixAandB(mCoefficient, mValueOfY));
 
+        for (i = 0; i < 16; i++) {
+            mValueOfA[i] = (double) mValueOfATemp[i];
+        }
+        
         return mValueOfA;
     }
 }

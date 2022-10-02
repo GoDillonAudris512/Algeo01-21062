@@ -54,24 +54,29 @@ public class MatriksBalikan {
         return mMultiply;
     }
 
-    public double[] inversElimination(double[][] matrix) {
+    public Object[] inversElimination(double[][] matrix) {
         Matrix matObj = new Matrix();
         InversReduksiBaris invRedBarObj = new InversReduksiBaris();
+        DeterminanReduksiBaris detRedBarObj = new DeterminanReduksiBaris();
 
         double[][] hasilxtemp, hasil, mainMat;
-        double[] hasilx = new double[matObj.getnRows(matrix)];
+        Object[] hasilx = new Object[16];
         int i;
 
         hasil = splitHasil(matrix);
         mainMat = splitMainMatrix(matrix);
 
-        hasilxtemp = multiplyMatrixbyMatrix(invRedBarObj.inversByReduksiBaris(mainMat), hasil);
+        if (detRedBarObj.determinanReduksiBaris(invRedBarObj.copyMatrix(mainMat)) == 0) {
+            hasilx = null;
+        }
+        else {
+            hasilxtemp = multiplyMatrixbyMatrix(invRedBarObj.inversByReduksiBaris(mainMat), hasil);
 
-        for (i = 0; i < matObj.getnRows(hasilxtemp); i++) {
-            hasilx[i] = hasilxtemp[i][0];
+            for (i = 0; i < matObj.getnRows(hasilxtemp); i++) {
+                hasilx[i] = hasilxtemp[i][0];
+            }
         }
 
         return hasilx;
-        
     }
 }
