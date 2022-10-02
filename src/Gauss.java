@@ -153,12 +153,23 @@ public class Gauss {
 
         int i,j,k,countExc = 0, countZero = 0, parameterUsed = 0, currentVariable;
         String[] parametrik = {"a", "b","c","d","e","f","g", "h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"};
-        Object[] hasilx = new Object[mat.getnCols(matrix) - 1];
+        Object[] hasilx;
         double[][] mainMat, hasil;
         boolean[] para = new boolean[mat.getnCols(matrix)-1];
         
         mainMat = matObj.splitMainMatrix(matrix);
         hasil = matObj.splitHasil(matrix);
+
+        if (mat.getnCols(mainMat) > mat.getnRows(mainMat)) {
+            hasilx = new Object[mat.getnCols(mainMat)];
+            para = new boolean[mat.getnCols(mainMat)];
+            currentVariable = mat.getLastIdxCols(mainMat);
+        }
+        else {
+            hasilx = new Object[mat.getnRows(mainMat)];
+            para = new boolean[mat.getnRows(mainMat)];
+            currentVariable = mat.getLastIdxRows(mainMat);
+        }
 
         for (i = 0; i < mat.getnRows(matrix); i++){
             if (isRowAnException(matrix, i)) {
@@ -191,8 +202,6 @@ public class Gauss {
                 for (i = 0; i < hasilx.length; i++) {
                     hasilx[i] = "";
                 }
-
-                currentVariable = mat.getLastIdxCols(matrix) - 1;
                 
                 for (i = mat.getLastIdxRows(matrix); i >= 0; i--) {
                     if (isRowAllZero(matrix, i)) {
