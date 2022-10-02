@@ -169,7 +169,7 @@ public class RegresiLinierBerganda {
         gauss.gaussElimination(XtXXtY);
         bObj = gauss.gaussEliminationSolution(XtXXtY);
 
-        for (i=0; i<n; i++) {
+        for (i=0; i<n+1; i++) {
             b[i] = (double) bObj[i];
         }
 
