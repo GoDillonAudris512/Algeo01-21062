@@ -46,9 +46,10 @@ public class Matrix {
 
     public void printSolusi (Object[] hasilx) {
         int i;
-        String currentString;
+        String output = "", saveToFile, pathname;
         boolean noSolution = true;
         DecimalFormat dfObj = new DecimalFormat("###.###");
+        Scanner keyboard = new Scanner(System.in);
 
         for (i = 0; i < hasilx.length; i++) {
             if (hasilx[i] != null) {
@@ -57,14 +58,38 @@ public class Matrix {
         }
 
         if (noSolution) {
-            System.out.println("SPL tidak memiliki penyelesaian");
+            output = "SPL tidak memiliki penyelesaian";
         }
         else {
             for (i = 1; i <= hasilx.length; i++) {
-                currentString = "Nilai x" + i + " adalah " + dfObj.format(hasilx[i-1]);
-                System.out.println(currentString);
+                if (i == hasilx.length) {
+                    output += "Nilai x" + i + " adalah " + dfObj.format(hasilx[i-1]);    
+                }
+                else {
+                    output += "Nilai x" + i + " adalah " + dfObj.format(hasilx[i-1]) + "\n";
+                }
             }
         }
+        
+        System.out.println("\n" + output);
+
+        System.out.println("\nApakah output ingin disimpan ke dalam file?");
+        System.out.print("Input 'y' jika ya, atau input sembarang untuk kembali ke menu utama : ");
+        saveToFile = keyboard.next();
+
+        if (saveToFile.equals((String) "y")) {
+            pathname = "";
+            System.out.print("\nMasukkan nama file output : ");
+            pathname = keyboard.next();
+            pathname = ".\\test\\resultTestCase\\" + pathname;
+                    
+            writeGeneralStringToFile(output, pathname);
+
+            System.out.println("\nKembali ke menu utama");
+        }
+        else{
+            System.out.println("Kembali ke menu utama");
+            }
     }
     
     // Prosedur input dari keyboard
@@ -108,8 +133,9 @@ public class Matrix {
     }
 
     // Cari tahu jumlah row dan column matriks dalam file
-    public void colRowNumbersFromFile (RowCol rc, String pathname) {
+    public double[] colRowNumbersFromFile (RowCol rc, String pathname) {
         try {
+            double[] isNull = new double[1];
             File myObj = new File(pathname);
             Scanner myReader = new Scanner(myObj);
 
@@ -124,18 +150,19 @@ public class Matrix {
             }
     
             myReader.close();
-    
+            return isNull;
         } catch (FileNotFoundException e) {
             System.out.println("Terjadi error.");
-            e.printStackTrace();
+            System.out.println(e.toString());
         }
+        return null;
     }
     
     // Input dari file
     public void readMatrixFromFile (double[][] m, String pathname) {
         try {
             File myObj = new File(pathname);
-            Scanner myReader = new Scanner(myObj);
+            Scanner myReader = new Scanner(myObj) ;
 
             int i, j;
 
@@ -155,8 +182,8 @@ public class Matrix {
             myReader.close();
         } catch (FileNotFoundException e) {
             System.out.println("Terjadi error.");
-            e.printStackTrace();
-            }
+            System.out.println(e.toString());
+        }
     }
 
     // Output ke file    
@@ -166,13 +193,20 @@ public class Matrix {
 
         for (i=0; i<m.length; i++) {
             for (j=0; j<m[i].length; j++) {
-                out += Double.toString(m[i][j]) + " ";
+                if (j != m[i].length - 1) {
+                    out += Double.toString(m[i][j]) + " ";
+                }
+                else {
+                    out += Double.toString(m[i][j]);
+                }
             }
-            out += "\n";
+            if (i != m.length - 1) {
+                out += "\n";
+            }
         }
 
         try {
-            File myObj = new File("filename.txt");
+            File myObj = new File(pathname);
             
             if (myObj.createNewFile()) {
                 System.out.println("File berhasil dibuat: " + myObj.getName());
@@ -254,10 +288,33 @@ public class Matrix {
             myReader.close();
 
             return listXY;
-        } catch (FileNotFoundException e) {
+        }
+        catch (FileNotFoundException e) {
+            System.out.println("Terjadi error.");
+            System.out.println(e.toString());
+        }
+        return null;
+    }
+
+    // Output ke file untuk suatu string
+    public void writeGeneralStringToFile (String out, String pathname) {
+        try {
+            File myObj = new File(pathname);
+            
+            if (myObj.createNewFile()) {
+                System.out.println("File berhasil dibuat: " + myObj.getName());
+            } else {
+                System.out.println("File sudah ada, akan menulis ke file yang sudah ada.");
+            }
+            
+            FileWriter myWriter = new FileWriter(pathname);
+            myWriter.write(out);
+            myWriter.close();
+            System.out.println("Berhasil menulis ke file.");    
+
+        } catch (IOException e) {
             System.out.println("Terjadi error.");
             e.printStackTrace();
-            }
-        return null;
+        }
     }
 }
