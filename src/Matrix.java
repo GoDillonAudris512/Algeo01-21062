@@ -67,7 +67,7 @@ public class Matrix {
         System.out.println("\n" + output);
 
         System.out.println("\nApakah output ingin disimpan ke dalam file?");
-        System.out.print("Input 'y' jika ya, atau input sembarang untuk kembali ke menu utama : ");
+        System.out.print("Input 'y' jika ya, atau input sembarang untuk kembali ke submenu Penyelesaian SPL : ");
         saveToFile = keyboard.next();
 
         if (saveToFile.equals((String) "y")) {
