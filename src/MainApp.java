@@ -10,7 +10,7 @@ public class MainApp {
         /* Merupakan submenu untuk penyelesaian SPL dengan 4 metode*/
 
         /* Kamus Lokal */
-        int pilihan;
+        String pilihan;
         boolean subMenuSPLRunning = true;
 
         /* Algoritma */
@@ -24,23 +24,23 @@ public class MainApp {
             System.out.println("3. Metode matriks balikan");
             System.out.println("4. Kaidah Cramer");
             System.out.print("Silahkan masukkan metode yang diinginkan (1-4) atau ketik 0 untuk kembali ke menu utama : ");
-            pilihan = keyboard.nextInt();
+            pilihan = keyboard.next();
 
-            while (((pilihan != 1) && (pilihan != 2) && (pilihan != 0))) {
+            while ((!pilihan.equals((String) "1")) && (!pilihan.equals((String) "2")) && (!pilihan.equals((String) "3")) && (!pilihan.equals((String) "4")) && (!pilihan.equals((String) "0"))) {
                 System.out.print("Input salah. Mohon masukkan input yang benar : ");
-                pilihan = keyboard.nextInt();
+                pilihan = keyboard.next();
             }
 
-            if (pilihan == 1) {
+            if (pilihan.equals((String) "1")) {
                 solveSPLWithGauss();
             }
-            else if (pilihan == 2) {
+            else if (pilihan.equals((String) "2")) {
                 solveSPLWithGaussJordan();
             }
-            else if (pilihan == 3) {
+            else if (pilihan.equals((String) "3")) {
                 solveSPLWithMetodeInvers();
             }
-            else if (pilihan == 4) {
+            else if (pilihan.equals((String) "4")) {
                 solveSPLWithCramer();
             }
             else {
@@ -50,15 +50,15 @@ public class MainApp {
         }
     }
     
-    /* Still in work : output to file */
     public static void solveSPLWithGauss () {
         /* Merupakan kode untuk menyelesaikan SPL dengan eliminasi Gauss */
 
         /* Kamus Lokal */
-        int nRows, nCols, pilihan;
-        String pathname;
+        int nRows, nCols;
+        String pathname, pilihan;
         boolean gaussMenuRunning = true;
         Object[] solusiSPL = new Object[0];
+        double[] isNull = new double[1];
         double[][] m = new double[0][0];
 
         /* Algoritma */
@@ -72,14 +72,14 @@ public class MainApp {
             System.out.println("1. Input melalui keyboard");
             System.out.println("2. Input melalui file");
             System.out.print("Pilih cara input yang diinginkan (1-2) atau ketik 0 untuk kembali ke submenu Penyelesaian SPL : ");
-            pilihan = keyboard.nextInt();
+            pilihan = keyboard.next();
 
-            while ((pilihan != 1) && (pilihan != 2) && (pilihan != 0)) {
+            while ((!pilihan.equals((String) "1")) && (!pilihan.equals((String) "2")) && (!pilihan.equals((String) "0"))) {
                 System.out.print("Input salah. Mohon masukkan input yang benar : ");
-                pilihan = keyboard.nextInt();
+                pilihan = keyboard.next();
             }
 
-            if (pilihan == 1) {
+            if (pilihan.equals((String) "1")) {
                 System.out.print("\nMasukkan jumlah baris matriks : ");
                 nRows = keyboard.nextInt();
                 System.out.print("Masukkan jumlah kolom matriks : ");
@@ -88,42 +88,41 @@ public class MainApp {
                 m = new double[nRows][nCols];
                 matrixObj.readMatrixFromKeyboard(m);
             }
-            else if (pilihan == 2) {
+            else if (pilihan.equals((String) "2")) {
                 RowCol rc = new RowCol();
                 System.out.print("\nMasukkan nama dari file : ");
                 pathname = keyboard.next();
-                pathname = ".\\test\\" + pathname ;
+                pathname = ".\\test\\" + pathname;
 
-                matrixObj.colRowNumbersFromFile(rc, pathname);
-                m = new double[rc.row][rc.col];
-                matrixObj.readMatrixFromFile(m, pathname);
+                isNull = matrixObj.colRowNumbersFromFile(rc, pathname);
+                if (isNull != null) {
+                    m = new double[rc.row][rc.col];
+                    matrixObj.readMatrixFromFile(m, pathname);
+                }
             }
 
-            if (pilihan == 0) {
+            /* Melakukan aksi berdasarkan input pada pengguna */
+            if (pilihan.equals((String) "0") || isNull == null) {
                 gaussMenuRunning = false;
                 System.out.println("Kembali ke submenu Penyelesaian SPL");
             }
             else {
                 gaussObj.gaussElimination(m);
                 solusiSPL = gaussObj.gaussEliminationSolution(m);
-
-                System.out.println();
                 matrixObj.printSolusi(solusiSPL);
-
-                System.out.println("\nApakah matriks eselon baris ingin disimpan ke file?");
             }
         }
     }
 
-    /* Still in work : until GaussJordan is fixed */
     public static void solveSPLWithGaussJordan() {
         /* Merupakan kode untuk menyelesaikan SPL dengan eliminasi Gauss-Jordan */
 
         /* Kamus Lokal */
-        int nRows, nCols, pilihan;
-        String pathname;
+        int nRows, nCols;
+        String pathname, pilihan;
         boolean gaussJordanMenuRunning = true;
         Object[] solusiSPL = new Object[0];
+        double[] isNull = new double[1];
         double[][] m = new double[0][0];
 
         /* Algoritma */
@@ -137,14 +136,14 @@ public class MainApp {
             System.out.println("1. Input melalui keyboard");
             System.out.println("2. Input melalui file");
             System.out.print("Pilih cara input yang diinginkan (1-2) atau ketik 0 untuk kembali ke submenu Penyelesaian SPL : ");
-            pilihan = keyboard.nextInt();
+            pilihan = keyboard.next();
 
-            while ((pilihan != 1) && (pilihan != 2) && (pilihan != 0)) {
+            while ((!pilihan.equals((String) "1")) && (!pilihan.equals((String) "2")) && (!pilihan.equals((String) "0"))) {
                 System.out.print("Input salah. Mohon masukkan input yang benar : ");
-                pilihan = keyboard.nextInt();
+                pilihan = keyboard.next();
             }
 
-            if (pilihan == 1) {
+            if (pilihan.equals((String) "1")) {
                 System.out.print("\nMasukkan jumlah baris matriks : ");
                 nRows = keyboard.nextInt();
                 System.out.print("Masukkan jumlah kolom matriks : ");
@@ -153,102 +152,167 @@ public class MainApp {
                 m = new double[nRows][nCols];
                 matrixObj.readMatrixFromKeyboard(m);
             }
-            else if (pilihan == 2) {
+            else if (pilihan.equals((String) "2")) {
                 RowCol rc = new RowCol();
                 System.out.print("\nMasukkan nama dari file : ");
                 pathname = keyboard.next();
-                pathname = ".\\test\\" + pathname ;
+                pathname = ".\\test\\" + pathname;
 
-                matrixObj.colRowNumbersFromFile(rc, pathname);
-                m = new double[rc.row][rc.col];
-                matrixObj.readMatrixFromFile(m, pathname);
+                isNull = matrixObj.colRowNumbersFromFile(rc, pathname);
+                if (isNull != null) {
+                    m = new double[rc.row][rc.col];
+                    matrixObj.readMatrixFromFile(m, pathname);
+                }
             }
 
-            if (pilihan == 0) {
+            /* Melakukan aksi berdasarkan input pada pengguna */
+            if (pilihan.equals((String) "0") || isNull == null) {
                 gaussJordanMenuRunning = false;
                 System.out.println("Kembali ke submenu Penyelesaian SPL");
             }
             else {
                 gaussJordanObj.gaussJordanElimination(m);
                 solusiSPL = gaussJordanObj.gaussJordanEliminationSolution(m);
-
-                System.out.println();
                 matrixObj.printSolusi(solusiSPL);
-
-                System.out.println("\nApakah matriks eselon baris tereduksi ingin disimpan ke file?");
             }
         }
     }
     
-    /* Still in work : output to file, jika SPL ga punya penyelesaian */
     public static void solveSPLWithMetodeInvers() {
         /* Merupakan kode untuk menyelesaikan SPL dengan metode invers */
 
         /* Kamus Lokal */
-        int nRows, nCols, pilihan, i;
-        String pathname, currentString, allString = "";
-        double[][] m = new double[0][0]; 
-        double[] mSolusi;
+        int nRows, nCols;
+        String pathname, pilihan;
+        boolean splInversMenuRunning = true;
+        Object[] solusiSPL = new Object[0];
+        double[] isNull = new double[1];
+        double[][] m = new double[0][0];
 
         /* Algoritma */
         Matrix matrixObj = new Matrix();
         MatriksBalikan matBalObj = new MatriksBalikan();
+        Scanner keyboard = new Scanner(System.in);
 
         /* Menampilkan subsubmenu yang berisi cara input matriks beserta permintaan input oleh pengguna */
-        System.out.println("\n---------------------------------------------------");
-        System.out.println("1. Input melalui keyboard");
-        System.out.println("2. Input melalui file");
-        System.out.print("Pilih cara input yang diinginkan (1-2) : ");
+        while (splInversMenuRunning) {
+            System.out.println("\n---------------------------------------------------");
+            System.out.println("Anda sedang berada di submenu Penyelesaian SPL dengan metode Invers. Mohon masukkan matriks berukuran n kali (n+1)");
+            System.out.println("1. Input melalui keyboard");
+            System.out.println("2. Input melalui file");
+            System.out.print("Pilih cara input yang diinginkan (1-2) atau ketik 0 untuk kembali ke submenu Penyelesaian SPL : ");
+            pilihan = keyboard.next();
 
-        Scanner keyboard = new Scanner(System.in);
-        pilihan = keyboard.nextInt();
-
-        /* Meminta input matriks dari pengguna sesuai dengan cara input yang telah dipilih*/
-        if (pilihan == 1) {
-            System.out.print("\nMasukkan jumlah baris matriks : ");
-            nRows = keyboard.nextInt();
-            System.out.print("Masukkan jumlah kolom matriks : ");
-            nCols = keyboard.nextInt();
-
-            m = new double[nRows][nCols];
-            matrixObj.readMatrixFromKeyboard(m);
-        }
-        else if (pilihan == 2) {
-            RowCol rc = new RowCol();
-            System.out.println("\nMasukkan nama dari file :");
-            pathname = keyboard.next();
-            pathname = ".\\test\\" + pathname ;
-
-            matrixObj.colRowNumbersFromFile(rc, pathname);
-            m = new double[rc.row][rc.col];
-            matrixObj.readMatrixFromFile(m, pathname);
-        }
-
-        /* Melakukan aksi berdasarkan input pilihan dari pengguna */
-        if (pilihan != 1 && pilihan != 2) {
-            System.out.println("\nTerjadi error pada input. Kembali ke menu utama");
-        }
-        else {
-            /* Menyelesaikan SPL dengan metode invers dan menampilkan hasil */
-            mSolusi = matBalObj.inversElimination(m);
-
-            System.out.println("\nSolusi dari SPL adalah sebagai berikut: ");
-            for (i = 0; i <mSolusi.length; i++) {
-                currentString = "Nilai x" + (i+1) + " adalah " + mSolusi[i];
-                System.out.println(currentString);
-                allString += currentString + "\n";
+            while ((!pilihan.equals((String) "1")) && (!pilihan.equals((String) "2")) && (!pilihan.equals((String) "0"))) {
+                System.out.print("Input salah. Mohon masukkan input yang benar : ");
+                pilihan = keyboard.next();
             }
-                
-            System.out.println("\nApakah output ingin disimpan ke file? ");
-            
-        }
 
-        keyboard.close(); 
+            if (pilihan.equals((String) "1")) {
+                System.out.print("\nMasukkan jumlah baris matriks : ");
+                nRows = keyboard.nextInt();
+                System.out.print("Masukkan jumlah kolom matriks : ");
+                nCols = keyboard.nextInt();
+
+                m = new double[nRows][nCols];
+                matrixObj.readMatrixFromKeyboard(m);
+            }
+            else if (pilihan.equals((String) "2")) {
+                RowCol rc = new RowCol();
+                System.out.print("\nMasukkan nama dari file : ");
+                pathname = keyboard.next();
+                pathname = ".\\test\\" + pathname;
+
+                isNull = matrixObj.colRowNumbersFromFile(rc, pathname);
+                if (isNull != null) {
+                    m = new double[rc.row][rc.col];
+                    matrixObj.readMatrixFromFile(m, pathname);
+                }
+            }
+
+            /* Melakukan aksi berdasarkan input pada pengguna */
+            if (pilihan.equals((String) "0") || isNull == null) {
+                splInversMenuRunning = false;
+                System.out.println("Kembali ke submenu Penyelesaian SPL");
+            }
+            else {
+                if (matrixObj.getnCols(m) != matrixObj.getnRows(m) + 1) {
+                    System.out.println("\nMatriks tidak berukuran n kali (n+1). Kembali ke submenu Penyelesaian SPL dengan metode Invers");
+                }
+                else {
+                    solusiSPL = matBalObj.inversElimination(m);
+                    matrixObj.printSolusi(solusiSPL);
+                }
+            }
+        }
     }
     
-    /* Still in work : output to file */
     public static void solveSPLWithCramer() {
-        
+        /* Merupakan kode untuk menyelesaikan SPL dengan kaidah cramer */
+
+        /* Kamus Lokal */
+        int nRows, nCols;
+        String pathname, pilihan;
+        boolean cramerMenuRunning = true;
+        Object[] solusiSPL = new Object[0];
+        double[] isNull = new double[1];
+        double[][] m = new double[0][0];
+
+        /* Algoritma */
+        Matrix matrixObj = new Matrix();
+        Cramer cramerObj = new Cramer();
+        Scanner keyboard = new Scanner(System.in);
+
+        while (cramerMenuRunning) {
+            System.out.println("\n---------------------------------------------------");
+            System.out.println("Anda sedang berada di submenu Penyelesaian SPL dengan kaidah Cramer. Mohon masukkan matriks berukuran n kali (n+1)");
+            System.out.println("1. Input melalui keyboard");
+            System.out.println("2. Input melalui file");
+            System.out.print("Pilih cara input yang diinginkan (1-2) atau ketik 0 untuk kembali ke submenu Penyelesaian SPL : ");
+            pilihan = keyboard.next();
+
+            while ((!pilihan.equals((String) "1")) && (!pilihan.equals((String) "2")) && (!pilihan.equals((String) "0"))) {
+                System.out.print("Input salah. Mohon masukkan input yang benar : ");
+                pilihan = keyboard.next();
+            }
+
+            if (pilihan.equals((String) "1")) {
+                System.out.print("\nMasukkan jumlah baris matriks : ");
+                nRows = keyboard.nextInt();
+                System.out.print("Masukkan jumlah kolom matriks : ");
+                nCols = keyboard.nextInt();
+
+                m = new double[nRows][nCols];
+                matrixObj.readMatrixFromKeyboard(m);
+            }
+            else if (pilihan.equals((String) "2")) {
+                RowCol rc = new RowCol();
+                System.out.print("\nMasukkan nama dari file : ");
+                pathname = keyboard.next();
+                pathname = ".\\test\\" + pathname;
+
+                isNull = matrixObj.colRowNumbersFromFile(rc, pathname);
+                if (isNull != null) {
+                    m = new double[rc.row][rc.col];
+                    matrixObj.readMatrixFromFile(m, pathname);
+                }
+            }
+
+            /* Melakukan aksi berdasarkan input pada pengguna */
+            if (pilihan.equals((String) "0") || isNull == null) {
+                cramerMenuRunning = false;
+                System.out.println("Kembali ke submenu Penyelesaian SPL");
+            }
+            else {
+                if (matrixObj.getnCols(m) != matrixObj.getnRows(m) + 1) {
+                    System.out.println("\nMatriks tidak berukuran n kali (n+1). Kembali ke submenu Kaidah Cramer");
+                }
+                else {
+                    solusiSPL = cramerObj.cramerElimination(m);
+                    matrixObj.printSolusi(solusiSPL);
+                }
+            }
+        }
     }
 
     /* SUBMENU DETERMINAN */
@@ -256,7 +320,7 @@ public class MainApp {
         /* Merupakan submenu untuk mendapatkan determinan suatu matriks dengan 2 metode */
 
         /* Kamus Lokal */
-        int pilihan;
+        String pilihan;
         boolean determinanMenuRunning = true;
 
         /* Algoritma */
@@ -268,17 +332,17 @@ public class MainApp {
             System.out.println("1. Metode Reduksi Baris");
             System.out.println("2. Metode Ekspansi Kofaktor");
             System.out.print("Silahkan masukkan metode yang diinginkan (1-2) atau ketik 0 untuk kembali ke menu utama : ");
-            pilihan = keyboard.nextInt();
+            pilihan = keyboard.next();
 
-            while (((pilihan != 1) && (pilihan != 2) && (pilihan != 0))) {
+            while ((!pilihan.equals((String) "1")) && (!pilihan.equals((String) "2")) && (!pilihan.equals((String) "0"))) {
                 System.out.print("Input salah. Mohon masukkan input yang benar : ");
-                pilihan = keyboard.nextInt();
+                pilihan = keyboard.next();
             }
 
-            if (pilihan == 1) {
+            if (pilihan.equals((String) "1")) {
                 solveDeterminanWithReduksiBaris();
             }
-            else if (pilihan == 2) {
+            else if (pilihan.equals((String) "2")) {
                 solveDeterminanWithEkspansiKofaktor();
             }
             else {
@@ -288,15 +352,15 @@ public class MainApp {
         }
     }
 
-    /* Still in work: output to file */
     public static void solveDeterminanWithReduksiBaris() {
         /* Merupakan kode untuk menentukan determinan matriks dengan metode reduksi baris */
         
         /* Kamus Lokal */
-        int nRows, nCols, pilihan;
+        int nRows, nCols;
         boolean detRedBarMenuRunning = true;
         double determinan;
-        String pathname;
+        String pathname, pilihan, saveToFile, output;
+        double[] isNull = new double[1];
         double[][] m = new double[0][0];
 
         /* Algoritma */
@@ -311,14 +375,14 @@ public class MainApp {
             System.out.println("1. Input melalui keyboard");
             System.out.println("2. Input melalui file");
             System.out.print("Pilih cara input yang diinginkan (1-2) atau ketik 0 untuk kembali ke submenu Determinan : ");
-            pilihan = keyboard.nextInt();
+            pilihan = keyboard.next();
 
-            while ((pilihan != 1) && (pilihan != 2) && (pilihan != 0)) {
+            while ((!pilihan.equals((String) "1")) && (!pilihan.equals((String) "2")) && (!pilihan.equals((String) "0"))) {
                 System.out.print("Input salah. Mohon masukkan input yang benar : ");
-                pilihan = keyboard.nextInt();
+                pilihan = keyboard.next();
             }
 
-            if (pilihan == 1) {
+            if (pilihan.equals((String) "1")) {
                 System.out.print("\nMasukkan jumlah baris matriks : ");
                 nRows = keyboard.nextInt();
                 System.out.print("Masukkan jumlah kolom matriks : ");
@@ -327,19 +391,21 @@ public class MainApp {
                 m = new double[nRows][nCols];
                 matrixObj.readMatrixFromKeyboard(m);
             }
-            else if (pilihan == 2) {
+            else if (pilihan.equals((String) "2")) {
                 RowCol rc = new RowCol();
                 System.out.print("\nMasukkan nama dari file : ");
                 pathname = keyboard.next();
-                pathname = ".\\test\\" + pathname ;
+                pathname = ".\\test\\" + pathname;
 
-                matrixObj.colRowNumbersFromFile(rc, pathname);
-                m = new double[rc.row][rc.col];
-                matrixObj.readMatrixFromFile(m, pathname);
+                isNull = matrixObj.colRowNumbersFromFile(rc, pathname);
+                if (isNull != null) {
+                    m = new double[rc.row][rc.col];
+                    matrixObj.readMatrixFromFile(m, pathname);
+                }
             }
 
             /* Melakukan aksi berdasarkan input pada pengguna */
-            if (pilihan == 0 ) {
+            if (pilihan.equals((String) "0") || isNull == null) {
                 detRedBarMenuRunning = false;
                 System.out.println("Kembali ke submenu Determinan");
             }
@@ -350,23 +416,40 @@ public class MainApp {
                 else {
                     determinan = detRedBarObj.determinanReduksiBaris(m);
 
-                    System.out.println("\nDeterminan dari matriks tersebut adalah " + determinan);
+                    output = "Determinan dari matriks tersebut adalah " + determinan;
+                    System.out.println("\n" + output);
 
-                    System.out.println("\nApakah output ingin disimpan ke file?");
+                    System.out.println("\nApakah output ingin disimpan ke dalam file?");
+                    System.out.print("Input 'y' jika ya, atau input sembarang untuk kembali ke submenu Determinan : ");
+                    saveToFile = keyboard.next();
+
+                    if (saveToFile.equals((String) "y")) {
+                        pathname = "";
+                        System.out.print("\nMasukkan nama file output : ");
+                        pathname = keyboard.next();
+                        pathname = ".\\test\\resultTestCase\\" + pathname;
+                        
+                        matrixObj.writeGeneralStringToFile(output, pathname);
+
+                        System.out.println("\nKembali ke submenu Determinan");
+                    }
+                    else{
+                        System.out.println("Kembali ke submenu Determinan");
+                    }
                 }
             }
         }
     }
 
-    /* Still in work : output to file */
     public static void solveDeterminanWithEkspansiKofaktor() {
         /* Merupakan kode untuk menentukan determinan matriks dengan metode ekspansi kofaktor */
         
         /* Kamus Lokal */
-        int nRows, nCols, pilihan;
+        int nRows, nCols;
         boolean detKofMenuRunning = true;
         double determinan;
-        String pathname;
+        String pathname, pilihan, saveToFile, output;
+        double[] isNull = new double[1];
         double[][] m = new double[0][0];
 
         /* Algoritma */
@@ -381,14 +464,14 @@ public class MainApp {
             System.out.println("1. Input melalui keyboard");
             System.out.println("2. Input melalui file");
             System.out.print("Pilih cara input yang diinginkan (1-2) atau ketik 0 untuk kembali ke submenu Determinan : ");
-            pilihan = keyboard.nextInt();
+            pilihan = keyboard.next();
 
-            while ((pilihan != 1) && (pilihan != 2) && (pilihan != 0)) {
+            while ((!pilihan.equals((String) "1")) && (!pilihan.equals((String) "2")) && (!pilihan.equals((String) "0"))) {
                 System.out.print("Input salah. Mohon masukkan input yang benar : ");
-                pilihan = keyboard.nextInt();
+                pilihan = keyboard.next();
             }
 
-            if (pilihan == 1) {
+            if (pilihan.equals((String) "1")) {
                 System.out.print("\nMasukkan jumlah baris matriks : ");
                 nRows = keyboard.nextInt();
                 System.out.print("Masukkan jumlah kolom matriks : ");
@@ -397,19 +480,21 @@ public class MainApp {
                 m = new double[nRows][nCols];
                 matrixObj.readMatrixFromKeyboard(m);
             }
-            else if (pilihan == 2) {
+            else if (pilihan.equals((String) "2")) {
                 RowCol rc = new RowCol();
                 System.out.print("\nMasukkan nama dari file : ");
                 pathname = keyboard.next();
-                pathname = ".\\test\\" + pathname ;
+                pathname = ".\\test\\" + pathname;
 
-                matrixObj.colRowNumbersFromFile(rc, pathname);
-                m = new double[rc.row][rc.col];
-                matrixObj.readMatrixFromFile(m, pathname);
+                isNull = matrixObj.colRowNumbersFromFile(rc, pathname);
+                if (isNull != null) {
+                    m = new double[rc.row][rc.col];
+                    matrixObj.readMatrixFromFile(m, pathname);
+                }
             }
 
             /* Melakukan aksi berdasarkan input pada pengguna */
-            if (pilihan == 0 ) {
+            if (pilihan.equals((String) "0") || isNull == null) {
                 detKofMenuRunning = false;
                 System.out.println("Kembali ke submenu Determinan");
             }
@@ -420,9 +505,26 @@ public class MainApp {
                 else {
                     determinan = detKofObj.determinanKofaktor(m);
 
-                    System.out.println("\nDeterminan dari matriks tersebut adalah " + determinan);
+                    output = "Determinan dari matriks tersebut adalah " + determinan;
+                    System.out.println("\n" + output);
 
-                    System.out.println("\nApakah output ingin disimpan ke file?");
+                    System.out.println("\nApakah output ingin disimpan ke dalam file?");
+                    System.out.print("Input 'y' jika ya, atau input sembarang untuk kembali ke submenu Determinan : ");
+                    saveToFile = keyboard.next();
+
+                    if (saveToFile.equals((String) "y")) {
+                        pathname = "";
+                        System.out.print("\nMasukkan nama file output : ");
+                        pathname = keyboard.next();
+                        pathname = ".\\test\\resultTestCase\\" + pathname;
+                        
+                        matrixObj.writeGeneralStringToFile(output, pathname);
+
+                        System.out.println("\nKembali ke submenu Determinan");
+                    }
+                    else{
+                        System.out.println("Kembali ke submenu Determinan");
+                    }
                 }
             }
         }
@@ -433,7 +535,7 @@ public class MainApp {
         /* Merupakan submenu untuk mendapatkan invers suatu matriks dengan 2 metode */
 
         /* Kamus Lokal */
-        int pilihan;
+        String pilihan;
         boolean inversMenuRunning = true;
 
         /* Algoritma */
@@ -445,17 +547,17 @@ public class MainApp {
             System.out.println("1. Metode Reduksi Baris");
             System.out.println("2. Metode Adjoint");
             System.out.print("Silahkan masukkan metode yang diinginkan (1-2) atau ketik 0 untuk kembali ke menu utama : ");
-            pilihan = keyboard.nextInt();
+            pilihan = keyboard.next();
 
-            while (((pilihan != 1) && (pilihan != 2) && (pilihan != 0))) {
+            while ((!pilihan.equals((String) "1")) && (!pilihan.equals((String) "2")) && (!pilihan.equals((String) "0"))) {
                 System.out.print("Input salah. Mohon masukkan input yang benar : ");
-                pilihan = keyboard.nextInt();
+                pilihan = keyboard.next();
             }
 
-            if (pilihan == 1) {
+            if (pilihan.equals((String) "1")) {
                 solveInversWithReduksiBaris();
             }
-            else if (pilihan == 2) {
+            else if (pilihan.equals((String) "2")) {
                 solveInversWithAdjoint();;
             }
             else{
@@ -465,14 +567,14 @@ public class MainApp {
         }
     }
 
-    /* Still in work : output to file */
     public static void solveInversWithReduksiBaris() {
         /* Merupakan kode untuk menyelesaikan invers dengan metode reduksi baris */
 
         /* Kamus Lokal */
-        int nRows, nCols, pilihan;
+        int nRows, nCols;
         boolean invRedBarMenuRunning = true;
-        String pathname;
+        String pathname, pilihan, saveToFile;
+        double[] isNull = new double[0];
         double[][] m  = new double[0][0], mZero, mInvers;
 
         /* Algoritma */
@@ -487,14 +589,14 @@ public class MainApp {
             System.out.println("1. Input melalui keyboard");
             System.out.println("2. Input melalui file");
             System.out.print("Pilih cara input yang diinginkan (1-2) atau ketik 0 untuk kembali ke submenu Invers : ");
-            pilihan = keyboard.nextInt();
+            pilihan = keyboard.next();
 
-            while ((pilihan != 1) && (pilihan != 2) && (pilihan != 0)) {
+            while ((!pilihan.equals((String) "1")) && (!pilihan.equals((String) "2")) && (!pilihan.equals((String) "0"))) {
                 System.out.print("Input salah. Mohon masukkan input yang benar : ");
-                pilihan = keyboard.nextInt();
+                pilihan = keyboard.next();
             }
 
-            if (pilihan == 1) {
+            if (pilihan.equals((String) "1")) {
                 System.out.print("\nMasukkan jumlah baris matriks : ");
                 nRows = keyboard.nextInt();
                 System.out.print("Masukkan jumlah kolom matriks : ");
@@ -503,19 +605,21 @@ public class MainApp {
                 m = new double[nRows][nCols];
                 matrixObj.readMatrixFromKeyboard(m);
             }
-            else if (pilihan == 2) {
+            else if (pilihan.equals((String) "2")) {
                 RowCol rc = new RowCol();
                 System.out.print("\nMasukkan nama dari file : ");
                 pathname = keyboard.next();
-                pathname = ".\\test\\" + pathname ;
+                pathname = ".\\test\\" + pathname;
 
-                matrixObj.colRowNumbersFromFile(rc, pathname);
-                m = new double[rc.row][rc.col];
-                matrixObj.readMatrixFromFile(m, pathname);
+                isNull = matrixObj.colRowNumbersFromFile(rc, pathname);
+                if (isNull != null) {
+                    m = new double[rc.row][rc.col];
+                    matrixObj.readMatrixFromFile(m, pathname);
+                }
             }
 
             /* Melakukan aksi berdasarkan input pada pengguna */
-            if (pilihan == 0 ) {
+            if (pilihan.equals((String) "0") || isNull == null) {
                 invRedBarMenuRunning = false;
                 System.out.println("Kembali ke submenu Invers");
             }
@@ -530,23 +634,43 @@ public class MainApp {
                     if (matrixObj.isMatrixEqual(mZero, mInvers) == false) {
                         System.out.println("\nInvers dari matriks berupa: ");
                         matrixObj.printMatrixToScreen(mInvers);
-
-                        System.out.println("\nApakah output ingin disimpan ke file?");
                     }
 
+                    System.out.println("\nApakah output ingin disimpan ke file?");
+                    System.out.print("Input 'y' jika ya, atau input sembarang untuk kembali ke submenu Invers : ");
+                    saveToFile = keyboard.next();
+
+                    if (saveToFile.equals((String) "y")) {
+                        pathname = "";
+                        System.out.print("\nMasukkan nama file output : ");
+                        pathname = keyboard.next();
+                        pathname = ".\\test\\resultTestCase\\" + pathname;
+                        
+                        if (matrixObj.isMatrixEqual(mZero, mInvers)) {
+                            matrixObj.writeGeneralStringToFile("Matriks tidak memiliki invers", pathname);
+                        }
+                        else{
+                            matrixObj.writeMatrixToFile(mInvers, pathname);
+                        }
+
+                        System.out.println("\nKembali ke submenu Invers");
+                    }
+                    else{
+                        System.out.println("Kembali ke submenu Invers");
+                    }
                 }
             }
         }
     }
-    
-    /* Still in work: output to file */
+
     public static void solveInversWithAdjoint() {
         /* Merupakan kode untuk menyelesaikan matriks dengan metode adjoint matriks */
 
         /*/ kamus Lokal */
-        int nRows, nCols, pilihan;
+        int nRows, nCols;
         boolean invAdjMenuRunning = true;
-        String pathname;
+        String pathname, pilihan, saveToFile;
+        double[] isNull = new double[1];
         double[][] m = new double[0][0], mZero, mInvers;
 
         /* Algoritma */
@@ -561,14 +685,14 @@ public class MainApp {
             System.out.println("1. Input melalui keyboard");
             System.out.println("2. Input melalui file");
             System.out.print("Pilih cara input yang diinginkan (1-2) atau ketik 0 untuk kembali ke submenu Invers : ");
-            pilihan = keyboard.nextInt();
+            pilihan = keyboard.next();
 
-            while ((pilihan != 1) && (pilihan != 2) && (pilihan != 0)) {
+            while ((!pilihan.equals((String) "1")) && (!pilihan.equals((String) "2")) && (!pilihan.equals((String) "0"))) {
                 System.out.print("Input salah. Mohon masukkan input yang benar : ");
-                pilihan = keyboard.nextInt();
+                pilihan = keyboard.next();
             }
 
-            if (pilihan == 1) {
+            if (pilihan.equals((String) "1")) {
                 System.out.print("\nMasukkan jumlah baris matriks : ");
                 nRows = keyboard.nextInt();
                 System.out.print("Masukkan jumlah kolom matriks : ");
@@ -577,19 +701,21 @@ public class MainApp {
                 m = new double[nRows][nCols];
                 matrixObj.readMatrixFromKeyboard(m);
             }
-            else if (pilihan == 2) {
+            else if (pilihan.equals((String) "2")) {
                 RowCol rc = new RowCol();
                 System.out.print("\nMasukkan nama dari file : ");
                 pathname = keyboard.next();
-                pathname = ".\\test\\" + pathname ;
+                pathname = ".\\test\\" + pathname;
 
-                matrixObj.colRowNumbersFromFile(rc, pathname);
-                m = new double[rc.row][rc.col];
-                matrixObj.readMatrixFromFile(m, pathname);
+                isNull = matrixObj.colRowNumbersFromFile(rc, pathname);
+                if (isNull != null) {
+                    m = new double[rc.row][rc.col];
+                    matrixObj.readMatrixFromFile(m, pathname);
+                }
             }
 
             /* Melakukan aksi berdasarkan input pada pengguna */
-            if (pilihan == 0) {
+            if (pilihan.equals((String) "0") || isNull == null) {
                 invAdjMenuRunning = false;
                 System.out.println("Kembali ke submenu Invers");
             }
@@ -604,8 +730,28 @@ public class MainApp {
                     if (matrixObj.isMatrixEqual(mZero, mInvers) == false) {
                         System.out.println("\nInvers dari matriks berupa: ");
                         matrixObj.printMatrixToScreen(mInvers);
+                    }
+                    System.out.println("\nApakah output ingin disimpan ke file?");
+                    System.out.print("Input 'y' jika ya, atau input sembarang untuk kembali ke submenu Invers : ");
+                    saveToFile = keyboard.next();
 
-                        System.out.println("\nApakah output ingin disimpan ke file?");
+                    if (saveToFile.equals((String) "y")) {
+                        pathname = "";
+                        System.out.print("\nMasukkan nama file output : ");
+                        pathname = keyboard.next();
+                        pathname = ".\\test\\resultTestCase\\" + pathname;
+                        
+                        if (matrixObj.isMatrixEqual(mZero, mInvers)) {
+                            matrixObj.writeGeneralStringToFile("Matriks tidak memiliki invers", pathname);
+                        }
+                        else{
+                            matrixObj.writeMatrixToFile(mInvers, pathname);
+                        }
+
+                        System.out.println("\nKembali ke submenu Invers");
+                    }
+                    else{
+                        System.out.println("Kembali ke submenu Invers");
                     }
 
                 }
@@ -613,16 +759,17 @@ public class MainApp {
         }
     }
 
-    /* SUBMENU INTERPOLASI POLINOM  (still in work : output to file*/ 
+    /* SUBMENU INTERPOLASI POLINOM*/ 
     public static void subMenuInterpolasiPolinom() {
         /* Merupakan kode untuk menyelesaikan permasalahan terkait interpolasi polinom */
 
         /* Kamus Lokal */
         Object[] mHasilA;
+        double[] isNull = new double[1];
         double[][] titikXY = new double[0][0];
         double x = 0, nilaiInterpolasi;
-        int pilihan, jumlahTitik = 0, i;
-        String persamaan, pathname;
+        int jumlahTitik = 0, i;
+        String persamaan, pathname, pilihan, saveToFile;
         boolean intPolMenuRunning = true;
 
         /* Algoritma */
@@ -637,39 +784,41 @@ public class MainApp {
             System.out.println("1. Input melalui keyboard");
             System.out.println("2. Input melalui file");
             System.out.print("Pilih cara input yang diinginkan (1-2) atau ketik 0 untuk kembali ke menu utama : ");
-            pilihan = keyboard.nextInt();
+            pilihan = keyboard.next();
 
-            while (((pilihan != 1) && (pilihan != 2) && (pilihan != 0))) {
+            while ((!pilihan.equals((String) "1")) && (!pilihan.equals((String) "2")) && (!pilihan.equals((String) "0"))) {
                 System.out.print("Input salah. Mohon masukkan input yang benar : ");
-                pilihan = keyboard.nextInt();
+                pilihan = keyboard.next();
             }
 
-            if (pilihan == 1) {
+            if (pilihan.equals((String) "1")) {
                 jumlahTitik = intPolObj.inputJumlahTitik();
                 titikXY = new double[jumlahTitik][2];
                 matrixObj.readMatrixFromKeyboard(titikXY);;
                 x = intPolObj.inputNilaiTaksiranX();
             }
-            else if (pilihan == 2) {
+            else if (pilihan.equals((String) "2")) {
                 RowCol rc = new RowCol();
                 System.out.print("\nMasukkan nama dari file : ");
                 pathname = keyboard.next();
                 pathname = ".\\test\\" + pathname;
 
-                matrixObj.colRowNumbersFromFile(rc, pathname);
-                titikXY = new double[rc.row][rc.col];
-                matrixObj.readMatrixFromFile(titikXY, pathname);
-                x = intPolObj.inputNilaiTaksiranX();
+                isNull = matrixObj.colRowNumbersFromFile(rc, pathname);
+                if (isNull != null) {
+                    titikXY = new double[rc.row][rc.col];
+                    matrixObj.readMatrixFromFile(titikXY, pathname);
+                    x = intPolObj.inputNilaiTaksiranX();
+                }
             }
 
-            if (pilihan == 0) {
+            if (pilihan.equals((String) "0") || isNull == null) {
                 intPolMenuRunning = false;
                 System.out.println("Kembali ke menu utama");
             }
             else {
                 mHasilA = intPolObj.interpolasiPolinom(titikXY, jumlahTitik);
             
-                persamaan = "p(x) = ";
+                persamaan = "Persamaan Interpolasi Polinom berupa :\np(x) = ";
                 nilaiInterpolasi = 0;
 
                 for (i = 0; i < mHasilA.length; i++) {
@@ -700,23 +849,38 @@ public class MainApp {
                     }
                 }
 
-                System.out.println("\nPersamaan Interpolasi Polinom berupa : ");
-                System.out.println(persamaan);
-                System.out.println("\nNilai interpolasi pada x = " + x + " adalah " + dfObj.format(nilaiInterpolasi));
+                persamaan += "\n\nNilai interpolasi pada x = " + x + " adalah " + dfObj.format(nilaiInterpolasi);
+                System.out.println("\n" + persamaan);
 
                 System.out.println("\nApakah output ingin disimpan ke dalam file?");
+                System.out.print("Input 'y' jika ya, atau input sembarang untuk kembali ke menu utama : ");
+                saveToFile = keyboard.next();
+
+                if (saveToFile.equals((String) "y")) {
+                    pathname = "";
+                    System.out.print("\nMasukkan nama file output : ");
+                    pathname = keyboard.next();
+                    pathname = ".\\test\\resultTestCase\\" + pathname;
+                    
+                    matrixObj.writeGeneralStringToFile(persamaan, pathname);
+
+                    System.out.println("\nKembali ke menu utama");
+                }
+                else{
+                    System.out.println("Kembali ke menu utama");
+                }
             }
         }
     }
 
-    /* SUBMENU INTERPOLASI BIKUBIK (still to work : output to file) */
+    /* SUBMENU INTERPOLASI BIKUBIK */
     public static void subMenuInterpolasiBikubik() {
         /* Merupakan kode untuk menyelesaikan permasalahan terkait interpolasi bikubik */
 
         /* Kamus Lokal */
         double x = 0, y = 0, nilaiInterpolasi = 0;
-        int pilihan, i, p, q;
-        String persamaan = "f(x,y) = ", pathname;
+        int i, p, q;
+        String persamaan, pathname, pilihan, saveToFile;
         boolean intBikMenuRunning = true;
         double[] mValueOfA = new double[16], listXY = new double[2];
         double[][] m = new double[4][4];
@@ -733,14 +897,14 @@ public class MainApp {
             System.out.println("1. Input melalui keyboard");
             System.out.println("2. Input melalui file");
             System.out.print("Pilih cara input yang diinginkan (1-2) atau ketik 0 untuk kembali ke menu utama : ");
-            pilihan = keyboard.nextInt();
+            pilihan = keyboard.next();
 
-            while (((pilihan != 1) && (pilihan != 2) && (pilihan != 0))) {
+            while ((!pilihan.equals((String) "1")) && (!pilihan.equals((String) "2")) && (!pilihan.equals((String) "0"))) {
                 System.out.print("Input salah. Mohon masukkan input yang benar : ");
-                pilihan = keyboard.nextInt();
+                pilihan = keyboard.next();
             }
 
-            if (pilihan == 1) {
+            if (pilihan.equals((String) "1")) {
                 System.out.print("\nMasukkan koordinat absis (x) yang ingin diinterpolasi : ");
                 listXY[0] = keyboard.nextDouble();
                 while ((listXY[0] > 1) || (listXY[0] < 0)) {
@@ -757,7 +921,7 @@ public class MainApp {
 
                 matrixObj.readMatrixFromKeyboard(m);
             }
-            else if (pilihan == 2) {
+            else if (pilihan.equals((String) "2")) {
                 System.out.print("\nMasukkan nama dari file : ");
                 pathname = keyboard.next();
                 pathname = ".\\test\\" + pathname;
@@ -765,13 +929,16 @@ public class MainApp {
                 listXY = matrixObj.readFileForInterpolasiBikubik(m, pathname);
             }
 
-            if (pilihan == 0) {
+            if (pilihan.equals((String) "0") || listXY == null) {
                 intBikMenuRunning = false;
+                if (listXY == null) {
+                    System.out.println("\nAnda tidak memasukkan titik X dan Y ke dalam file");
+                }
                 System.out.println("Kembali ke menu utama");
             }
             else {
                 nilaiInterpolasi = 0;
-                persamaan = "f(x,y) = ";
+                persamaan = "Persamaan Interpolasi Bikubik berupa :\nf(x,y) = ";
                 x = listXY[0];
                 y = listXY[1];
                 mValueOfA = intBikObj.interpolationByBicubic(m, x, y);
@@ -789,11 +956,26 @@ public class MainApp {
                     }
                 }
 
-                System.out.println("\nPersamaan Interpolasi Bikubik berupa : ");
-                System.out.println(persamaan);
-                System.out.println("\nNilai interpolasi pada x = " + x + ", y = " + y + " adalah " + dfObj.format(nilaiInterpolasi));
+                persamaan += "\n\nNilai interpolasi pada x = " + x + ", y = " + y + " adalah " + dfObj.format(nilaiInterpolasi);
+                System.out.println("\n" + persamaan);
 
                 System.out.println("\nApakah output ingin disimpan ke dalam file?");
+                System.out.print("Input 'y' jika ya, atau input sembarang untuk kembali ke menu utama : ");
+                saveToFile = keyboard.next();
+
+                if (saveToFile.equals((String) "y")) {
+                    pathname = "";
+                    System.out.print("\nMasukkan nama file output : ");
+                    pathname = keyboard.next();
+                    pathname = ".\\test\\resultTestCase\\" + pathname;
+                    
+                    matrixObj.writeGeneralStringToFile(persamaan, pathname);
+
+                    System.out.println("\nKembali ke menu utama");
+                }
+                else{
+                    System.out.println("Kembali ke menu utama");
+                }
             }
         }
 
@@ -803,10 +985,11 @@ public class MainApp {
         /* Merupakan program utama untuk mengatasi berbagai persoalan terkait matriks */
 
         /* KAMUS */
-        int pilihan;
+        String pilihan;
         boolean mainMenuRunning = true;
 
         /* Algoritma */
+        RegresiLinierBerganda regObj = new RegresiLinierBerganda();
         Scanner keyboard = new Scanner(System.in);
         while (mainMenuRunning) {
             System.out.println("\n---------------------------------------------------");
@@ -819,30 +1002,30 @@ public class MainApp {
             System.out.println("6. Regresi Linear Berganda");
             System.out.println("0. Keluar");
             System.out.print("Pilih submenu yang diinginkan (1-6) atau ketik 0 untuk mengakhiri program : ");
-            pilihan = keyboard.nextInt();
+            pilihan = keyboard.next();
 
-            while ((pilihan != 1) && (pilihan != 2) && (pilihan != 3)  && (pilihan != 4)  && (pilihan != 5)  && (pilihan != 6)  && (pilihan != 0)) {
+            while ((!pilihan.equals((String) "1")) && (!pilihan.equals((String) "2")) && (!pilihan.equals((String) "3")) && (!pilihan.equals((String) "4")) && (!pilihan.equals((String) "5")) && (!pilihan.equals((String) "6")) && (!pilihan.equals((String) "0"))) {
                 System.out.print("Input salah. Mohon masukkan input yang benar : ");
-                pilihan = keyboard.nextInt();
+                pilihan = keyboard.next();
             }
 
-            if (pilihan == 1) {
+            if (pilihan.equals((String) "1")) {
                 subMenuSPL();
             }
-            else if (pilihan == 2) {
+            else if (pilihan.equals((String) "2")) {
                 subMenuDeterminan();
             }
-            else if (pilihan == 3) {
+            else if (pilihan.equals((String) "3")) {
                 subMenuInvers();
             }
-            else if (pilihan == 4) {
+            else if (pilihan.equals((String) "4")) {
                 subMenuInterpolasiPolinom();
             }
-            else if (pilihan == 5) {
+            else if (pilihan.equals((String) "5")) {
                 subMenuInterpolasiBikubik();
             }
-            else if (pilihan == 6) {
-
+            else if (pilihan.equals((String) "6")) {
+                regObj.regresiLinierBerganda();
             }
             else {
                 mainMenuRunning = false;
@@ -853,4 +1036,5 @@ public class MainApp {
 
         keyboard.close();
      }
+
 }
