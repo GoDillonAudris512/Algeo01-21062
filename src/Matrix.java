@@ -47,7 +47,6 @@ public class Matrix {
     public void printSolusi (Object[] hasilx) {
         int i;
         String output = "Solusi SPL adalah :\n", saveToFile, pathname;
-        DecimalFormat dfObj = new DecimalFormat("###.###");
         Scanner keyboard = new Scanner(System.in);
 
         if (hasilx == null) {
@@ -56,10 +55,10 @@ public class Matrix {
         else{
             for (i = 1; i <= hasilx.length; i++) {
                 if (i == hasilx.length) {
-                    output += "Nilai x" + i + " adalah " + dfObj.format(hasilx[i-1]);    
+                    output += "Nilai x" + i + " adalah " + hasilx[i-1];    
                 }
                 else {
-                    output += "Nilai x" + i + " adalah " + dfObj.format(hasilx[i-1]) + "\n";
+                    output += "Nilai x" + i + " adalah " +  hasilx[i-1] + "\n";
                 }
             }
         }

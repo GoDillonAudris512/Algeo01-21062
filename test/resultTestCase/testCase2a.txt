@@ -1,0 +1,5 @@
+Solusi SPL adalah :
+Nilai x1 adalah -1.0 + (a)
+Nilai x2 adalah -0.5 + 0.5*(a)
+Nilai x3 adalah -0.25 + 0.25*(a)
+Nilai x4 adalah a

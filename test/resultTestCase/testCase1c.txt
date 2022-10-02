@@ -1,0 +1,7 @@
+Solusi SPL adalah :
+Nilai x1 adalah a
+Nilai x2 adalah 1.0 - (c)
+Nilai x3 adalah b
+Nilai x4 adalah -2.0 - (c)
+Nilai x5 adalah 1.0 + (c)
+Nilai x6 adalah c
