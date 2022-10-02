@@ -48,6 +48,7 @@ public class Matrix {
         int i;
         String currentString;
         boolean noSolution = true;
+        DecimalFormat dfObj = new DecimalFormat("###.###");
 
         for (i = 0; i < hasilx.length; i++) {
             if (hasilx[i] != null) {
@@ -60,7 +61,7 @@ public class Matrix {
         }
         else {
             for (i = 1; i <= hasilx.length; i++) {
-                currentString = "Nilai x" + i + " adalah " + hasilx[i-1];
+                currentString = "Nilai x" + i + " adalah " + dfObj.format(hasilx[i-1]);
                 System.out.println(currentString);
             }
         }
