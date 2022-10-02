@@ -57,11 +57,12 @@ public class InterpolasiBikubik {
         /* Menghasilkan matriks augmented 16 x 17 hasil penggabungan matriks koefisien dengan matriks nilai */
 
         /* Kamus Lokal */
-        double [][] mIntegrated = new double[16][17];
+        double [][] mIntegrated;
         int i, j;
 
         /* Algoritma */
         Matrix matrixObj = new Matrix();
+        mIntegrated = new double [matrixObj.getnRows(mA)][matrixObj.getnCols(mA) + matrixObj.getnCols(mB)];
 
         for (i = 0; i < matrixObj.getnRows(mA); i++) {
             for (j = 0; j < matrixObj.getnCols(mA) +  + matrixObj.getnCols(mB); j++) {
