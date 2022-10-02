@@ -200,7 +200,6 @@ public class RegresiLinierBerganda {
         } else {    // Ke file
             try {
                 System.out.println("Masukkan nama file output: ");
-
                 pathname = sc.nextLine();
                 
                 File myObj = new File(pathname);
