@@ -20,7 +20,8 @@ public class RegresiLinierBerganda {
         int pilihanIn, pilihanOut;    
         boolean benar;
         Matrix mObj = new Matrix();
-        double[][] XY, X, Xt, XtX, Y, XtY, XtXXtY, Xk;
+        double[][] XY, X, Xt, XtX, Y, XtY, XtXXtY, Xk, X1;
+        Object[] bObj;
         double[] b; 
         InversAdjoint invAdj = new InversAdjoint();
         MatriksBalikan matBal = new MatriksBalikan();
@@ -32,7 +33,10 @@ public class RegresiLinierBerganda {
         // ALGORITMA
         XY = new double[0][0];
         Xk = new double[0][0];
+        X = new double[0][0];
+        
         n = 0;
+        b = new double[0];
         // Asumsi input x1i, x2i, ..., xni, dan nilai yi disatukan dalam satu baris
         System.out.println("Pilihan input: (Masukkan kode angka)");
         System.out.println("1. Keyboard");
@@ -50,20 +54,21 @@ public class RegresiLinierBerganda {
                 n = sc.nextInt();    
                 
                 XY = new double[m][n+1]; 
-                X = new double[m][n];
+                X1 = new double[m][n];
+                X = new double[m][n+1];
                 Y = new double[m][1];
-                Xt = new double[n][m];
-                XtX = new double[n][n];
-                XtY = new double[n][1];
-                XtXXtY = new double[n][n+1];
+                Xt = new double[n+1][m];
+                XtX = new double[n+1][n+1];
+                XtY = new double[n+1][1];
+                XtXXtY = new double[n+1][n+2];
                 Xk = new double[1][n];
-                bObj = new Object[n];
-                b = new double[n];
+                bObj = new Object[n+1];
+                b = new double[n+1];
         
-                System.out.println("Masukkan matriks XY: ");
+                System.out.println("Matriks XY: ");
                 mObj.readMatrixFromKeyboard(XY); //Membaca input nilai-nilai x1i, x2i, ..., xni, dan nilai yi sekaligus
 
-                System.out.println("Masukkan Xk yang ingin ditaksir: ");
+                System.out.println("Matriks Xk yang ingin ditaksir: ");
                 mObj.readMatrixFromKeyboard(Xk); // Membaca nilai Xk yang akan ditaksir yang akan ditaksir fungsinya
 
                 benar = true;
@@ -81,26 +86,27 @@ public class RegresiLinierBerganda {
                 n = rc.col-1;
                 
                 XY = new double[m][n+1]; 
-                X = new double[m][n];
+                X1 = new double[m][n];
+                X = new double[m][n+1];
                 Y = new double[m][1];
-                Xt = new double[n][m];
-                XtX = new double[n][n];
-                XtY = new double[n][1];
-                XtXXtY = new double[n][n+1];
+                Xt = new double[n+1][m];
+                XtX = new double[n+1][n+1];
+                XtY = new double[n+1][1];
+                XtXXtY = new double[n+1][n+2];
 
                 mObj.readMatrixFromFile(XY, pathname);
                 
                 System.out.println("Masukkan nama file input Xk yang ingin ditaksir: ");
-
                 pathname = sc.nextLine();
+
                 pathname = ".\\test\\" + pathname;
                 
                 mObj.colRowNumbersFromFile (rc, pathname);
                 m = 1;
 
                 Xk = new double[1][n];
-                bObj = new Object[n];
-                b = new double[n];
+                bObj = new Object[n+1];
+                b = new double[n+1];
 
                 mObj.readMatrixFromFile(Xk, pathname);
 
@@ -112,26 +118,72 @@ public class RegresiLinierBerganda {
         }
 
         // Memisahkan matrikx XY menjadi matriks X dan Y
-        X = matBal.splitMainMatrix(XY);
+        X1 = matBal.splitMainMatrix(XY);
+
+        System.out.println("X:");
+        mObj.printMatrixToScreen(X);
+        System.out.println("");        
+        
+        for (i=mObj.getLastIdxRows(X); i>=0; i--) {
+            for (j=mObj.getLastIdxCols(X); j>=0; j--) {
+                if (j==0) {
+                    X[i][j] = 1;
+                } else {
+                    X[i][j] = X1[i][j-1];
+                }
+            }
+        }
+
+        System.out.println("X dengan 1:");
+        mObj.printMatrixToScreen(X);
+        System.out.println("");        
 
         Y = matBal.splitHasil(XY);
+        System.out.println("Y:");
+        mObj.printMatrixToScreen(Y);
+        System.out.println("");
+
         Xt = invAdj.transposeMatrix(X);
-        
+        System.out.println("Xt:");
+        mObj.printMatrixToScreen(Xt);
+        System.out.println("");        
+
         // Menghitung b
         XtX = matBal.multiplyMatrixbyMatrix(Xt, X);
         XtY = matBal.multiplyMatrixbyMatrix(Xt, Y);
 
         XtXXtY = ipBik.integrateMatrixAandB(XtX, XtY);        
+
+        System.out.println("XtX:");
+        mObj.printMatrixToScreen(XtX);
+        System.out.println("");
+
+        System.out.println("XtY:");
+        mObj.printMatrixToScreen(XtY);
+        System.out.println("");
+
+        System.out.println("XtXXtY:");
+        mObj.printMatrixToScreen(XtXXtY);
+        System.out.println("");
+        
         bObj = gauss.gaussEliminationSolution(XtXXtY);
 
         for (i=0; i<n; i++) {
             b[i] = (double) bObj[i];
         }
 
+        for (i=0; i<b.length; i++) {
+            System.out.print(b[i] + " ");
+        }
         // Menghitung taksiran
         hasilTaksiran = 0;
-        for (i=0; i<n; i++) {
-            hasilTaksiran += Xk[0][i] * b[i];
+
+        for (i=0; i<n+1; i++) {
+            if (i == 0) {
+                hasilTaksiran += b[i];
+            } else {
+                hasilTaksiran += Xk[0][i-1] * b[i];
+            }
         }
         
         // Menulis keluaran
@@ -147,7 +199,11 @@ public class RegresiLinierBerganda {
 
         } else {    // Ke file
             try {
-                File myObj = new File("filename.txt");
+                System.out.println("Masukkan nama file output: ");
+
+                pathname = sc.nextLine();
+                
+                File myObj = new File(pathname);
                 
                 if (myObj.createNewFile()) {
                     System.out.println("File berhasil dibuat: " + myObj.getName());
