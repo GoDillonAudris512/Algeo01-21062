@@ -46,21 +46,14 @@ public class Matrix {
 
     public void printSolusi (Object[] hasilx) {
         int i;
-        String output = "", saveToFile, pathname;
-        boolean noSolution = true;
+        String output = "Solusi SPL adalah :\n", saveToFile, pathname;
         DecimalFormat dfObj = new DecimalFormat("###.###");
         Scanner keyboard = new Scanner(System.in);
 
-        for (i = 0; i < hasilx.length; i++) {
-            if (hasilx[i] != null) {
-                noSolution = false;
-            }
+        if (hasilx == null) {
+            output = "Matriks tidak memiliki penyelesaian (Jika menggunakan eliminasi Gauss atau Gauss-Jordan)\nAtau tidak dapat diselesaikan dengan metode yang digunakan (Jika menggunakan metode Invers atau Kaidah Cramer)";
         }
-
-        if (noSolution) {
-            output = "SPL tidak memiliki penyelesaian";
-        }
-        else {
+        else{
             for (i = 1; i <= hasilx.length; i++) {
                 if (i == hasilx.length) {
                     output += "Nilai x" + i + " adalah " + dfObj.format(hasilx[i-1]);    
@@ -70,6 +63,7 @@ public class Matrix {
                 }
             }
         }
+        
         
         System.out.println("\n" + output);
 
@@ -273,7 +267,7 @@ public class Matrix {
                 String data = myReader.nextLine();
                 String data_arr[] = data.split(" ");
 
-                while (j<data_arr.length) {
+                while (j<data_arr.length  && j != 4) {
                     m[i][j] = Double.parseDouble(data_arr[j]);
                     j++;
                 }
