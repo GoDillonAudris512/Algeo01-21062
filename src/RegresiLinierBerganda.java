@@ -119,11 +119,8 @@ public class RegresiLinierBerganda {
 
         // Memisahkan matrikx XY menjadi matriks X dan Y
         X1 = matBal.splitMainMatrix(XY);
-
-        System.out.println("X:");
-        mObj.printMatrixToScreen(X);
-        System.out.println("");        
         
+        // Menambahkan kolom berisi angka 1 pada kolom ke-1
         for (i=mObj.getLastIdxRows(X); i>=0; i--) {
             for (j=mObj.getLastIdxCols(X); j>=0; j--) {
                 if (j==0) {
@@ -132,21 +129,10 @@ public class RegresiLinierBerganda {
                     X[i][j] = X1[i][j-1];
                 }
             }
-        }
-
-        System.out.println("X dengan 1:");
-        mObj.printMatrixToScreen(X);
-        System.out.println("");        
+        }       
 
         Y = matBal.splitHasil(XY);
-        System.out.println("Y:");
-        mObj.printMatrixToScreen(Y);
-        System.out.println("");
-
-        Xt = invAdj.transposeMatrix(X);
-        System.out.println("Xt:");
-        mObj.printMatrixToScreen(Xt);
-        System.out.println("");        
+        Xt = invAdj.transposeMatrix(X);     
 
         // Menghitung b
         XtX = matBal.multiplyMatrixbyMatrix(Xt, X);
@@ -154,28 +140,13 @@ public class RegresiLinierBerganda {
 
         XtXXtY = ipBik.integrateMatrixAandB(XtX, XtY);        
 
-        System.out.println("XtX:");
-        mObj.printMatrixToScreen(XtX);
-        System.out.println("");
-
-        System.out.println("XtY:");
-        mObj.printMatrixToScreen(XtY);
-        System.out.println("");
-
-        System.out.println("XtXXtY:");
-        mObj.printMatrixToScreen(XtXXtY);
-        System.out.println("");
-        
         gauss.gaussElimination(XtXXtY);
         bObj = gauss.gaussEliminationSolution(XtXXtY);
 
-        for (i=0; i<n; i++) {
+        for (i=0; i<n+1; i++) {
             b[i] = (double) bObj[i];
         }
 
-        for (i=0; i<b.length; i++) {
-            System.out.print(b[i] + " ");
-        }
         // Menghitung taksiran
         hasilTaksiran = 0;
 
@@ -201,6 +172,7 @@ public class RegresiLinierBerganda {
         } else {    // Ke file
             try {
                 System.out.println("Masukkan nama file output: ");
+
                 pathname = sc.nextLine();
                 
                 File myObj = new File(pathname);
