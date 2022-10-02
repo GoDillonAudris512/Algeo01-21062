@@ -156,7 +156,7 @@ public class Matrix {
         } catch (FileNotFoundException e) {
             System.out.println("Terjadi error.");
             e.printStackTrace();
-            }
+        }
     }
 
     // Output ke file    
@@ -172,7 +172,7 @@ public class Matrix {
         }
 
         try {
-            File myObj = new File("filename.txt");
+            File myObj = new File(pathname);
             
             if (myObj.createNewFile()) {
                 System.out.println("File berhasil dibuat: " + myObj.getName());
