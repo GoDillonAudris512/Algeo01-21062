@@ -146,45 +146,6 @@ public class Gauss {
         return rowAlreadyArranged;
     }
 
-    public double makeParametrik (double x, String k) {
-        String parameter = "";
-        
-        if (x != 0) {
-            if (x != 1) {
-                parameter += x;
-                parameter += k;
-            } else {
-                parameter += k;
-            }
-        } else {
-            parameter += 0;
-        }
-        
-        double convert = Double.parseDouble(parameter);
-        return convert;
-    }
-
-    public boolean isOnlyParametric(String s) {
-        boolean OnlyParametric = true;
-        if (s.length() == 1 
-        && (s != "0")
-        && (s != "1")
-        && (s != "2")
-        && (s != "3")
-        && (s != "4")
-        && (s != "5")
-        && (s != "6")
-        && (s != "7")
-        && (s != "8")
-        && (s != "9")) {
-            OnlyParametric = true;
-        } else {
-            OnlyParametric = false;
-        }
-
-        return OnlyParametric;
-    }
-
     public Object[] gaussEliminationSolution(double[][] matrix) {
         MatriksBalikan matObj = new MatriksBalikan();
         Matrix mat = new Matrix();
