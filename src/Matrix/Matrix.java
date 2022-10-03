@@ -78,10 +78,10 @@ public class Matrix {
                     
             writeGeneralStringToFile(output, pathname);
 
-            System.out.println("\nKembali ke menu utama");
+            System.out.println("\nKembali ke submenu Penyelesaian SPL");
         }
         else{
-            System.out.println("Kembali ke menu utama");
+            System.out.println("Kembali ke submenu Penyelesaian SPL");
             }
     }
     
