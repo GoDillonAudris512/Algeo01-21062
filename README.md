@@ -87,10 +87,8 @@ Contributors:
             testCase4b3.txt
             testCase4c.txt
             testCase5a.txt
-            testCase5a1.txt
-            testCase5a2.txt
-            testCase5a3.txt
-            testCase5a4.txt
+            testCase5b.txt
+            testCase5c.txt
             testCase5d.txt
             testCase6.txt
         testCase1a.txt
@@ -110,10 +108,9 @@ Contributors:
         testCase4b2.txt
         testCase4b3.txt
         testCase4c.txt
-        testCase5a1.txt
-        testCase5a2.txt
-        testCase5a3.txt
-        testCase5a4.txt
+        testCase5a.txt
+        testCase5b.txt
+        testCase5c.txt
         testCase5d.txt
         testCase6Xk.txt
         testCase6XY.txt
