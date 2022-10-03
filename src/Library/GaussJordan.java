@@ -1,7 +1,9 @@
 /* GaussJordan.Java */
 /* Source code untuk menyelesaikan metode SPL dengan eliminasi Gauss-Jordan */
 
-package src;
+package Library;
+
+import Matrix.*;
 
 public class GaussJordan {
 

@@ -1,8 +1,10 @@
-package src;
+package Library;
+
+import Matrix.*;
 
 public class DeterminanKofaktor {
 
-    double determinanKofaktor (double[][] m) {
+    public double determinanKofaktor (double[][] m) {
         Matrix mObj = new Matrix();
         int i, j, p, indexRowMinor, indexColMinor;
         double det = 0;

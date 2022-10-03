@@ -1,4 +1,6 @@
-package src;
+package Library;
+
+import Matrix.*;
 
 public class DeterminanReduksiBaris {
     double[][] copyMatrix (double[][] m) {
@@ -45,7 +47,7 @@ public class DeterminanReduksiBaris {
         return true;
     }
 
-    double determinanReduksiBaris (double[][] m) {
+    public double determinanReduksiBaris (double[][] m) {
         // int i,j,k;
         // Matrix mObj = new Matrix();
         Gauss gauss = new Gauss();

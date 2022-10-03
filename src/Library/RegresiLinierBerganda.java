@@ -1,12 +1,12 @@
-package src;
+package Library;
 
+import Matrix.*;
 import java.util.*;
-
-import src.Matrix.RowCol; 
+import Matrix.Matrix.RowCol; 
 
 public class RegresiLinierBerganda {
 
-    void regresiLinierBerganda() {
+    public void regresiLinierBerganda() {
         // Method/prosedur ini menghitung hasil taksiran regresi berganda dan menulis output ke layar atau file
         /* I.S tidak ada
          * F.S hasil taksiran regresi berganda ditulis ke layar atau file 
@@ -81,7 +81,7 @@ public class RegresiLinierBerganda {
                 System.out.print("\nMasukkan nama file input XY: ");
 
                 pathname = keyboard.next();
-                pathname = ".\\test\\" + pathname;
+                pathname = "..\\test\\" + pathname;
 
                 isNull1 = mObj.colRowNumbersFromFile (rc, pathname);
 
@@ -103,7 +103,7 @@ public class RegresiLinierBerganda {
                     System.out.print("Masukkan nama file input Xk yang ingin ditaksir: ");
                     pathname = keyboard.next();
 
-                    pathname = ".\\test\\" + pathname;
+                    pathname = "..\\test\\" + pathname;
                         
                     isNull2 = mObj.colRowNumbersFromFile (rc, pathname);
                     if (isNull2 != null) {
@@ -176,7 +176,7 @@ public class RegresiLinierBerganda {
                     pathname = "";
                     System.out.print("\nMasukkan nama file output : ");
                     pathname = keyboard.next();
-                    pathname = ".\\test\\resultTestCase\\" + pathname;
+                    pathname = "..\\test\\resultTestCase\\" + pathname;
                         
                     mObj.writeGeneralStringToFile(output, pathname);
 

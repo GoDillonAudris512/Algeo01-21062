@@ -1,4 +1,6 @@
-package src;
+package Library;
+
+import Matrix.*;
 
 public class Cramer {
     public int counter(double[][] matrix) {

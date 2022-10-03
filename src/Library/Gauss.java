@@ -1,7 +1,9 @@
 /* Gauss.java */
 /* Source Code berisi penyelesaian SPL dengan metode eliminasi Gauss */
 
-package src;
+package Library;
+
+import Matrix.*;
 
 public class Gauss {
 
