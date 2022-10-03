@@ -86,4 +86,4 @@ Contributors:
 
 ## Contacts
 Diciptakan dan diatur oleh Hiksrot
-![] (https://drive.google.com/file/d/1vMT7NYZ_grcZRycCJMWf4xonvcX18rkj/view?usp=sharing)
+![](https://user-images.githubusercontent.com/110383663/193578061-5ddcb1d7-ed7a-4441-b873-c4bc65addc9a.jpg)
