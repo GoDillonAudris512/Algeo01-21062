@@ -105,9 +105,14 @@ public class Gauss {
 
         /* Algoritma */
         Matrix matrixObj = new Matrix();
-        for (i = barisX+1; i < matrixObj.getnRows(m); i++) {
-            if ((m[i][kolomX] < m[indexOfPivot][kolomX]) && (m[i][kolomX] != 0) && (!isRowAllZero(m, i)) && (!isRowAnException(m, i)) || ((m[indexOfPivot][kolomX] == 0) && (m[i][kolomX] != 0))) {
-                indexOfPivot = i;
+        if (m[indexOfPivot][kolomX] != 1) {
+            for (i = barisX+1; i < matrixObj.getnRows(m); i++) {
+                if ((m[i][kolomX] < m[indexOfPivot][kolomX]) && (m[i][kolomX] != 0) && (!isRowAllZero(m, i)) && (!isRowAnException(m, i)  && !((m[indexOfPivot][kolomX] < 0 && m[indexOfPivot][kolomX] > -1 && m[i][kolomX] < 0 && m[i][kolomX] > -1))) 
+                    || ((m[indexOfPivot][kolomX] == 0) && (m[i][kolomX] != 0)) 
+                    || (m[indexOfPivot][kolomX] > 0 && m[indexOfPivot][kolomX] < 1 && m[i][kolomX] > 0 && m[i][kolomX] < 1 && m[i][kolomX] < m[indexOfPivot][kolomX])
+                    || (m[indexOfPivot][kolomX] < 0 && m[indexOfPivot][kolomX] > -1 && m[i][kolomX] < 0 && m[i][kolomX] > -1 && m[i][kolomX] > m[indexOfPivot][kolomX])) {
+                    indexOfPivot = i;
+                }
             }
         }
 
@@ -264,7 +269,7 @@ public class Gauss {
 
         // Menukar seluruh baris Zero dan baris Exception ke bawah dan menentukan banyak row yang akan dilakukan Gauss Elimination
         rowToWorked = arrangeMatrix(m) - 1;
-
+        
         // Mulai Gauss Elimination
         for (indexColumn = 0; indexColumn < matrixObj.getnCols(m); indexColumn++) {
             if (rowCurrentlyWorked <= rowToWorked) {
@@ -275,7 +280,9 @@ public class Gauss {
                     for (i = rowCurrentlyWorked+1; i <= rowToWorked; i++) {
                         addRowWithMultipleOfRow(m, i, rowCurrentlyWorked, -(m[i][indexColumn]/m[rowCurrentlyWorked][indexColumn]));
                     }
-                    divideRowWithConstant(m, rowCurrentlyWorked, m[rowCurrentlyWorked][indexColumn]);
+                    if (m[rowCurrentlyWorked][indexColumn] != 1) {
+                        divideRowWithConstant(m, rowCurrentlyWorked, m[rowCurrentlyWorked][indexColumn]);
+                    }
                     rowCurrentlyWorked++;
                 }
             }
@@ -288,6 +295,7 @@ public class Gauss {
                 if (m[i][j] == -0) {
                     m[i][j] = 0;
                 }
+                m[i][j] = Math.round(m[i][j]*1000) / (double) 1000; 
             }
         }
     }

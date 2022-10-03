@@ -103,7 +103,7 @@ public class GaussJordan {
             if (mat.getnCols(mainMat) == mat.getnRows(mainMat) && countZero == 0) { // matrix persegi, solusi unik
                 for (i = mat.getLastIdxRows(mainMat); i >= 0; i--) {
                     for (j = mat.getLastIdxCols(mainMat); j >= matt.indexOfLeadingOne(mainMat, i); j--) {
-                        hasilx[i] = hasil[i][j];
+                        hasilx[i] = hasil[i][0];
                     }
                 }
 
