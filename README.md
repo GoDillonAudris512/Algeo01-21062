@@ -69,6 +69,30 @@ Contributors:
 │
 └───test                            # Studi kasus
     └───resultTestCase              # Hasil studi kasus
+            testCase1a.txt
+            testCase1b.txt
+            testCase1c.txt
+            testCase1d10.txt
+            testCase1d6.txt
+            testCase2a.txt
+            testCase2b.txt
+            testCase3a.txt
+            testCase3b.txt
+            testCase4a1.txt
+            testCase4a2.txt
+            testCase4a3.txt
+            testCase4a4.txt
+            testCase4b1.txt
+            testCase4b2.txt
+            testCase4b3.txt
+            testCase4c.txt
+            testCase5a.txt
+            testCase5a1.txt
+            testCase5a2.txt
+            testCase5a3.txt
+            testCase5a4.txt
+            testCase5d.txt
+            testCase6.txt
         testCase1a.txt
         testCase1b.txt
         testCase1c.txt
