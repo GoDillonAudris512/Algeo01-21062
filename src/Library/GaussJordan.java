@@ -174,7 +174,7 @@ public class GaussJordan {
         /* Algoritma */
         Matrix matrixObj = new Matrix();
         Gauss gaussObj = new Gauss();
-        gaussObj.gaussElimination(m);
+        gaussObj.gaussElimination(m, false);
 
         rowCurrentlyWorked = countRowToWorked(m) - 1;
         j = matrixObj.getLastIdxCols(m);

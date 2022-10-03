@@ -1,0 +1,5 @@
+Solusi SPL adalah :
+Nilai x1 adalah -0.2257654499999998
+Nilai x2 adalah 0.1827951499999999
+Nilai x3 adalah 0.70969
+Nilai x4 adalah -0.258

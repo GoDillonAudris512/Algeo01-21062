@@ -146,7 +146,7 @@ public class RegresiLinierBerganda {
 
                 XtXXtY = ipBik.integrateMatrixAandB(XtX, XtY);        
 
-                gauss.gaussElimination(XtXXtY);
+                gauss.gaussElimination(XtXXtY, false);
                 bObj = gauss.gaussEliminationSolution(XtXXtY);
 
                 for (i=0; i<n+1; i++) {

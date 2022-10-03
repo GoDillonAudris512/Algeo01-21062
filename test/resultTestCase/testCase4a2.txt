@@ -1,0 +1,4 @@
+Persamaan Interpolasi Polinom berupa :
+p(x) = -0.185 + 10.276x^1 + -163.916x^2 + 1220.855x^3 + -4346.314x^4 + 7102.399x^5 + -4212.435x^6
+
+Nilai interpolasi pada x = 0.55 adalah 2.138

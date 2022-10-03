@@ -109,7 +109,7 @@ public class Main {
                 System.out.println("Kembali ke submenu Penyelesaian SPL");
             }
             else {
-                gaussObj.gaussElimination(m);
+                gaussObj.gaussElimination(m, false);
                 solusiSPL = gaussObj.gaussEliminationSolution(m);
                 matrixObj.printSolusi(solusiSPL);
             }

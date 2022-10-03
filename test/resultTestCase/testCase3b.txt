@@ -1,0 +1,2 @@
+Matriks tidak memiliki penyelesaian (Jika menggunakan eliminasi Gauss atau Gauss-Jordan)
+Atau tidak dapat diselesaikan dengan metode yang digunakan (Jika menggunakan metode Invers atau Kaidah Cramer)

@@ -260,7 +260,7 @@ public class Gauss {
         return hasilx;
     }
  
-    public void gaussElimination(double[][] m){
+    public void gaussElimination(double[][] m, boolean interpol){
         /* I.S m terdefinisi */
         /* F.S m berubah menjadi suatu matriks eselon baris yang setara dengan metode eliminasi Gauss */
 
@@ -297,7 +297,9 @@ public class Gauss {
                 if (m[i][j] == -0) {
                     m[i][j] = 0;
                 }
-                m[i][j] = Math.round(m[i][j]*1000) / (double) 1000; 
+                if (interpol == false) {
+                    m[i][j] = Math.round(m[i][j]*1000) / (double) 1000; 
+                }
             }
         }
     }

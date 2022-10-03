@@ -48,7 +48,7 @@ public class InterpolasiPolinom {
 
         matrixPers = makePersamaanMatrix(titik);
         
-        matObj.gaussElimination(matrixPers); // metode gauss
+        matObj.gaussElimination(matrixPers, true); // metode gauss
         hasilA = matObj.gaussEliminationSolution(matrixPers);  // mengambil matrix hasil dari operasi Gauss
 
         return hasilA;
