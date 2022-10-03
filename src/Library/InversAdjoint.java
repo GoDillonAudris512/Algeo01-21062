@@ -1,7 +1,9 @@
 /* InversAdjoint.java */
 /* Source Code untuk menentukan invers dari suatu matriks dengan metode Adjoint Matriks */
 
-package src;
+package Library;
+
+import Matrix.*;
 
 public class InversAdjoint {
 

@@ -1,4 +1,6 @@
-package src;
+package Library;
+
+import Matrix.*;
 import java.util.Scanner;
 
 public class InterpolasiPolinom {

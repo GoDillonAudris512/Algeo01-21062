@@ -3,7 +3,9 @@
 /* Ide: Kita menerapkan langkah Gauss-Jordan yang diterapkan pada matriks m ke matriks identitas dengan */
 /*      ukuran sama, sehingga didapat invers dari m */
 
-package src;
+package Library;
+
+import Matrix.*;
 
 public class InversReduksiBaris {
     

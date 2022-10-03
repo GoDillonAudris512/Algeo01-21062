@@ -1,7 +1,9 @@
 /* InterpolasiBikubik.java */
 /* Source code berisi cara menyelesaikan interpolasi bikubik */
 
-package src;
+package Library;
+
+import Matrix.*;
 
 public class InterpolasiBikubik {
 

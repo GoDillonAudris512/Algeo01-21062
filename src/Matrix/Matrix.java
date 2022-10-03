@@ -2,7 +2,7 @@
 /* Source Code yang menyimpan primitif-primitif yang dapat dilakukan pada suatu matriks */
 /* untuk membantu operasi pada Source Code lain*/
 
-package src;
+package Matrix;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -13,14 +13,14 @@ import java.util.Scanner;
 public class Matrix {
 
     // Selektor Ambil Besar Baris dan Kolom
-    int getnRows (double[][] m) {
+    public int getnRows (double[][] m) {
         // Kamus Lokal
         // Tidak ada
 
         // Algoritma
         return m.length;
     }
-    int getnCols (double[][] m) {
+    public int getnCols (double[][] m) {
         // Kamus Lokal
         // Tidak ada
 
@@ -29,14 +29,14 @@ public class Matrix {
     }
 
     // Selektor Ambil Indeks Baris dan Kolom
-    int getLastIdxRows(double[][] m) {
+    public int getLastIdxRows(double[][] m) {
         // Kamus Lokal
         // Tidak ada
 
         // Algoritma
         return getnRows(m)-1;
     }
-    int getLastIdxCols(double[][] m) {
+    public int getLastIdxCols(double[][] m) {
         // Kamus Lokal
         // Tidak ada
 
@@ -74,7 +74,7 @@ public class Matrix {
             pathname = "";
             System.out.print("\nMasukkan nama file output : ");
             pathname = keyboard.next();
-            pathname = ".\\test\\resultTestCase\\" + pathname;
+            pathname = "..\\test\\resultTestCase\\" + pathname;
                     
             writeGeneralStringToFile(output, pathname);
 
@@ -120,9 +120,9 @@ public class Matrix {
         }
     }
     
-    static class RowCol {
-        int row;
-        int col;
+    public static class RowCol {
+        public int row;
+        public int col;
     }
 
     // Cari tahu jumlah row dan column matriks dalam file

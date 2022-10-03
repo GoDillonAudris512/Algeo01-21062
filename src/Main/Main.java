@@ -1,10 +1,12 @@
-package src;
+package Main;
 
 import java.text.DecimalFormat;
 import java.util.Scanner;
-import src.Matrix.RowCol;
+import Library.*;
+import Matrix.*;
+import Matrix.Matrix.RowCol;
 
-public class MainApp {
+public class Main {
 
     public static void subMenuSPL() {
         /* Merupakan submenu untuk penyelesaian SPL dengan 4 metode*/
@@ -92,7 +94,7 @@ public class MainApp {
                 RowCol rc = new RowCol();
                 System.out.print("\nMasukkan nama dari file : ");
                 pathname = keyboard.next();
-                pathname = ".\\test\\" + pathname;
+                pathname = "..\\test\\" + pathname;
 
                 isNull = matrixObj.colRowNumbersFromFile(rc, pathname);
                 if (isNull != null) {
@@ -156,7 +158,7 @@ public class MainApp {
                 RowCol rc = new RowCol();
                 System.out.print("\nMasukkan nama dari file : ");
                 pathname = keyboard.next();
-                pathname = ".\\test\\" + pathname;
+                pathname = "..\\test\\" + pathname;
 
                 isNull = matrixObj.colRowNumbersFromFile(rc, pathname);
                 if (isNull != null) {
@@ -221,7 +223,7 @@ public class MainApp {
                 RowCol rc = new RowCol();
                 System.out.print("\nMasukkan nama dari file : ");
                 pathname = keyboard.next();
-                pathname = ".\\test\\" + pathname;
+                pathname = "..\\test\\" + pathname;
 
                 isNull = matrixObj.colRowNumbersFromFile(rc, pathname);
                 if (isNull != null) {
@@ -289,7 +291,7 @@ public class MainApp {
                 RowCol rc = new RowCol();
                 System.out.print("\nMasukkan nama dari file : ");
                 pathname = keyboard.next();
-                pathname = ".\\test\\" + pathname;
+                pathname = "..\\test\\" + pathname;
 
                 isNull = matrixObj.colRowNumbersFromFile(rc, pathname);
                 if (isNull != null) {
@@ -395,7 +397,7 @@ public class MainApp {
                 RowCol rc = new RowCol();
                 System.out.print("\nMasukkan nama dari file : ");
                 pathname = keyboard.next();
-                pathname = ".\\test\\" + pathname;
+                pathname = "..\\test\\" + pathname;
 
                 isNull = matrixObj.colRowNumbersFromFile(rc, pathname);
                 if (isNull != null) {
@@ -427,7 +429,7 @@ public class MainApp {
                         pathname = "";
                         System.out.print("\nMasukkan nama file output : ");
                         pathname = keyboard.next();
-                        pathname = ".\\test\\resultTestCase\\" + pathname;
+                        pathname = "..\\test\\resultTestCase\\" + pathname;
                         
                         matrixObj.writeGeneralStringToFile(output, pathname);
 
@@ -484,7 +486,7 @@ public class MainApp {
                 RowCol rc = new RowCol();
                 System.out.print("\nMasukkan nama dari file : ");
                 pathname = keyboard.next();
-                pathname = ".\\test\\" + pathname;
+                pathname = "..\\test\\" + pathname;
 
                 isNull = matrixObj.colRowNumbersFromFile(rc, pathname);
                 if (isNull != null) {
@@ -516,7 +518,7 @@ public class MainApp {
                         pathname = "";
                         System.out.print("\nMasukkan nama file output : ");
                         pathname = keyboard.next();
-                        pathname = ".\\test\\resultTestCase\\" + pathname;
+                        pathname = "..\\test\\resultTestCase\\" + pathname;
                         
                         matrixObj.writeGeneralStringToFile(output, pathname);
 
@@ -609,7 +611,7 @@ public class MainApp {
                 RowCol rc = new RowCol();
                 System.out.print("\nMasukkan nama dari file : ");
                 pathname = keyboard.next();
-                pathname = ".\\test\\" + pathname;
+                pathname = "..\\test\\" + pathname;
 
                 isNull = matrixObj.colRowNumbersFromFile(rc, pathname);
                 if (isNull != null) {
@@ -644,7 +646,7 @@ public class MainApp {
                         pathname = "";
                         System.out.print("\nMasukkan nama file output : ");
                         pathname = keyboard.next();
-                        pathname = ".\\test\\resultTestCase\\" + pathname;
+                        pathname = "..\\test\\resultTestCase\\" + pathname;
                         
                         if (matrixObj.isMatrixEqual(mZero, mInvers)) {
                             matrixObj.writeGeneralStringToFile("Matriks tidak memiliki invers", pathname);
@@ -705,7 +707,7 @@ public class MainApp {
                 RowCol rc = new RowCol();
                 System.out.print("\nMasukkan nama dari file : ");
                 pathname = keyboard.next();
-                pathname = ".\\test\\" + pathname;
+                pathname = "..\\test\\" + pathname;
 
                 isNull = matrixObj.colRowNumbersFromFile(rc, pathname);
                 if (isNull != null) {
@@ -739,7 +741,7 @@ public class MainApp {
                         pathname = "";
                         System.out.print("\nMasukkan nama file output : ");
                         pathname = keyboard.next();
-                        pathname = ".\\test\\resultTestCase\\" + pathname;
+                        pathname = "..\\test\\resultTestCase\\" + pathname;
                         
                         if (matrixObj.isMatrixEqual(mZero, mInvers)) {
                             matrixObj.writeGeneralStringToFile("Matriks tidak memiliki invers", pathname);
@@ -801,7 +803,7 @@ public class MainApp {
                 RowCol rc = new RowCol();
                 System.out.print("\nMasukkan nama dari file : ");
                 pathname = keyboard.next();
-                pathname = ".\\test\\" + pathname;
+                pathname = "..\\test\\" + pathname;
 
                 isNull = matrixObj.colRowNumbersFromFile(rc, pathname);
                 if (isNull != null) {
@@ -860,7 +862,7 @@ public class MainApp {
                     pathname = "";
                     System.out.print("\nMasukkan nama file output : ");
                     pathname = keyboard.next();
-                    pathname = ".\\test\\resultTestCase\\" + pathname;
+                    pathname = "..\\test\\resultTestCase\\" + pathname;
                     
                     matrixObj.writeGeneralStringToFile(persamaan, pathname);
 
@@ -924,7 +926,7 @@ public class MainApp {
             else if (pilihan.equals((String) "2")) {
                 System.out.print("\nMasukkan nama dari file : ");
                 pathname = keyboard.next();
-                pathname = ".\\test\\" + pathname;
+                pathname = "..\\test\\" + pathname;
 
                 listXY = matrixObj.readFileForInterpolasiBikubik(m, pathname);
             }
@@ -967,7 +969,7 @@ public class MainApp {
                     pathname = "";
                     System.out.print("\nMasukkan nama file output : ");
                     pathname = keyboard.next();
-                    pathname = ".\\test\\resultTestCase\\" + pathname;
+                    pathname = "..\\test\\resultTestCase\\" + pathname;
                     
                     matrixObj.writeGeneralStringToFile(persamaan, pathname);
 

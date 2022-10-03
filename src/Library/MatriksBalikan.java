@@ -1,4 +1,6 @@
-package src;
+package Library;
+
+import Matrix.*;
 
 public class MatriksBalikan {
     public double[][] splitHasil(double[][] matrix) {
