@@ -133,5 +133,5 @@ Contributors:
 - Terima kasih kepada Tim Asisten Kuliah IF2123
 
 ## Contacts
-Diciptakan dan diatur oleh Hiksrot
+Diciptakan dan diatur oleh hiksrot
 ![](https://user-images.githubusercontent.com/110383663/193578061-5ddcb1d7-ed7a-4441-b873-c4bc65addc9a.jpg)
