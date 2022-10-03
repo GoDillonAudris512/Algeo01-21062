@@ -154,17 +154,34 @@ public class RegresiLinierBerganda {
                 }
 
                 // Menghitung taksiran
+                output = "Persamaan Regresi berupa :\nf(x) = ";
                 hasilTaksiran = 0;
 
                 for (i=0; i<n+1; i++) {
                     if (i == 0) {
                         hasilTaksiran += b[i];
-                    } else {
+                        output += b[i] + " + ";
+                    } else if (i == n) {
                         hasilTaksiran += Xk[0][i-1] * b[i];
+                        if (b[i] < 0) {
+                            output  += "(" + b[i] + ")x" + i;
+                        }
+                        else {
+                            output += b[i] + "x" + i;
+                        }
+                    }
+                    else {
+                        hasilTaksiran += Xk[0][i-1] * b[i];
+                        if (b[i] < 0) {
+                            output  += "(" + b[i] + ")x" + i + " + ";
+                        }
+                        else {
+                            output += b[i] + "x" + i + " + ";
+                        }
                     }
                 }
 
-                output = "f(Xk) = " + hasilTaksiran;
+                output += "\n\nf(Xk) = " + hasilTaksiran;
                 System.out.println("\n" + output);
                 
                 // Menulis keluaran
@@ -180,10 +197,10 @@ public class RegresiLinierBerganda {
                         
                     mObj.writeGeneralStringToFile(output, pathname);
 
-                    System.out.println("\nKembali ke menu utama");
+                    System.out.println("\nKembali ke submenu Regresi Linier Berganda");
                 }
                 else{
-                    System.out.println("Kembali ke menu utama");
+                    System.out.println("Kembali ke submenu Regresi Linier Berganda");
                 }
             }
         }

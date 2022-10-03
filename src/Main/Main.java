@@ -866,10 +866,10 @@ public class Main {
                     
                     matrixObj.writeGeneralStringToFile(persamaan, pathname);
 
-                    System.out.println("\nKembali ke menu utama");
+                    System.out.println("\nKembali ke submenu Interpolasi Polinom");
                 }
                 else{
-                    System.out.println("Kembali ke menu utama");
+                    System.out.println("Kembali ke submenu Interpolasi Polinom");
                 }
             }
         }
@@ -973,10 +973,10 @@ public class Main {
                     
                     matrixObj.writeGeneralStringToFile(persamaan, pathname);
 
-                    System.out.println("\nKembali ke menu utama");
+                    System.out.println("\nKembali ke submenu Interpolasi Bikubik");
                 }
                 else{
-                    System.out.println("Kembali ke menu utama");
+                    System.out.println("Kembali ke submenu Interpolasi Bikubik");
                 }
             }
         }

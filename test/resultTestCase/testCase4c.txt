@@ -1,0 +1,4 @@
+Persamaan Interpolasi Polinom berupa :
+p(x) = 2.039x^1 + -3.565x^2 + 3.253x^3 + -1.429x^4 + 0.238x^5
+
+Nilai interpolasi pada x = 0.0 adalah 0
